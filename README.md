@@ -1,4 +1,4 @@
-# recipes
+# Recipes mobile APP
 
 A new Flutter project.
 
