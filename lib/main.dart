@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:recipes/start_screen/start_screen.dart';
+import 'package:recipes/features/sign_up/presentation/sign_up_screen.dart';
+import 'package:recipes/features/sing_in/presentation/sign_in_screen.dart';
+import 'package:recipes/features/start/presentation/start_screen.dart';
 
 void main() {
-  runApp(const StartScreen());
+  runApp(const Start());
+  //runApp(const SignIn());
+  //runApp(const SignUp());
 }
 
 class MyApp extends StatelessWidget {
