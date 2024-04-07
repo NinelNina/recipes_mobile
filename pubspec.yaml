@@ -57,6 +57,7 @@ flutter:
     - assets/images/start_screen_img.png
     - assets/images/back_vector.svg
     - assets/fonts/
+    - assets/images/image.png
   fonts:
     - family: Poppins
       fonts:

@@ -14,11 +14,11 @@ class All_recipes extends StatelessWidget {
   ];
 
   final List<String> images = [
-    'assets/image.png',
-    'assets/image.png',
-    'assets/image.png',
-    'assets/image.png',
-    'assets/image.png',
+    'assets/images/image.png',
+    'assets/images/image.png',
+    'assets/images/image.png',
+    'assets/images/image.png',
+    'assets/images/image.png',
   ];
 
   final List<bool> isFavorite = [
@@ -39,39 +39,41 @@ class All_recipes extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      drawer: Drawer(
-        child: ListView(
-          children: [
-            DrawerItem(icon: Icons.home, text: 'Home'),
-            DrawerItem(icon: Icons.list, text: 'All recipes'),
-            DrawerItem(icon: Icons.category, text: 'Categories'),
-            DrawerItem(icon: Icons.fastfood, text: 'Diets'),
-            DrawerItem(icon: Icons.person, text: 'User recipes'),
-            DrawerItem(icon: Icons.login, text: 'Login'),
-            SizedBox(height: 31.59),
-          ],
+    return MaterialApp(
+      home: Scaffold(
+        drawer: Drawer(
+          child: ListView(
+            children: [
+              DrawerItem(icon: Icons.home, text: 'Home'),
+              DrawerItem(icon: Icons.list, text: 'All recipes'),
+              DrawerItem(icon: Icons.category, text: 'Categories'),
+              DrawerItem(icon: Icons.fastfood, text: 'Diets'),
+              DrawerItem(icon: Icons.person, text: 'User recipes'),
+              DrawerItem(icon: Icons.login, text: 'Login'),
+              SizedBox(height: 31.59),
+            ],
+          ),
         ),
-      ),
 
-      body: SafeArea(
-        child: Column(
-          children: [
-            TopRow(),
-            Expanded(
-              child: ListView.builder(
-                itemCount: recipes.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return RecipeCard(
-                    image: images[index],
-                    recipeName: recipes[index],
-                    cookingTime: cookingTime[index],
-                    isFavorite: isFavorite[index],
-                  );
-                },
+        body: SafeArea(
+          child: Column(
+            children: [
+              TopRow(),
+              Expanded(
+                child: ListView.builder(
+                  itemCount: recipes.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return RecipeCard(
+                      image: images[index],
+                      recipeName: recipes[index],
+                      cookingTime: cookingTime[index],
+                      isFavorite: isFavorite[index],
+                    );
+                  },
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
