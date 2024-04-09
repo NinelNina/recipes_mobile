@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:recipes/features/common/widgets/back_nav_widget.dart';
+import 'package:recipes/features/common/widgets/back_icon_widget.dart';
 
 class NavBar extends StatelessWidget {
   const NavBar({
@@ -27,10 +27,10 @@ class NavBar extends StatelessWidget {
           height: height * 0.07,
           decoration: BoxDecoration(
             color: Colors.white,
-            borderRadius: BorderRadius.circular(5),
+            borderRadius: BorderRadius.circular(7),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.2),
+                color: Colors.black.withOpacity(0.25),
                 offset: const Offset(0, 2),
                 blurRadius: 4,
                 spreadRadius: 0,

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:recipes/features/common/widgets/back_nav_widget.dart';
+import 'package:recipes/features/common/widgets/back_icon_widget.dart';
 
 class SubmitButton extends StatelessWidget {
   const SubmitButton({
     super.key,
     required this.text,
     required this.height,
-    this.width, required this.color, required this.textColor, this.onPressed
+    this.width, required this.color, required this.textColor, required this.onPressed
   });
 
   final String text;
@@ -14,7 +14,7 @@ class SubmitButton extends StatelessWidget {
   final Color textColor;
   final double? width;
   final double height;
-  final onPressed;
+  final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {

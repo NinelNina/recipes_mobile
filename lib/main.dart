@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:recipes/features/dishes_categories/presentation/diets_categories_screen.dart';
+import 'package:recipes/features/dishes_categories/presentation/dishes_categories_screen.dart';
+import 'package:recipes/features/dishes_categories/presentation/widgets/categories_screen.dart';
 import 'package:recipes/features/sign_up/presentation/sign_up_screen.dart';
 import 'package:recipes/features/sing_in/presentation/sign_in_screen.dart';
 import 'package:recipes/features/start/presentation/start_screen.dart';
 
 void main() {
-  runApp(const Start());
+  runApp(const DishesCategories());
   //runApp(const SignIn());
   //runApp(const SignUp());
 }

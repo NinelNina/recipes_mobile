@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class BackNavWidget extends StatelessWidget {
-  const BackNavWidget({super.key, required this.width});
+class BackIconWidget extends StatelessWidget {
+  const BackIconWidget({super.key, required this.width});
 
   final double width;
 

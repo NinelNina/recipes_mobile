@@ -68,7 +68,8 @@ class Start extends StatelessWidget {
                     text: 'Start cooking',
                     height: height * 0.06,
                     color: Color(0xFFFF6E41),
-                    textColor: Colors.white
+                    textColor: Colors.white,
+                    onPressed: () { },
                   )
                 ),
                 SizedBox(height: height * 0.03),
