@@ -3,9 +3,11 @@ import 'package:recipes/features/sign_up/presentation/sign_up_screen.dart';
 import 'package:recipes/features/sing_in/presentation/sign_in_screen.dart';
 import 'package:recipes/features/start/presentation/start_screen.dart';
 import 'package:recipes/features/all_resipes/all_recipes.dart';
+import 'package:recipes/features/all_resipes/recipe_ingredients.dart';
 
 void main() {
   runApp(All_recipes());
+  //runApp(Recipe_ingredients());
   //runApp(const Start());
   //runApp(const SignIn());
   //runApp(const SignUp());
