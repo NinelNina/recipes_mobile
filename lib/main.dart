@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:recipes/features/add_recipe/presentation/add_recipe_screen.dart';
 import 'package:recipes/features/dishes_categories/presentation/diets_categories_screen.dart';
 import 'package:recipes/features/dishes_categories/presentation/dishes_categories_screen.dart';
 import 'package:recipes/features/dishes_categories/presentation/widgets/categories_screen.dart';
@@ -7,7 +8,8 @@ import 'package:recipes/features/sing_in/presentation/sign_in_screen.dart';
 import 'package:recipes/features/start/presentation/start_screen.dart';
 
 void main() {
-  runApp(const DishesCategories());
+  //runApp(const DishesCategories());
+  runApp(AddRecipe());
   //runApp(const SignIn());
   //runApp(const SignUp());
 }
