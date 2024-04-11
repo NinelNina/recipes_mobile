@@ -255,7 +255,7 @@ class _AddRecipeState extends State<AddRecipe> {
           });
         },
         child: const Text(
-          '+ ДОБАВИТЬ ШАГ',
+          '+ ADD STEP',
           style: TextStyle(
             fontFamily: 'Montserrat',
             fontWeight: FontWeight.w600,
