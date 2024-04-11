@@ -4,8 +4,13 @@ import 'package:recipes/features/all_resipes/recipe_ingredients.dart';
 import 'package:recipes/features/common/menu_widgets/drawer_item_in_menu.dart';
 import 'package:recipes/features/common/recipe_card/recipe_card.dart';
 import 'package:recipes/features/common/top_row/top_row.dart';
+import 'package:recipes/features/common/widgets/%D1%81ustomDrawer.dart';
 
 import '../common/recipe_card/recipe_card_Ingredients.dart';
+import '../common/top_row/top_bar.dart';
+import '../common/widgets/menu_icon_widget.dart';
+import '../dishes_categories/presentation/diets_categories_screen.dart';
+import '../dishes_categories/presentation/dishes_categories_screen.dart';
 
 class All_recipes extends StatelessWidget {
   final List<String> recipes = [
@@ -42,26 +47,31 @@ class All_recipes extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
+    final double width = size.width;
+    final double height = size.height;
     return MaterialApp(
+      routes: {
+        '/all_recipes': (context) => All_recipes(),
+        '/categories': (context) => DishesCategories(),
+        '/diets': (context) => DietsCategories(),
+        //'/user_recipes': (context) => UserRecipesPage(),
+        //'/login': (context) => LoginPage(),
+      },
       home: Scaffold(
-        drawer: Drawer(
-          child: ListView(
-            children: [
-              DrawerItem(icon: Icons.home, text: 'Home'),
-              DrawerItem(icon: Icons.list, text: 'All recipes'),
-              DrawerItem(icon: Icons.category, text: 'Categories'),
-              DrawerItem(icon: Icons.fastfood, text: 'Diets'),
-              DrawerItem(icon: Icons.person, text: 'User recipes'),
-              DrawerItem(icon: Icons.login, text: 'Login'),
-              SizedBox(height: 31.59),
-            ],
-          ),
-        ),
+        drawer: CustomDrawer(),
 
         body: SafeArea(
           child: Column(
             children: [
-              TopRow(),
+              Bar(
+                title: '1',
+                showSearch: true,
+                showIconFavorite: true,
+                navWidget: MenuIconWidget(width: width),
+                width: width,
+                height: height,
+              ),
               Expanded(
                 child: ListView.builder(
                   itemCount: recipes.length,

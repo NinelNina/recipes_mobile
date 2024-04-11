@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:recipes/features/common/widgets/back_icon_widget.dart';
 
-class NavBar extends StatelessWidget {
-  const NavBar({
+class Bar2 extends StatelessWidget {
+  const Bar2({
     super.key,
     required this.title,
     required this.navWidget,
@@ -39,18 +39,28 @@ class NavBar extends StatelessWidget {
           ),
           child: Center(
               child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              navWidget,
-              Text(title,
-                  style: const TextStyle(
-                      color: Color(0xFFFF6E41),
-                      fontFamily: 'Poppins',
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold)),
-              SizedBox(width: width * 0.15),
-            ],
-          )))
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Builder(
+                    builder: (BuildContext context) {
+                      return IconButton(
+                        color: const Color(0xFFFF6E41),
+                        icon: const Icon(Icons.chevron_left_outlined),
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                      );
+                    },
+                  ),
+                  Text(title,
+                      style: const TextStyle(
+                          color: Color(0xFFFF6E41),
+                          fontFamily: 'Poppins',
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold)),
+                  SizedBox(width: width * 0.15),
+                ],
+              )))
     ]);
   }
 }

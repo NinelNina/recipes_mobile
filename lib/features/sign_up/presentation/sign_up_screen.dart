@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:recipes/features/common/widgets/back_nav_widget.dart';
+import 'package:recipes/features/common/widgets/back_icon_widget.dart';
 import 'package:recipes/features/common/widgets/form_input_field.dart';
 import 'package:recipes/features/common/widgets/nav_bar.dart';
 import 'package:recipes/features/common/widgets/submit_button1.dart';
@@ -35,7 +35,7 @@ class _SignUpState extends State<SignUp> {
         body: Column(children: [
           NavBar(
               title: 'Sign Up',
-              navWidget: BackNavWidget(width: width),
+              navWidget: BackIconWidget(width: width),
               width: width,
               height: height),
           SizedBox(height: height * 0.05),
@@ -67,8 +67,10 @@ class _SignUpState extends State<SignUp> {
                     text: 'Sign Up',
                     height: height * 0.06,
                     width: width * 0.76,
-                    color: Color(0xFFFF6E41),
-                    textColor: Colors.white),
+                    color: const Color(0xFFFF6E41),
+                    textColor: Colors.white,
+                    onPressed: () { }
+                ),
                 SizedBox(height: height * 0.05),
                 RichText(
                   text: const TextSpan(
@@ -89,15 +91,17 @@ class _SignUpState extends State<SignUp> {
                 ),
                 SizedBox(height: height * 0.02),
               ])),
-          Spacer(), // Add this to take up the remaining space
+          const Spacer(), // Add this to take up the remaining space
           Align(
             alignment: Alignment.bottomCenter,
             child: SubmitButton(
                 text: 'Skip',
                 height: height * 0.06,
                 width: width * 0.76,
-                color: Color(0xFFFFE0D7),
-                textColor: Color(0xFFFF6E41)),
+                color: const Color(0xFFFFE0D7),
+                textColor: const Color(0xFFFF6E41),
+                onPressed: () { }
+            ),
           ),
           SizedBox(height: height * 0.05),
         ]),

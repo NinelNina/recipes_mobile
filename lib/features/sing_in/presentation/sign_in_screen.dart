@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:recipes/features/common/widgets/back_nav_widget.dart';
+import 'package:recipes/features/common/widgets/back_icon_widget.dart';
 import 'package:recipes/features/common/widgets/form_input_field.dart';
 import 'package:recipes/features/common/widgets/nav_bar.dart';
 import 'package:recipes/features/common/widgets/submit_button1.dart';
@@ -36,7 +36,7 @@ class _SignInState extends State<SignIn> {
         body: Column(children: [
           NavBar(
               title: 'Sign In',
-              navWidget: BackNavWidget(width: width),
+              navWidget: BackIconWidget(width: width),
               width: width,
               height: height),
           SizedBox(height: height * 0.05),
@@ -62,7 +62,8 @@ class _SignInState extends State<SignIn> {
                     height: height * 0.06,
                     width: width * 0.76,
                     color: Color(0xFFFF6E41),
-                    textColor: Colors.white),
+                    textColor: Colors.white,
+                    onPressed: () {}),
                 SizedBox(height: height * 0.05),
                 RichText(
                   text: const TextSpan(
@@ -87,11 +88,12 @@ class _SignInState extends State<SignIn> {
           Align(
               alignment: Alignment.bottomCenter,
               child: SubmitButton(
-                text: 'Skip',
-                height: height * 0.06,
-                width: width * 0.76,
-                color: Color(0xFFFFE0D7),
-                textColor: Color(0xFFFF6E41),
+                  text: 'Skip',
+                  height: height * 0.06,
+                  width: width * 0.76,
+                  color: Color(0xFFFFE0D7),
+                  textColor: Color(0xFFFF6E41),
+                  onPressed: () { }
               )),
           SizedBox(height: height * 0.05),
         ]),
