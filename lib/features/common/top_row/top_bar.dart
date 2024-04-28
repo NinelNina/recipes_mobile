@@ -99,7 +99,8 @@ class Bar extends StatelessWidget {
                     icon: const Icon(Icons.favorite),
                     color: const Color(0xFFF40E36),
                     onPressed: () {
-                      // Handle favorite button press
+                      Navigator.pushNamed(context, "/favourites");
+                      // Handle favorite button pressScaffold
                     },
                   )
                   else SizedBox(width: width * 0.15),

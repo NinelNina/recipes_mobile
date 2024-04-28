@@ -6,13 +6,10 @@ import 'package:recipes/features/common/recipe_card/recipe_card.dart';
 import 'package:recipes/features/common/top_row/top_row.dart';
 import 'package:recipes/features/common/widgets/%D1%81ustomDrawer.dart';
 
-import '../common/recipe_card/recipe_card_Ingredients.dart';
-import '../common/top_row/top_bar.dart';
-import '../common/widgets/menu_icon_widget.dart';
-import '../dishes_categories/presentation/diets_categories_screen.dart';
-import '../dishes_categories/presentation/dishes_categories_screen.dart';
+import 'common/top_row/top_bar.dart';
+import 'common/widgets/menu_icon_widget.dart';
 
-class All_recipes extends StatelessWidget {
+class User_recipes extends StatelessWidget {
   final List<String> recipes = [
     'Recipe 1',
     'Recipe 2',
@@ -52,6 +49,7 @@ class All_recipes extends StatelessWidget {
     final double height = size.height;
     return Scaffold(
       drawer: CustomDrawer(),
+
       body: SafeArea(
         child: Column(
           children: [
@@ -72,12 +70,13 @@ class All_recipes extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => Recipe_ingredients(
-                            image: images[index],
-                            recipeName: recipes[index],
-                            cookingTime: cookingTime[index],
-                            isFavorite: isFavorite[index],
-                          ),
+                          builder: (context) =>
+                              Recipe_ingredients(
+                                image: images[index],
+                                recipeName: recipes[index],
+                                cookingTime: cookingTime[index],
+                                isFavorite: isFavorite[index],
+                              ),
                         ),
                       );
                     },

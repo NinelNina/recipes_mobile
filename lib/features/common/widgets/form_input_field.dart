@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+String globalEmail = '';
+
 class FormInputField extends StatefulWidget{
   final String labelText;
   final controller;
@@ -28,6 +30,9 @@ class _FormInputFieldState extends State<FormInputField> {
         borderRadius: BorderRadius.circular(30),
       ),
       child: TextFormField(
+        onChanged: (value) {
+          globalEmail = value;
+        },
         onTap: () {
           setState(() {
             _hasFocus = true;

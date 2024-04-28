@@ -59,6 +59,10 @@ flutter:
     - assets/images/menu_vector.svg
     - assets/fonts/
     - assets/images/image.png
+    - assets/images/home.png
+    - assets/images/login.png
+    - assets/images/vector.png
+    - assets/images/magnifying-glass.png
   fonts:
     - family: Poppins
       fonts:

@@ -6,7 +6,7 @@ class SubmitButton extends StatelessWidget {
     super.key,
     required this.text,
     required this.height,
-    this.width, required this.color, required this.textColor, required this.onPressed
+    this.width, required this.color, required this.textColor,  required this.path
   });
 
   final String text;
@@ -14,12 +14,14 @@ class SubmitButton extends StatelessWidget {
   final Color textColor;
   final double? width;
   final double height;
-  final VoidCallback onPressed;
+  final String path;
 
   @override
   Widget build(BuildContext context) {
     return FilledButton.tonal(
-      onPressed: onPressed,
+      onPressed: () {
+        Navigator.pushNamed(context, path);
+      },
       style: ButtonStyle(
         backgroundColor: MaterialStateProperty.all<Color>(
             color),

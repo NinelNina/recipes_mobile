@@ -8,13 +8,16 @@ class DrawerItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
+    final double width = size.width;
+    final double height = size.height;
     return SizedBox(
-      width: 218,
-      height: 52.41,
+      width: width * 0.53,
+      height: height * 0.06,
       child: Row(
         children: [
           Icon(icon),
-          const SizedBox(width: 16),
+          SizedBox(width: width * 0.04),
           Text(text),
         ],
       ),

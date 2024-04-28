@@ -6,42 +6,28 @@ import 'package:recipes/features/common/recipe_card/recipe_card.dart';
 import 'package:recipes/features/common/top_row/top_row.dart';
 import 'package:recipes/features/common/widgets/%D1%81ustomDrawer.dart';
 
-import '../common/recipe_card/recipe_card_Ingredients.dart';
-import '../common/top_row/top_bar.dart';
-import '../common/widgets/menu_icon_widget.dart';
-import '../dishes_categories/presentation/diets_categories_screen.dart';
-import '../dishes_categories/presentation/dishes_categories_screen.dart';
+import 'common/top_row/top_bar.dart';
+import 'common/widgets/menu_icon_widget.dart';
 
-class All_recipes extends StatelessWidget {
+
+class Favourite_recipes extends StatelessWidget {
   final List<String> recipes = [
     'Recipe 1',
-    'Recipe 2',
-    'Recipe 3',
-    'Recipe 4',
     'Recipe 5',
   ];
 
   final List<String> images = [
     'assets/images/image.png',
     'assets/images/image.png',
-    'assets/images/image.png',
-    'assets/images/image.png',
-    'assets/images/image.png',
   ];
 
   final List<bool> isFavorite = [
     true,
-    false,
-    false,
-    false,
-    false,
+    true,
   ];
 
   final List<String> cookingTime = [
     '30 min',
-    '1 hour',
-    '2 hours',
-    '3 hours',
     '4 hours',
   ];
 
@@ -52,13 +38,14 @@ class All_recipes extends StatelessWidget {
     final double height = size.height;
     return Scaffold(
       drawer: CustomDrawer(),
+
       body: SafeArea(
         child: Column(
           children: [
             Bar(
-              title: '1',
-              showSearch: true,
-              showIconFavorite: true,
+              title: 'Favourites',
+              showSearch: false,
+              showIconFavorite: false,
               navWidget: MenuIconWidget(width: width),
               width: width,
               height: height,
@@ -72,12 +59,13 @@ class All_recipes extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => Recipe_ingredients(
-                            image: images[index],
-                            recipeName: recipes[index],
-                            cookingTime: cookingTime[index],
-                            isFavorite: isFavorite[index],
-                          ),
+                          builder: (context) =>
+                              Recipe_ingredients(
+                                image: images[index],
+                                recipeName: recipes[index],
+                                cookingTime: cookingTime[index],
+                                isFavorite: isFavorite[index],
+                              ),
                         ),
                       );
                     },

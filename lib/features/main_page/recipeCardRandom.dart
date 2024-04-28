@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 
-class RecipeCard extends StatelessWidget {
+import 'main_batton.dart';
+import 'main_battons_four.dart';
+
+class RecipeCardRandom extends StatelessWidget {
   final String image;
   final String recipeName;
   final String cookingTime;
   final bool isFavorite;
 
-  const RecipeCard({
+  const RecipeCardRandom({
     required this.image,
     required this.recipeName,
     required this.cookingTime,
@@ -22,8 +25,8 @@ class RecipeCard extends StatelessWidget {
       children: [
         Center(
           child: Container(
-            width: width * 0.92 ,
-            height: height * 0.46,
+            width: 377,
+            height: 465,
             decoration: BoxDecoration(
               color: Colors.white.withOpacity(1),
               borderRadius: BorderRadius.circular(30),
@@ -38,10 +41,18 @@ class RecipeCard extends StatelessWidget {
             ),
             child: Stack(
               children: [
+                Container(
+                  width: 377,
+                  height: 53,
+                  child: Center(
+                    child: Text("Случайный рецепт"),
+                  ),
+                ),
                 Positioned(
+                  top: 53,
                   child: Container(
-                    width: width * 0.92,
-                    height: height * 0.34,
+                    width: 377,
+                    height: 307,
                     child: Image.asset(
                       alignment: Alignment.center,
                       image,
@@ -49,11 +60,11 @@ class RecipeCard extends StatelessWidget {
                   ),
                 ),
                 Positioned(
-                  top: height * 0.38,
+                  top: 390.5,
                   left: 0,
                   right: 0,
                   child: Container(
-                    width: width * 0.92,
+                    width: 377,
                     child: Column(
                       children: [
                         Text(
@@ -86,7 +97,7 @@ class RecipeCard extends StatelessWidget {
                                         fontSize: 16,
                                       ),
                                     ),
-                                    SizedBox(width: width * 0.05),
+                                    SizedBox(width: 20),
                                   ],
                                 ),
                               ),
@@ -115,11 +126,11 @@ class RecipeCard extends StatelessWidget {
                   ),
                 ),
                 Positioned(
-                  top: height * 0.3,
-                  left: width * 0.027,
+                  top: 325,
+                  left: 10.91,
                   child: Container(
-                    width: width * 0.158,
-                    height: height * 0.073,
+                    width: 65.09,
+                    height: 65,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       color: Color(0xFFFFFFFF),
@@ -142,7 +153,7 @@ class RecipeCard extends StatelessWidget {
             ),
           ),
         ),
-        SizedBox(height: height * 0.023),
+        MainButtons(),
       ],
     );
   }

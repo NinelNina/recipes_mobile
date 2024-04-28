@@ -1,6 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:recipes/features/common/widgets/submit_button1.dart';
+import 'package:recipes/features/fevourites.dart';
 import 'package:recipes/features/sign_up/presentation/sign_up_screen.dart';
+import 'package:recipes/features/user_recipes.dart';
+
+import '../../all_resipes/all_recipes.dart';
+import '../../dishes_categories/presentation/diets_categories_screen.dart';
+import '../../dishes_categories/presentation/dishes_categories_screen.dart';
+import '../../main_page/main_page.dart';
+import '../../sing_in/presentation/sign_in_screen.dart';
 
 class Start extends StatelessWidget {
   const Start({super.key});
@@ -12,6 +20,16 @@ class Start extends StatelessWidget {
     final double height = size.height;
 
     return MaterialApp(
+      routes: {
+        '/all_recipes': (context) => All_recipes(),
+        '/categories': (context) => DishesCategories(),
+        '/diets': (context) => DietsCategories(),
+        '/home': (context) => MainPage(),
+        '/login': (context) => SignIn(),
+        '/sign_up': (context) => SignUp(),
+        '/favourites': (context) => Favourite_recipes(),
+        '/user_recipes': (context) => User_recipes(),
+      },
       home: Scaffold(
         backgroundColor: Colors.white,
         body: Column(
@@ -69,7 +87,7 @@ class Start extends StatelessWidget {
                     height: height * 0.06,
                     color: Color(0xFFFF6E41),
                     textColor: Colors.white,
-                    onPressed: () { },
+                      path: "/login",
                   )
                 ),
                 SizedBox(height: height * 0.03),

@@ -41,7 +41,14 @@ class NavBar extends StatelessWidget {
               child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              navWidget,
+            IconButton(
+              color: const Color(0xFFFF6E41),
+              icon: navWidget,
+              onPressed: () {
+                Navigator.pop(context);
+              }
+              ),
+
               Text(title,
                   style: const TextStyle(
                       color: Color(0xFFFF6E41),

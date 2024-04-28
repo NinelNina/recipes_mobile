@@ -1,18 +1,24 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:recipes/features/all_resipes/recipe_ingredients.dart';
 import 'package:recipes/features/common/menu_widgets/drawer_item_in_menu.dart';
 import 'package:recipes/features/common/recipe_card/recipe_card.dart';
 import 'package:recipes/features/common/top_row/top_row.dart';
 import 'package:recipes/features/common/widgets/%D1%81ustomDrawer.dart';
+import 'package:recipes/features/main_page/main_batton.dart';
+import 'package:recipes/features/main_page/recipeCardRandom.dart';
+import 'package:recipes/features/sign_up/presentation/sign_up_screen.dart';
 
+import '../all_resipes/all_recipes.dart';
 import '../common/recipe_card/recipe_card_Ingredients.dart';
 import '../common/top_row/top_bar.dart';
 import '../common/widgets/menu_icon_widget.dart';
 import '../dishes_categories/presentation/diets_categories_screen.dart';
 import '../dishes_categories/presentation/dishes_categories_screen.dart';
+import '../sing_in/presentation/sign_in_screen.dart';
 
-class All_recipes extends StatelessWidget {
+class MainPage extends StatelessWidget {
   final List<String> recipes = [
     'Recipe 1',
     'Recipe 2',
@@ -56,16 +62,17 @@ class All_recipes extends StatelessWidget {
         child: Column(
           children: [
             Bar(
-              title: '1',
-              showSearch: true,
+              title: 'Main page',
+              showSearch: false,
               showIconFavorite: true,
               navWidget: MenuIconWidget(width: width),
               width: width,
               height: height,
             ),
+            SizedBox(height: 35),
             Expanded(
               child: ListView.builder(
-                itemCount: recipes.length,
+                itemCount: 1,
                 itemBuilder: (BuildContext context, int index) {
                   return InkWell(
                     onTap: () {
@@ -81,7 +88,7 @@ class All_recipes extends StatelessWidget {
                         ),
                       );
                     },
-                    child: RecipeCard(
+                    child: RecipeCardRandom(
                       image: images[index],
                       recipeName: recipes[index],
                       cookingTime: cookingTime[index],
