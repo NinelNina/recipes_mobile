@@ -1,8 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:recipes/features/sing_in/presentation/sign_in_screen.dart';
 
-class NavBar extends StatelessWidget {
-  const NavBar({
+class NavBarTitle extends StatelessWidget {
+  const NavBarTitle({
     super.key,
     required this.title,
     required this.navWidget,
@@ -38,32 +39,34 @@ class NavBar extends StatelessWidget {
               ),
             ],
           ),
-          child: Stack(
+          child: Row(
             children: [
-              Positioned(
-                left: 0,
-                child: IconButton(
-                  color: const Color(0xFFFF6E41),
-                  icon: navWidget,
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                ),
+              IconButton(
+                color: const Color(0xFFFF6E41),
+                icon: navWidget,
+                onPressed: () {
+                  Navigator.pop(context);
+                },
               ),
-              Center(
-                child: Text(
-                  title,
-                  style: const TextStyle(
-                    color: Color(0xFFFF6E41),
-                    fontFamily: 'Poppins',
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
+              Expanded(
+                child: Center(
+                  child: Text(
+                    title,
+                    style: const TextStyle(
+                      color: Color(0xFFFF6E41),
+                      fontFamily: 'Poppins',
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               ),
+              // добавьте отступ между текстом и правой иконкой
+              SizedBox(width: 50)
             ],
           ),
         ),
+
       ],
     );
   }

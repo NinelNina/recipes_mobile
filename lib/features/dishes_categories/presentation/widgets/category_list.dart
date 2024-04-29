@@ -17,10 +17,15 @@ class CategoryList extends StatelessWidget {
     return Column(
       children: categories.map((category) {
         return Column(children: [
-          CategoryField(
-            text: category,
-            height: height,
-            width: width,
+          InkWell(
+            onTap: () {
+              Navigator.pushNamed(context, '/categories_diets');
+            },
+            child: CategoryField(
+              text: category,
+              height: height,
+              width: width,
+            ),
           ),
           SizedBox(height: height * 0.28)
         ]);

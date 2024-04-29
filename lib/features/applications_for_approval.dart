@@ -5,15 +5,16 @@ import 'package:recipes/features/common/menu_widgets/drawer_item_in_menu.dart';
 import 'package:recipes/features/common/recipe_card/recipe_card.dart';
 import 'package:recipes/features/common/top_row/top_row.dart';
 import 'package:recipes/features/common/widgets/%D1%81ustomDrawer.dart';
+import 'package:recipes/features/recipe_ingredients_apruve.dart';
 
-import '../common/recipe_card/recipe_card_Ingredients.dart';
-import '../common/top_row/top_bar.dart';
-import '../common/widgets/menu_icon_widget.dart';
-import '../dishes_categories/presentation/diets_categories_screen.dart';
-import '../dishes_categories/presentation/dishes_categories_screen.dart';
-import '../nav_bar_with_favorites.dart';
+import 'common/recipe_card/recipe_card_Ingredients.dart';
+import 'common/top_row/top_bar.dart';
+import 'common/widgets/menu_icon_widget.dart';
+import 'dishes_categories/presentation/diets_categories_screen.dart';
+import 'dishes_categories/presentation/dishes_categories_screen.dart';
+import 'nav_bar_text_serch.dart';
 
-class All_recipes extends StatelessWidget {
+class ApplicationsForApproval extends StatelessWidget {
   final List<String> recipes = [
     'Recipe 1',
     'Recipe 2',
@@ -23,16 +24,11 @@ class All_recipes extends StatelessWidget {
   ];
 
   final List<String> images = [
-    'assets/images/imageRecipe.jpeg',
-    'assets/images/imageRecipe.jpeg',
-    'assets/images/imageRecipe.jpeg',
-    'assets/images/imageRecipe.jpeg',
-    'assets/images/imageRecipe.jpeg',
-    'assets/images/imageRecipe.jpeg',
-    'assets/images/imageRecipe.jpeg',
-    'assets/images/imageRecipe.jpeg',
-
-
+    'assets/images/image.png',
+    'assets/images/image.png',
+    'assets/images/image.png',
+    'assets/images/image.png',
+    'assets/images/image.png',
   ];
 
   final List<bool> isFavorite = [
@@ -61,7 +57,7 @@ class All_recipes extends StatelessWidget {
       body: SafeArea(
         child: Column(
           children: [
-            NavBarWithFavorites(
+            NavBarWithTextAndSearh(
               title: '1',
               navWidget: MenuIconWidget(width: width),
               width: width,
@@ -76,8 +72,7 @@ class All_recipes extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => Recipe_ingredients(
-                            count: index,
+                          builder: (context) => Recipe_ingredients_approval(
                             image: images[index],
                             recipeName: recipes[index],
                             cookingTime: cookingTime[index],
@@ -99,6 +94,7 @@ class All_recipes extends StatelessWidget {
           ],
         ),
       ),
+
     );
   }
 }

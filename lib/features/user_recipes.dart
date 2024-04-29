@@ -8,6 +8,8 @@ import 'package:recipes/features/common/widgets/%D1%81ustomDrawer.dart';
 
 import 'common/top_row/top_bar.dart';
 import 'common/widgets/menu_icon_widget.dart';
+import 'nav_bar_title.dart';
+import 'nav_bar_with_favorites.dart';
 
 class User_recipes extends StatelessWidget {
   final List<String> recipes = [
@@ -53,10 +55,8 @@ class User_recipes extends StatelessWidget {
       body: SafeArea(
         child: Column(
           children: [
-            Bar(
+            NavBarWithFavorites(
               title: '1',
-              showSearch: true,
-              showIconFavorite: true,
               navWidget: MenuIconWidget(width: width),
               width: width,
               height: height,
@@ -72,6 +72,7 @@ class User_recipes extends StatelessWidget {
                         MaterialPageRoute(
                           builder: (context) =>
                               Recipe_ingredients(
+                                count: index,
                                 image: images[index],
                                 recipeName: recipes[index],
                                 cookingTime: cookingTime[index],

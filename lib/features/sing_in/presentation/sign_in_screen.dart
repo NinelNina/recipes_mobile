@@ -9,8 +9,9 @@ import '../../all_resipes/all_recipes.dart';
 import '../../dishes_categories/presentation/diets_categories_screen.dart';
 import '../../dishes_categories/presentation/dishes_categories_screen.dart';
 import '../../main_page/main_page.dart';
+import '../../nav_bar_title.dart';
 
-String globalEmail = '';
+String userRole = '';
 
 class SignIn extends StatefulWidget {
   const SignIn({super.key});
@@ -31,6 +32,54 @@ class _SignInState extends State<SignIn> {
     super.dispose();
   }
 
+  String? validateEmail(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter email';
+    }
+    if (!value.contains('@')) {
+      return 'Please enter valid email';
+    }
+    return null;
+  }
+
+  String? validatePassword(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter password';
+    }
+    if (value.length < 6) {
+      return 'Password should be at least 6 characters';
+    }
+    return null;
+  }
+
+  void signIn() {
+    if (_formKey.currentState!.validate()) {
+      final email = _emailController.text;
+      final password = _passwordController.text;
+
+      // Mock data for admin and user
+      final adminEmail = 'admin@example.com';
+      final adminPassword = 'password123';
+      final userEmail = 'user@example.com';
+      final userPassword = 'password456';
+
+      if (email == adminEmail && password == adminPassword) {
+        // Admin login
+        userRole = 'admin';
+        Navigator.pushNamed(context, '/admin_profile');
+      } else if (email == userEmail && password == userPassword) {
+        // User login
+
+        userRole = 'user';
+        Navigator.pushNamed(context, '/home');
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Invalid email or password')),
+        );
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
@@ -40,7 +89,7 @@ class _SignInState extends State<SignIn> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: Column(children: [
-        NavBar(
+        NavBarTitle(
             title: 'Sign In',
             navWidget: BackIconWidget(width: width),
             width: width,
@@ -49,28 +98,37 @@ class _SignInState extends State<SignIn> {
         Padding(
             padding: EdgeInsets.symmetric(horizontal: width * 0.1),
             child: Column(children: [
-              FormInputField(
-                  labelText: 'Email',
-                  controller: _emailController,
-                  keyboardType: TextInputType.emailAddress,
-                  height: height,
-                  obscureText: false,
-                  ),
-              SizedBox(height: height * 0.01),
-              FormInputField(
-                  labelText: 'Password',
-                  controller: _passwordController,
-                  keyboardType: TextInputType.text,
-                  height: height,
-                  obscureText: true),
+              Form(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    FormInputField(
+                        labelText: 'Email',
+                        controller: _emailController,
+                        keyboardType: TextInputType.emailAddress,
+                        height: height,
+                        obscureText: false,
+                        validator: validateEmail),
+                    SizedBox(height: height * 0.01),
+                    FormInputField(
+                        labelText: 'Password',
+                        controller: _passwordController,
+                        keyboardType: TextInputType.text,
+                        height: height,
+                        obscureText: true,
+                        validator: validatePassword),
+                  ],
+                ),
+              ),
               SizedBox(height: height * 0.05),
               SubmitButton(
-                  text: 'Sign In',
-                  height: height * 0.06,
-                  width: width * 0.76,
-                  color: Color(0xFFFF6E41),
-                  textColor: Colors.white,
-                  path: '/home'),
+                text: 'Sign In',
+                height: height * 0.06,
+                width: width * 0.76,
+                color: Color(0xFFFF6E41),
+                textColor: Colors.white,
+                onPressed: signIn,
+              ),
               SizedBox(height: height * 0.05),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,

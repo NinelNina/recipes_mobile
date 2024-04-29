@@ -1,0 +1,89 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
+class NavBarWithAddAndSearch extends StatelessWidget {
+  const NavBarWithAddAndSearch({
+    super.key,
+    required this.title,
+    required this.navWidget,
+    required this.width,
+    required this.height,
+  });
+
+  final String title;
+  final StatelessWidget navWidget;
+  final double width;
+  final double height;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        SizedBox(
+          height: MediaQuery.of(context).padding.top,
+        ),
+        Container(
+          width: width,
+          height: height * 0.07,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(7),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.25),
+                offset: const Offset(0, 2),
+                blurRadius: 4,
+                spreadRadius: 0,
+              ),
+            ],
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              IconButton(
+                color: const Color(0xFFFF6E41),
+                icon: navWidget,
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+              SizedBox(width: 30),
+              Expanded(
+                child: Center(
+                  child: Text(
+                    title,
+                    style: const TextStyle(
+                      color: Color(0xFFFF6E41),
+                      fontFamily: 'Poppins',
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
+              Row(
+                children: [
+                  IconButton(
+                    icon: Icon(Icons.search),
+                    iconSize: 30,
+                    onPressed: () {
+                      Navigator.pushNamed(context, "/favourites");
+                    },
+                  ),
+                  IconButton(
+                    iconSize: 30,
+                    icon: Icon(Icons.add),
+                    onPressed: () {
+                      Navigator.pushNamed(context, "/favourites");
+                    },
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}

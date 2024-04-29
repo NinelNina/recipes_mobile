@@ -1,15 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:recipes/features/favorite_button.dart';
 
 import '../widgets/custom_toggle_button.dart';
 
 class RecipeCardIngredients extends StatefulWidget {
+  final int index;
   final String image;
   final String recipeName;
   final String cookingTime;
   final bool isFavorite;
 
   const RecipeCardIngredients({
+    required this.index,
     required this.image,
     required this.recipeName,
     required this.cookingTime,
@@ -28,14 +31,17 @@ class _RecipeCardIngredientsState extends State<RecipeCardIngredients> {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
+    final Size size = MediaQuery.of(context).size;
+    final double width = size.width;
+    final double height = size.height;
 
     return Column(
       children: [
+        SizedBox(height: height * 0.026),
         Stack(
           children: [
             Container(
-              height: 404,
+              height: height * 0.452,
               child: Stack(
                 children: [
                   ClipRRect(
@@ -44,15 +50,26 @@ class _RecipeCardIngredientsState extends State<RecipeCardIngredients> {
                       topRight: Radius.circular(20),
                     ),
                     child: Container(
-                      height: 340,
+                      width: width * 0.92,
+                      height: height * 0.381,
+                      decoration: BoxDecoration(
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.5),
+                            spreadRadius: 2,
+                            blurRadius: 5,
+                            offset: Offset(0, 3), // changes position of shadow
+                          ),
+                        ],
+                      ),
                       child: Image.asset(
                         widget.image,
-                        fit: BoxFit.fill,
+                        fit: BoxFit.cover,
                       ),
                     ),
                   ),
                   Positioned(
-                    top: 352,
+                    top: height * 0.395,
                     //bottom: 0,
                     left: 0,
                     right: 0,
@@ -64,26 +81,29 @@ class _RecipeCardIngredientsState extends State<RecipeCardIngredients> {
                         children: [
                           Center(
                             child: Text(
-                              "Время готовки",
+                              "cooking time",
                               style: TextStyle(
-                                color: Colors.black,
+                                fontFamily: 'Montserrat',
+                                color: Color(0xFF000000),
                                 fontSize: 12,
-                                fontWeight: FontWeight.bold,
+                                fontWeight: FontWeight.w400,
                               ),
                             ),
                           ),
-                          SizedBox(height: 8),
+                          SizedBox(height: height * 0.009),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Row(
                                 children: [
-                                  SizedBox(width: 4),
+                                  SizedBox(width: width * 0.01),
                                   Text(
                                     widget.cookingTime,
                                     style: TextStyle(
-                                      color: Colors.black,
+                                      fontFamily: 'Montserrat',
+                                      color: Color(0xFF000000),
                                       fontSize: 18,
+                                      fontWeight: FontWeight.w600,
                                     ),
                                   ),
                                 ],
@@ -94,38 +114,18 @@ class _RecipeCardIngredientsState extends State<RecipeCardIngredients> {
                       ),
                     ),
                   ),
+
                   Positioned(
-                    top: 304,
-                    right: 32,
-                    child: Container(
-                      width: 62,
-                      height: 62,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Color(0xFFFFFFFF),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.17),
-                            blurRadius: 5,
-                            spreadRadius: 1,
-                            offset: Offset(0, 3),
-                          ),
-                        ],
-                      ),
-                      child: Icon(
-                        color: Color(0xFFF40E36),
-                        widget.isFavorite
-                            ? Icons.favorite
-                            : Icons.favorite_border,
-                      ),
-                    ),
+                    top: height * 0.341,
+                    right: width * 0.078,
+                    child: FavoritesButton(index: widget.index),
                   ),
                 ],
               ),
             ),
           ],
         ),
-        SizedBox(height: 7),
+        SizedBox(height: height * 0.008),
         CustomToggleButton(),
       ],
     );

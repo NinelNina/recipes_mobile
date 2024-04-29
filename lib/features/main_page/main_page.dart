@@ -16,6 +16,7 @@ import '../common/top_row/top_bar.dart';
 import '../common/widgets/menu_icon_widget.dart';
 import '../dishes_categories/presentation/diets_categories_screen.dart';
 import '../dishes_categories/presentation/dishes_categories_screen.dart';
+import '../nav_bar_text_favorites.dart';
 import '../sing_in/presentation/sign_in_screen.dart';
 
 class MainPage extends StatelessWidget {
@@ -28,11 +29,7 @@ class MainPage extends StatelessWidget {
   ];
 
   final List<String> images = [
-    'assets/images/image.png',
-    'assets/images/image.png',
-    'assets/images/image.png',
-    'assets/images/image.png',
-    'assets/images/image.png',
+    'assets/images/imageRecipe.jpeg',
   ];
 
   final List<bool> isFavorite = [
@@ -56,15 +53,16 @@ class MainPage extends StatelessWidget {
     final Size size = MediaQuery.of(context).size;
     final double width = size.width;
     final double height = size.height;
+
+
+
     return Scaffold(
       drawer: CustomDrawer(),
       body: SafeArea(
         child: Column(
           children: [
-            Bar(
+            NavBarWithTextAndFavorites(
               title: 'Main page',
-              showSearch: false,
-              showIconFavorite: true,
               navWidget: MenuIconWidget(width: width),
               width: width,
               height: height,
@@ -80,6 +78,7 @@ class MainPage extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                           builder: (context) => Recipe_ingredients(
+                            count: index,
                             image: images[index],
                             recipeName: recipes[index],
                             cookingTime: cookingTime[index],

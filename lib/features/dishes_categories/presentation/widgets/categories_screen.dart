@@ -4,6 +4,7 @@ import 'package:recipes/features/dishes_categories/presentation/widgets/category
 
 import '../../../common/top_row/top_bar.dart';
 import '../../../common/widgets/сustomDrawer.dart';
+import '../../../nav_bar_title.dart';
 
 class Categories extends StatelessWidget {
   const Categories({super.key, required this.title, required this.categories});
@@ -22,10 +23,8 @@ class Categories extends StatelessWidget {
             backgroundColor: Colors.white,
             body: Center(
                 child: Column(children: [
-                  Bar(
+                  NavBarTitle(
                   title: title,
-                  showSearch: false,
-                  showIconFavorite: false,
                   navWidget: MenuIconWidget(width: width),
                   width: width,
                   height: height),

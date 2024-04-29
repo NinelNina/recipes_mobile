@@ -1,13 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:recipes/features/admin_profile.dart';
+import 'package:recipes/features/categoriesAndDiet.dart';
 import 'package:recipes/features/common/widgets/submit_button1.dart';
 import 'package:recipes/features/fevourites.dart';
+import 'package:recipes/features/my_recipes.dart';
 import 'package:recipes/features/sign_up/presentation/sign_up_screen.dart';
 import 'package:recipes/features/user_recipes.dart';
 
 import '../../all_resipes/all_recipes.dart';
+import '../../all_resipes/stat.dart';
+import '../../all_resipes/statistics.dart';
+import '../../applications_for_approval.dart';
 import '../../dishes_categories/presentation/diets_categories_screen.dart';
 import '../../dishes_categories/presentation/dishes_categories_screen.dart';
 import '../../main_page/main_page.dart';
+import '../../profile.dart';
 import '../../sing_in/presentation/sign_in_screen.dart';
 
 class Start extends StatelessWidget {
@@ -19,6 +26,46 @@ class Start extends StatelessWidget {
     final double width = size.width;
     final double height = size.height;
 
+    final List<String> recipes = [
+      'RecipeOrDiet 1',
+      'RecipeOrDiet 2',
+      'RecipeOrDiet 3',
+      'RecipeOrDiet 4',
+      'RecipeOrDiet 5',
+      'RecipeOrDiet 6',
+
+    ];
+
+    final List<String> images = [
+      'assets/images/imageRecipe.jpeg',
+      'assets/images/imageRecipe.jpeg',
+      'assets/images/imageRecipe.jpeg',
+      'assets/images/imageRecipe.jpeg',
+      'assets/images/imageRecipe.jpeg',
+      'assets/images/imageRecipe.jpeg',
+
+
+
+    ];
+
+    final List<bool> isFavorite = [
+      true,
+      false,
+      false,
+      false,
+      false,
+      false,
+    ];
+
+    final List<String> cookingTime = [
+      '30 min',
+      '1 hour',
+      '2 hours',
+      '3 hours',
+      '4 hours',
+      '4 hours',
+    ];
+
     return MaterialApp(
       routes: {
         '/all_recipes': (context) => All_recipes(),
@@ -29,6 +76,12 @@ class Start extends StatelessWidget {
         '/sign_up': (context) => SignUp(),
         '/favourites': (context) => Favourite_recipes(),
         '/user_recipes': (context) => User_recipes(),
+        '/admin_profile': (context) => AdminProfile(profile: "admin"),
+        '/user_profile': (context) => Profile(profile: "user",),
+        '/approve': (context) => ApplicationsForApproval(),
+        '/my_recipes': (context) => MyRecipes(),
+        '/categories_diets': (context) => CategoriesAndDiens(images: images, recipes: recipes, cookingTime: cookingTime, isFavorite: isFavorite),
+        '/stat': (context) => Statistic(title: 'Statistics', categories: ['Total registered users:','Recipes created by users:','The most popular diet (last month):'],answers: ['200','28','vegan'],),
       },
       home: Scaffold(
         backgroundColor: Colors.white,

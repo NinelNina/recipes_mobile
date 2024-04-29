@@ -12,19 +12,22 @@ import 'package:recipes/features/start/presentation/start_screen.dart';
 import 'package:recipes/features/all_resipes/all_recipes.dart';
 import 'package:recipes/features/all_resipes/recipe_ingredients.dart';
 
+import 'features/applications_for_approval.dart';
 import 'features/main_page/main_page.dart';
 import 'features/profile.dart';
+import 'features/recipe_ingredients_apruve.dart';
 
 void main() {
 
   //runApp(All_recipes());
-  runApp(MyRecipes());
+  //runApp(MyRecipes());
+  //runApp(ApplicationsForApproval());
   //runApp(Profile(profile: "user@gmail.com",));
   //runApp(AdminProfile(profile: "user@gmail.com",));
   //runApp(MainPage());
   //runApp(StatFell());
   //runApp(Recipe_ingredients());
-  //runApp(const Start());
+  runApp(const Start());
   //runApp(const SignIn());
   //runApp(const SignUp());
 }

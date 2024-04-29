@@ -34,7 +34,13 @@ class MainButton extends StatelessWidget {
           ],
         ),
         child: Center(
-          child: Text(title),
+          child: Text(title,
+              style: TextStyle(
+              color: Color(0xFFFFFFFF),
+          fontFamily: 'Montserrat',
+          fontSize: 20,
+          fontWeight: FontWeight.w600,
+        ),),
         ),
       ),
     );

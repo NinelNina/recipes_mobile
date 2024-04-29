@@ -63,6 +63,12 @@ flutter:
     - assets/images/login.png
     - assets/images/vector.png
     - assets/images/magnifying-glass.png
+    - assets/images/frame.png
+    - assets/images/logout.png
+    - assets/images/shuffle.png
+    - assets/images/add.png
+    - assets/images/Path.png
+    - assets/images/imageRecipe.jpeg
   fonts:
     - family: Poppins
       fonts:

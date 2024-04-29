@@ -22,7 +22,7 @@ class RecipeCard extends StatelessWidget {
       children: [
         Center(
           child: Container(
-            width: width * 0.92 ,
+            width: width * 0.92,
             height: height * 0.46,
             decoration: BoxDecoration(
               color: Colors.white.withOpacity(1),
@@ -42,10 +42,17 @@ class RecipeCard extends StatelessWidget {
                   child: Container(
                     width: width * 0.92,
                     height: height * 0.34,
-                    child: Image.asset(
-                      alignment: Alignment.center,
-                      image,
-                    ),
+
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(30),
+                        topRight: Radius.circular(30),
+                      ),
+                      child: Image.asset(
+                        image,
+                        fit: BoxFit.cover,
+                      ),
+                    )
                   ),
                 ),
                 Positioned(
@@ -59,9 +66,10 @@ class RecipeCard extends StatelessWidget {
                         Text(
                           recipeName,
                           style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
+                            fontFamily: 'Montserrat',
+                            color: Color(0xFF000000),
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
                           ),
                         ),
                         SizedBox(height: 8),
@@ -75,15 +83,17 @@ class RecipeCard extends StatelessWidget {
                                   children: [
                                     Icon(
                                       Icons.favorite,
-                                      color: Colors.red,
+                                      color: Color(0xFFFF6E41),
                                       size: 18,
                                     ),
                                     SizedBox(width: 4),
                                     Text(
                                       'In Favorites',
                                       style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 16,
+                                        fontFamily: 'Montserrat',
+                                        fontWeight: FontWeight.w400,
+                                        color: Color(0xFF5E5E5E),
+                                        fontSize: 13,
                                       ),
                                     ),
                                     SizedBox(width: width * 0.05),
@@ -94,15 +104,17 @@ class RecipeCard extends StatelessWidget {
                                 children: [
                                   Icon(
                                     Icons.timer,
-                                    color: Colors.black,
+                                    color: Color(0xFFFF6E41),
                                     size: 18,
                                   ),
                                   SizedBox(width: 4),
                                   Text(
                                     cookingTime,
                                     style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 16,
+                                      fontFamily: 'Montserrat',
+                                      fontWeight: FontWeight.w400,
+                                      color: Color(0xFF5E5E5E),
+                                      fontSize: 13,
                                     ),
                                   ),
                                 ],

@@ -21,8 +21,7 @@ class Statistic extends StatelessWidget {
     final double width = size.width;
     final double height = size.height;
 
-    return MaterialApp(
-        home: Scaffold(
+    return  Scaffold(
             drawer: CustomDrawer(),
             backgroundColor: Colors.white,
             body: Center(
@@ -37,6 +36,6 @@ class Statistic extends StatelessWidget {
                   ),
                   SizedBox(height: height * 0.015),
                   Stat(categories: categories, answers: answers, width: width * 0.92, height: height * 0.09)
-                ]))));
+                ])));
   }
 }

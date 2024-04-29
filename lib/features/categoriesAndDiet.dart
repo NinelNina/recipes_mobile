@@ -6,50 +6,24 @@ import 'package:recipes/features/common/recipe_card/recipe_card.dart';
 import 'package:recipes/features/common/top_row/top_row.dart';
 import 'package:recipes/features/common/widgets/%D1%81ustomDrawer.dart';
 
-import '../common/recipe_card/recipe_card_Ingredients.dart';
-import '../common/top_row/top_bar.dart';
-import '../common/widgets/menu_icon_widget.dart';
-import '../dishes_categories/presentation/diets_categories_screen.dart';
-import '../dishes_categories/presentation/dishes_categories_screen.dart';
-import '../nav_bar_with_favorites.dart';
+import 'common/top_row/top_bar.dart';
+import 'common/widgets/menu_icon_widget.dart';
+import 'nav_bar_with_favorites.dart';
 
-class All_recipes extends StatelessWidget {
-  final List<String> recipes = [
-    'Recipe 1',
-    'Recipe 2',
-    'Recipe 3',
-    'Recipe 4',
-    'Recipe 5',
-  ];
+class CategoriesAndDiens extends StatelessWidget {
+  final List<String> images;
+  final List<String> recipes;
+  final List<String> cookingTime;
+  final List<bool> isFavorite;
 
-  final List<String> images = [
-    'assets/images/imageRecipe.jpeg',
-    'assets/images/imageRecipe.jpeg',
-    'assets/images/imageRecipe.jpeg',
-    'assets/images/imageRecipe.jpeg',
-    'assets/images/imageRecipe.jpeg',
-    'assets/images/imageRecipe.jpeg',
-    'assets/images/imageRecipe.jpeg',
-    'assets/images/imageRecipe.jpeg',
+  CategoriesAndDiens({
+    required this.images,
+    required this.recipes,
+    required this.cookingTime,
+    required this.isFavorite,
+  });
 
 
-  ];
-
-  final List<bool> isFavorite = [
-    true,
-    false,
-    false,
-    false,
-    false,
-  ];
-
-  final List<String> cookingTime = [
-    '30 min',
-    '1 hour',
-    '2 hours',
-    '3 hours',
-    '4 hours',
-  ];
 
   @override
   Widget build(BuildContext context) {

@@ -10,6 +10,7 @@ import 'package:recipes/features/sing_in/presentation/sign_in_screen.dart';
 import 'package:recipes/features/user_recipes.dart';
 
 import 'all_resipes/all_recipes.dart';
+import 'appBar.dart';
 import 'common/top_row/top_bar.dart';
 import 'common/widgets/menu_icon_widget.dart';
 import 'common/widgets/submit_button1.dart';
@@ -52,16 +53,13 @@ class MyRecipes extends StatelessWidget {
     final Size size = MediaQuery.of(context).size;
     final double width = size.width;
     final double height = size.height;
-    return MaterialApp(
-      home: Scaffold(
+    return  Scaffold(
         drawer: CustomDrawer(),
         body: SafeArea(
           child: Column(
             children: [
-              Bar(
+              NavBarWithAddAndSearch(
                 title: 'My recipes',
-                showSearch: false,
-                showIconFavorite: false,
                 navWidget: MenuIconWidget(width: width),
                 width: width,
                 height: height,
@@ -121,7 +119,6 @@ class MyRecipes extends StatelessWidget {
             ],
           ),
         ),
-      ),
     );
   }
 }
