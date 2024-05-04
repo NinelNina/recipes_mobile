@@ -89,7 +89,6 @@ class CustomDrawer extends StatelessWidget {
               Navigator.pushNamed(context, '/diets');
             },
           ),
-          if (userRole == 'user')
           ListTile(
             leading: Container(
             width: 30, // задает ширину иконки

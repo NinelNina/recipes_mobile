@@ -20,6 +20,7 @@ class RecipeCard extends StatelessWidget {
     final double height = size.height;
     return Column(
       children: [
+        SizedBox(height: 6),
         Center(
           child: Container(
             width: width * 0.92,

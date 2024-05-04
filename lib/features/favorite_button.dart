@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:recipes/features/sing_in/presentation/sign_in_screen.dart';
+
+bool isFromFavorites = false;
 
 class FavoritesButton extends StatefulWidget {
   final int index;
@@ -10,6 +13,9 @@ class FavoritesButton extends StatefulWidget {
 }
 
 class _FavoritesButtonState extends State<FavoritesButton> {
+
+
+
   final List<bool> isFavorite = [
     true,
     false,
@@ -50,7 +56,24 @@ class _FavoritesButtonState extends State<FavoritesButton> {
           color: Color(0xFFF40E36),
         ),
         iconSize: 30,
-        onPressed: _toggleFavorite,
+
+        onPressed: () async {
+          if (userRole != 'user') {
+            isFromFavorites = true;
+            Navigator.of(context).pushReplacementNamed('/login').then((_) {
+              if (isFromFavorites) {
+                // After successful login, add recipe to favorites
+                setState(() {
+                  isFavorite[widget.index] = !isFavorite[widget.index];
+                });
+                isFromFavorites = false;
+              }
+            });
+          } else {
+            // User is authenticated, call the original onPressed function
+            _toggleFavorite();
+          }
+        },
       ),
     );
   }

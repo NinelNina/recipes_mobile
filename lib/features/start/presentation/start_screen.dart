@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:recipes/features/add_recipe/presentation/add_recipe_screen.dart';
 import 'package:recipes/features/admin_profile.dart';
 import 'package:recipes/features/categoriesAndDiet.dart';
 import 'package:recipes/features/common/widgets/submit_button1.dart';
@@ -80,6 +81,7 @@ class Start extends StatelessWidget {
         '/user_profile': (context) => Profile(profile: "user",),
         '/approve': (context) => ApplicationsForApproval(),
         '/my_recipes': (context) => MyRecipes(),
+        '/add': (context) => AddRecipe(),
         '/categories_diets': (context) => CategoriesAndDiens(images: images, recipes: recipes, cookingTime: cookingTime, isFavorite: isFavorite),
         '/stat': (context) => Statistic(title: 'Statistics', categories: ['Total registered users:','Recipes created by users:','The most popular diet (last month):'],answers: ['200','28','vegan'],),
       },

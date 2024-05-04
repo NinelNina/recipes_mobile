@@ -7,7 +7,7 @@ class DishesCategories extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Categories(title: 'Diets', categories: [
+    return const Categories(title: 'Dishes', categories: [
       'BREAKFAST',
       'SOUP',
       'SALAD',

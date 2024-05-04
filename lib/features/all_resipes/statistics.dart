@@ -6,7 +6,10 @@ import 'package:recipes/features/dishes_categories/presentation/widgets/category
 
 import '../common/menu_widgets/drawer_item_in_menu.dart';
 import '../common/top_row/top_bar.dart';
+import '../common/widgets/back_icon_widget.dart';
 import '../common/widgets/nav_bar.dart';
+import '../nav_bar_title.dart';
+import '../nuv_bar_title_clouse.dart';
 
 class Statistic extends StatelessWidget {
   const Statistic({super.key, required this.title, required this.categories, required this.answers});
@@ -26,11 +29,9 @@ class Statistic extends StatelessWidget {
             backgroundColor: Colors.white,
             body: Center(
                 child: Column(children: [
-                  Bar(
+                  NavBarTitleCl(
                       title: title,
-                      showSearch: false,
-                      showIconFavorite: true,
-                      navWidget: MenuIconWidget(width: width),
+                      navWidget: BackIconWidget(width: width),
                       width: width,
                       height: height,
                   ),

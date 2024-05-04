@@ -36,7 +36,7 @@ class All_recipes extends StatelessWidget {
   ];
 
   final List<bool> isFavorite = [
-    true,
+    false,
     false,
     false,
     false,
@@ -67,6 +67,7 @@ class All_recipes extends StatelessWidget {
               width: width,
               height: height,
             ),
+
             Expanded(
               child: ListView.builder(
                 itemCount: recipes.length,

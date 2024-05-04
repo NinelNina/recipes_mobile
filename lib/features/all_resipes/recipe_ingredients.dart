@@ -6,6 +6,7 @@ import 'package:recipes/features/common/recipe_card/recipe_card_Ingredients.dart
 import 'package:recipes/features/common/top_row/top_bar2.dart';
 import 'package:recipes/features/common/top_row/top_row.dart';
 import 'package:recipes/features/common/top_row/top_row_back.dart';
+import 'package:recipes/features/nuv_bar_title_clouse.dart';
 
 import '../common/widgets/back_icon_widget.dart';
 import '../common/widgets/menu_icon_widget.dart';
@@ -31,34 +32,32 @@ class Recipe_ingredients extends StatelessWidget {
     final Size size = MediaQuery.of(context).size;
     final double width = size.width;
     final double height = size.height;
-      return Scaffold(
-        body: SafeArea(
-          child: Column(
-            children: [
-              NavBarTitle
-                (title: recipeName,
-                  navWidget: BackIconWidget(width: width),
-                  width: width,
-                  height: height),
-
-              Expanded(
-
-                child: ListView.builder(
-                  itemCount: 1,
-                  itemBuilder: (BuildContext context, int index) {
-                    return RecipeCardIngredients(
-                      index: count,
-                      image: image,
-                      recipeName: recipeName,
-                      cookingTime: cookingTime,
-                      isFavorite: isFavorite,
-                    );
-                  },
-                ),
+    return Scaffold(
+      body: SafeArea(
+        child: Column(
+          children: [
+            NavBarTitleCl(
+                title: recipeName,
+                navWidget: BackIconWidget(width: width),
+                width: width,
+                height: height),
+            Expanded(
+              child: ListView.builder(
+                itemCount: 1,
+                itemBuilder: (BuildContext context, int index) {
+                  return RecipeCardIngredients(
+                    index: count,
+                    image: image,
+                    recipeName: recipeName,
+                    cookingTime: cookingTime,
+                    isFavorite: isFavorite,
+                  );
+                },
               ),
-            ],
-          ),
+            ),
+          ],
         ),
+      ),
     );
   }
 }

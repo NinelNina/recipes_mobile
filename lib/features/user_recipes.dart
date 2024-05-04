@@ -56,7 +56,7 @@ class User_recipes extends StatelessWidget {
         child: Column(
           children: [
             NavBarWithFavorites(
-              title: '1',
+              title: 'User recipes',
               navWidget: MenuIconWidget(width: width),
               width: width,
               height: height,

@@ -9,6 +9,7 @@ import 'package:recipes/features/recipe_ingredients_apruve.dart';
 
 import 'common/recipe_card/recipe_card_Ingredients.dart';
 import 'common/top_row/top_bar.dart';
+import 'common/widgets/back_icon_widget.dart';
 import 'common/widgets/menu_icon_widget.dart';
 import 'dishes_categories/presentation/diets_categories_screen.dart';
 import 'dishes_categories/presentation/dishes_categories_screen.dart';
@@ -58,8 +59,8 @@ class ApplicationsForApproval extends StatelessWidget {
         child: Column(
           children: [
             NavBarWithTextAndSearh(
-              title: '1',
-              navWidget: MenuIconWidget(width: width),
+              title: 'Application for approval',
+              navWidget: BackIconWidget(width: width),
               width: width,
               height: height,
             ),

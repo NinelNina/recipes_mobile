@@ -45,7 +45,7 @@ class NavBarTitle extends StatelessWidget {
                 color: const Color(0xFFFF6E41),
                 icon: navWidget,
                 onPressed: () {
-                  Navigator.pop(context);
+                  Scaffold.of(context).openDrawer();
                 },
               ),
               Expanded(

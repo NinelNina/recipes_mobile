@@ -61,18 +61,7 @@ class NavBarWithTextAndSearh extends StatelessWidget {
                   ),
                 ),
               ),
-              // добавьте отступ между текстом и правой иконкой
-              IconButton(
-                icon: Icon(Icons.search,
-                    color: Colors.brown),
-                onPressed: () {
-                  if (userRole == 'user') {
-                    Navigator.pushNamed(context, "/favourites");
-                  } else {
-                    Navigator.pushNamed(context, "/login");
-                  }
-                },
-              ),
+              SizedBox(width: 40)
             ],
           ),
         ),

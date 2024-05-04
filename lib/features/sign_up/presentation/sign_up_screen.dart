@@ -4,7 +4,9 @@ import 'package:recipes/features/common/widgets/back_icon_widget.dart';
 import 'package:recipes/features/common/widgets/form_input_field.dart';
 import 'package:recipes/features/common/widgets/nav_bar.dart';
 import 'package:recipes/features/common/widgets/submit_button1.dart';
+import 'package:recipes/features/nuv_bar_title_clouse.dart';
 
+import '../../favorite_button.dart';
 import '../../nav_bar_text_serch.dart';
 import '../../nav_bar_title.dart';
 import '../../nav_bar_with_favorites.dart';
@@ -79,8 +81,14 @@ class _SignUpState extends State<SignUp> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Registration successful')),
       );
-      userRole = 'user';
-      Navigator.pushNamed(context, '/home');
+      if(isFromFavorites){
+        userRole = 'user';
+        Navigator.of(context).pop();
+        Navigator.of(context).pop();
+      }else {
+        userRole = 'user';
+        Navigator.pushNamed(context, '/user_profile');
+      }
     }
   }
 
@@ -93,7 +101,7 @@ class _SignUpState extends State<SignUp> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: Column(children: [
-        NavBarTitle(
+        NavBarTitleCl(
             title: 'Sign Up',
             navWidget: BackIconWidget(width: width),
             width: width,

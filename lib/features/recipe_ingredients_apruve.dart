@@ -8,6 +8,9 @@ import 'package:recipes/features/common/top_row/top_row.dart';
 import 'package:recipes/features/common/top_row/top_row_back.dart';
 import 'package:recipes/features/common/widgets/menu_icon_widget.dart';
 
+import 'common/widgets/back_icon_widget.dart';
+import 'nuv_bar_title_clouse.dart';
+
 class Recipe_ingredients_approval extends StatelessWidget {
   final String image;
   final String recipeName;
@@ -30,7 +33,7 @@ class Recipe_ingredients_approval extends StatelessWidget {
       body: SafeArea(
         child: Column(
           children: [
-            Bar2(title: recipeName, navWidget: MenuIconWidget(width: width), width: width, height: height),
+            NavBarTitleCl(title: recipeName, navWidget: BackIconWidget(width: width), width: width, height: height),
            Expanded(
               child: SingleChildScrollView(
                 child: Column(

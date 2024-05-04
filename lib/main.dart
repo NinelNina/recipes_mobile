@@ -18,7 +18,6 @@ import 'features/profile.dart';
 import 'features/recipe_ingredients_apruve.dart';
 
 void main() {
-
   //runApp(All_recipes());
   //runApp(MyRecipes());
   //runApp(ApplicationsForApproval());
@@ -28,8 +27,7 @@ void main() {
   //runApp(StatFell());
   //runApp(Recipe_ingredients());
   runApp(const Start());
-  //runApp(const SignIn());
-  //runApp(const SignUp());
+
 }
 
 class MyApp extends StatelessWidget {

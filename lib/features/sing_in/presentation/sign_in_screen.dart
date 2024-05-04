@@ -3,11 +3,13 @@ import 'package:recipes/features/common/widgets/back_icon_widget.dart';
 import 'package:recipes/features/common/widgets/form_input_field.dart';
 import 'package:recipes/features/common/widgets/nav_bar.dart';
 import 'package:recipes/features/common/widgets/submit_button1.dart';
+import 'package:recipes/features/nuv_bar_title_clouse.dart';
 import 'package:recipes/features/sign_up/presentation/sign_up_screen.dart';
 
 import '../../all_resipes/all_recipes.dart';
 import '../../dishes_categories/presentation/diets_categories_screen.dart';
 import '../../dishes_categories/presentation/dishes_categories_screen.dart';
+import '../../favorite_button.dart';
 import '../../main_page/main_page.dart';
 import '../../nav_bar_title.dart';
 
@@ -69,9 +71,13 @@ class _SignInState extends State<SignIn> {
         Navigator.pushNamed(context, '/admin_profile');
       } else if (email == userEmail && password == userPassword) {
         // User login
-
-        userRole = 'user';
-        Navigator.pushNamed(context, '/home');
+        if(isFromFavorites){
+          userRole = 'user';
+          Navigator.of(context).pop();
+        }else {
+          userRole = 'user';
+          Navigator.pushNamed(context, '/user_profile');
+        }
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Invalid email or password')),
@@ -89,7 +95,7 @@ class _SignInState extends State<SignIn> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: Column(children: [
-        NavBarTitle(
+        NavBarTitleCl(
             title: 'Sign In',
             navWidget: BackIconWidget(width: width),
             width: width,
