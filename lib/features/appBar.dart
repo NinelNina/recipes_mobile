@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class NavBar extends StatelessWidget {
-  const NavBar({
+class NavBarWithAddAndSearch extends StatelessWidget {
+  const NavBarWithAddAndSearch({
     super.key,
     required this.title,
     required this.navWidget,
@@ -38,28 +38,40 @@ class NavBar extends StatelessWidget {
               ),
             ],
           ),
-          child: Stack(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Positioned(
-                left: 0,
-                child: IconButton(
-                  color: const Color(0xFFFF6E41),
-                  icon: navWidget,
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                ),
+              IconButton(
+                color: const Color(0xFFFF6E41),
+                icon: navWidget,
+                onPressed: () {
+                  Scaffold.of(context).openDrawer();
+                },
               ),
-              Center(
-                child: Text(
-                  title,
-                  style: const TextStyle(
-                    color: Color(0xFFFF6E41),
-                    fontFamily: 'Poppins',
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
+              SizedBox(width: 30),
+              Expanded(
+                child: Center(
+                  child: Text(
+                    title,
+                    style: const TextStyle(
+                      color: Color(0xFFFF6E41),
+                      fontFamily: 'Poppins',
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
+              ),
+              Row(
+                children: [
+                  IconButton(
+                    iconSize: 30,
+                    icon: Icon(Icons.add),
+                    onPressed: () {
+                      Navigator.pushNamed(context, "/add");
+                    },
+                  ),
+                ],
               ),
             ],
           ),

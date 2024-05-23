@@ -2,15 +2,25 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class FormInputField extends StatefulWidget{
+String globalEmail = '';
+
+class FormInputField extends StatefulWidget {
   final String labelText;
   final controller;
   final keyboardType;
   final height;
   final obscureText;
+  final FormFieldValidator<String>? validator; // Add this line
 
-
-  const FormInputField({super.key, required this.labelText, this.controller, this.keyboardType, this.height, this.obscureText});
+  const FormInputField({
+    super.key,
+    required this.labelText,
+    this.controller,
+    this.keyboardType,
+    this.height,
+    this.obscureText,
+    this.validator, // Add this line
+  });
 
   @override
   State<FormInputField> createState() => _FormInputFieldState();
@@ -28,6 +38,9 @@ class _FormInputFieldState extends State<FormInputField> {
         borderRadius: BorderRadius.circular(30),
       ),
       child: TextFormField(
+        onChanged: (value) {
+          globalEmail = value;
+        },
         onTap: () {
           setState(() {
             _hasFocus = true;
@@ -52,17 +65,14 @@ class _FormInputFieldState extends State<FormInputField> {
               fontFamily: 'Poppins',
               fontWeight: FontWeight.w600,
               fontSize: _hasFocus ? 12 : 14,
-              color: const Color(0xFF808080)
-          ),
+              color: const Color(0xFF808080)),
           border: InputBorder.none,
           contentPadding: const EdgeInsets.symmetric(horizontal: 24.0),
         ),
         keyboardType: widget.keyboardType,
         maxLines: 1,
+        validator: widget.validator, // Add this line
       ),
     );
-
-
-
   }
 }
