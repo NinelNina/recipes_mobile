@@ -1,4 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:recipes/core/domain/models/authentication_request.dart';
+import 'package:recipes/core/domain/presentation/bloc/authentication/authorization/authorization_bloc.dart';
+import 'package:recipes/core/domain/presentation/bloc/authentication/authorization/authorization_event.dart';
+import 'package:recipes/core/domain/presentation/bloc/authentication/authorization/authorization_state.dart';
+import 'package:recipes/core/domain/services/authentication_service.dart';
 import 'package:recipes/features/common/widgets/back_icon_widget.dart';
 import 'package:recipes/features/common/widgets/form_input_field.dart';
 import 'package:recipes/features/common/widgets/nav_bar.dart';
@@ -54,35 +60,13 @@ class _SignInState extends State<SignIn> {
     return null;
   }
 
-  void signIn() {
+  void signIn(BuildContext context) {
     if (_formKey.currentState!.validate()) {
       final email = _emailController.text;
       final password = _passwordController.text;
 
-      // Mock data for admin and user
-      final adminEmail = 'admin@example.com';
-      final adminPassword = 'password123';
-      final userEmail = 'user@example.com';
-      final userPassword = 'password456';
-
-      if (email == adminEmail && password == adminPassword) {
-        // Admin login
-        userRole = 'admin';
-        Navigator.pushNamed(context, '/admin_profile');
-      } else if (email == userEmail && password == userPassword) {
-        // User login
-        if(isFromFavorites){
-          userRole = 'user';
-          Navigator.of(context).pop();
-        }else {
-          userRole = 'user';
-          Navigator.pushNamed(context, '/user_profile');
-        }
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Invalid email or password')),
-        );
-      }
+      final request = AuthenticationRequest(email, password);
+      context.read<AuthenticationBloc>().add(AuthenticationButtonPressed(request: request));
     }
   }
 
@@ -92,16 +76,19 @@ class _SignInState extends State<SignIn> {
     final double width = size.width;
     final double height = size.height;
 
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: Column(children: [
-        NavBarTitleCl(
+    return BlocProvider(
+      create: (context) => AuthenticationBloc(authenticationService: AuthenticationService()),
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        body: Column(children: [
+          NavBarTitleCl(
             title: 'Sign In',
             navWidget: BackIconWidget(width: width),
             width: width,
-            height: height),
-        SizedBox(height: height * 0.05),
-        Padding(
+            height: height,
+          ),
+          SizedBox(height: height * 0.05),
+          Padding(
             padding: EdgeInsets.symmetric(horizontal: width * 0.1),
             child: Column(children: [
               Form(
@@ -109,31 +96,58 @@ class _SignInState extends State<SignIn> {
                 child: Column(
                   children: [
                     FormInputField(
-                        labelText: 'Email',
-                        controller: _emailController,
-                        keyboardType: TextInputType.emailAddress,
-                        height: height,
-                        obscureText: false,
-                        validator: validateEmail),
+                      labelText: 'Email',
+                      controller: _emailController,
+                      keyboardType: TextInputType.emailAddress,
+                      height: height,
+                      obscureText: false,
+                      validator: validateEmail,
+                    ),
                     SizedBox(height: height * 0.01),
                     FormInputField(
-                        labelText: 'Password',
-                        controller: _passwordController,
-                        keyboardType: TextInputType.text,
-                        height: height,
-                        obscureText: true,
-                        validator: validatePassword),
+                      labelText: 'Password',
+                      controller: _passwordController,
+                      keyboardType: TextInputType.text,
+                      height: height,
+                      obscureText: true,
+                      validator: validatePassword,
+                    ),
                   ],
                 ),
               ),
               SizedBox(height: height * 0.05),
-              SubmitButton(
-                text: 'Sign In',
-                height: height * 0.06,
-                width: width * 0.76,
-                color: Color(0xFFFF6E41),
-                textColor: Colors.white,
-                onPressed: signIn,
+              BlocConsumer<AuthenticationBloc, AuthenticationState>(
+                listener: (context, state) {
+                  if (state is AuthenticationSuccess) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text('Authentication successful')),
+                    );
+                    if (isFromFavorites) {
+                      userRole = 'user';
+                      Navigator.of(context).pop();
+                    } else {
+                      userRole = 'user';
+                      Navigator.pushNamed(context, '/user_profile');
+                    }
+                  } else if (state is AuthenticationFailure) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text('Authentication failed: ${state.error}')),
+                    );
+                  }
+                },
+                builder: (context, state) {
+                  if (state is AuthenticationLoading) {
+                    return CircularProgressIndicator();
+                  }
+                  return SubmitButton(
+                    text: 'Sign In',
+                    height: height * 0.06,
+                    width: width * 0.76,
+                    color: Color(0xFFFF6E41),
+                    textColor: Colors.white,
+                    onPressed: () => signIn(context),
+                  );
+                },
               ),
               SizedBox(height: height * 0.05),
               Row(
@@ -165,9 +179,10 @@ class _SignInState extends State<SignIn> {
                 ],
               ),
               SizedBox(height: height * 0.02),
-            ])),
-        Spacer(), // Add this to take up the remaining space
-        Align(
+            ]),
+          ),
+          Spacer(),
+          Align(
             alignment: Alignment.bottomCenter,
             child: SubmitButton(
               text: 'Skip',
@@ -176,9 +191,11 @@ class _SignInState extends State<SignIn> {
               color: Color(0xFFFFE0D7),
               textColor: Color(0xFFFF6E41),
               path: '/home',
-            )),
-        SizedBox(height: height * 0.05),
-      ]),
+            ),
+          ),
+          SizedBox(height: height * 0.05),
+        ]),
+      ),
     );
   }
 }

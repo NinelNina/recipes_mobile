@@ -10,13 +10,13 @@ import 'common/top_row/top_bar.dart';
 import 'common/widgets/menu_icon_widget.dart';
 import 'nav_bar_with_favourites.dart';
 
-class CategoriesAndDiens extends StatelessWidget {
+class CategoriesAndDiets extends StatelessWidget {
   final List<String> images;
   final List<String> recipes;
   final List<String> cookingTime;
   final List<bool> isFavorite;
 
-  CategoriesAndDiens({
+  CategoriesAndDiets({
     required this.images,
     required this.recipes,
     required this.cookingTime,
@@ -50,12 +50,8 @@ class CategoriesAndDiens extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => Recipe_ingredients(
-                            count: index,
-                            image: images[index],
-                            recipeName: recipes[index],
-                            cookingTime: cookingTime[index],
-                            isFavorite: isFavorite[index],
+                          builder: (context) => RecipeIngredients(
+                            recipeId: index
                           ),
                         ),
                       );

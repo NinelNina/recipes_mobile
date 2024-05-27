@@ -1,22 +1,28 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:recipes/core/domain/models/ingredient_model.dart';
 import 'package:recipes/features/favourite_button.dart';
 
 import '../widgets/custom_toggle_button.dart';
 
 class RecipeCardIngredients extends StatefulWidget {
-  final int index;
+  final int id;
   final String image;
-  final String recipeName;
-  final String cookingTime;
-  final bool isFavorite;
+  final String title;
+  final String readyInMinutes;
+  final bool isFavouriteRecipe;
+  //final int readyInMinutes;
+  final List<Ingredient> extendedIngredients;
+  final List<String> steps;
 
   const RecipeCardIngredients({
-    required this.index,
+    required this.id,
     required this.image,
-    required this.recipeName,
-    required this.cookingTime,
-    required this.isFavorite,
+    required this.title,
+    required this.readyInMinutes,
+    required this.isFavouriteRecipe,
+    required this.extendedIngredients,
+    required this.steps,
   });
 
   @override
@@ -24,8 +30,8 @@ class RecipeCardIngredients extends StatefulWidget {
 }
 
 class _RecipeCardIngredientsState extends State<RecipeCardIngredients> {
-  List<String> ingredients = ['Item 1', 'Item 2', 'Item 3'];
-  List<String> instructions = ['Step 1', 'Step 2', 'Step 3'];
+  //List<String> ingredients = ['Item 1', 'Item 2', 'Item 3'];
+  //List<String> instructions = ['Step 1', 'Step 2', 'Step 3'];
   int selectedIndex = 0;
   int portions = 1;
 
@@ -62,7 +68,7 @@ class _RecipeCardIngredientsState extends State<RecipeCardIngredients> {
                           ),
                         ],
                       ),
-                      child: Image.asset(
+                      child: Image.network(
                         widget.image,
                         fit: BoxFit.cover,
                       ),
@@ -98,7 +104,7 @@ class _RecipeCardIngredientsState extends State<RecipeCardIngredients> {
                                 children: [
                                   SizedBox(width: width * 0.01),
                                   Text(
-                                    widget.cookingTime,
+                                    widget.readyInMinutes as String,
                                     style: TextStyle(
                                       fontFamily: 'Montserrat',
                                       color: Color(0xFF000000),
@@ -118,7 +124,7 @@ class _RecipeCardIngredientsState extends State<RecipeCardIngredients> {
                   Positioned(
                     top: height * 0.341,
                     right: width * 0.078,
-                    child: FavoritesButton(index: widget.index),
+                    child: FavoritesButton(index: widget.id),
                   ),
                 ],
               ),
@@ -126,7 +132,7 @@ class _RecipeCardIngredientsState extends State<RecipeCardIngredients> {
           ],
         ),
         SizedBox(height: height * 0.008),
-        CustomToggleButton(),
+        CustomToggleButton(extendedIngredients: widget.extendedIngredients, steps: widget.steps),
       ],
     );
   }

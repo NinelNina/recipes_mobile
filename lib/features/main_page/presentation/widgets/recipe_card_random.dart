@@ -6,13 +6,11 @@ import 'main_buttons_four.dart';
 class RecipeCardRandom extends StatelessWidget {
   final String image;
   final String recipeName;
-  final String cookingTime;
   final bool isFavorite;
 
   const RecipeCardRandom({
     required this.image,
     required this.recipeName,
-    required this.cookingTime,
     required this.isFavorite,
   });
 
@@ -69,7 +67,7 @@ class RecipeCardRandom extends StatelessWidget {
                   child: Container(
                     width: width * 0.92,
                     height: height * 0.344,
-                    child: Image.asset(
+                    child: Image.network(
                       alignment: Alignment.center,
                       image,
                       fit: BoxFit.cover,
@@ -120,25 +118,6 @@ class RecipeCardRandom extends StatelessWidget {
                                     SizedBox(width: 0.049),
                                   ],
                                 ),
-                              ),
-                              Row(
-                                children: [
-                                  Icon(
-                                    Icons.timer,
-                                    color: Color(0xFFFF6E41),
-                                    size: 18,
-                                  ),
-                                  SizedBox(width: 4),
-                                  Text(
-                                    cookingTime,
-                                    style: TextStyle(
-                                        color: Color(0xFF5E5E5E),
-                                      fontFamily: 'Montserrat',
-                                      fontSize: 13,
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                  ),
-                                ],
                               ),
                             ],
                           ),

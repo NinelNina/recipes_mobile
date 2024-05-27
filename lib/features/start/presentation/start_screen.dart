@@ -79,7 +79,7 @@ class Start extends StatelessWidget {
         '/approve': (context) => ApplicationsForApproval(),
         '/my_recipes': (context) => MyRecipes(),
         '/add': (context) => AddRecipe(),
-        '/categories_diets': (context) => CategoriesAndDiens(images: images, recipes: recipes, cookingTime: cookingTime, isFavorite: isFavorite),
+        '/categories_diets': (context) => CategoriesAndDiets(images: images, recipes: recipes, cookingTime: cookingTime, isFavorite: isFavorite),
         '/stat': (context) => Statistic(title: 'Statistics', categories: ['Total registered users:','Recipes created by users:','The most popular diet (last month):'],answers: ['200','28','vegan'],),
       },
       debugShowCheckedModeBanner: false,

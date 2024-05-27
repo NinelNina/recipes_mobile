@@ -75,12 +75,8 @@ class All_recipes extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => Recipe_ingredients(
-                            count: index,
-                            image: images[index],
-                            recipeName: recipes[index],
-                            cookingTime: cookingTime[index],
-                            isFavorite: isFavorite[index],
+                          builder: (context) => RecipeIngredients(
+                            recipeId: index
                           ),
                         ),
                       );

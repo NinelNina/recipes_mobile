@@ -16,6 +16,7 @@ class Recipe_ingredients_approval extends StatelessWidget {
   final String recipeName;
   final String cookingTime;
   final bool isFavorite;
+  //TODO: добавить поля из модели
 
   Recipe_ingredients_approval({
     required this.image,
@@ -39,11 +40,13 @@ class Recipe_ingredients_approval extends StatelessWidget {
                 child: Column(
                   children: [
                     RecipeCardIngredients(
-                      index: 1,
+                      id: 1,
                       image: image,
-                      recipeName: recipeName,
-                      cookingTime: cookingTime,
-                      isFavorite: isFavorite,
+                      title: recipeName,
+                      readyInMinutes: cookingTime,
+                      isFavouriteRecipe: isFavorite,
+                      extendedIngredients: [],
+                      steps: [],
                     ),
                     Padding(
                       padding: EdgeInsets.all(16.0),

@@ -1,6 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:recipes/core/domain/presentation/bloc/recipe/random_recipe/random_recipe_bloc.dart';
+import 'package:recipes/core/domain/presentation/bloc/recipe/random_recipe/random_recipe_event.dart';
+import 'package:recipes/core/domain/presentation/bloc/recipe/random_recipe/random_recipe_state.dart';
+import 'package:recipes/core/domain/services/recipe_service.dart';
 import 'package:recipes/features/all_recipes/recipe_ingredients.dart';
 import 'package:recipes/features/common/menu_widgets/drawer_item_in_menu.dart';
 import 'package:recipes/features/common/recipe_card/recipe_card.dart';
@@ -54,52 +60,59 @@ class MainPage extends StatelessWidget {
     final double width = size.width;
     final double height = size.height;
 
+    //SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
 
-
-    return Scaffold(
-      drawer: CustomDrawer(),
-      body: SafeArea(
-        child: Column(
-          children: [
-            NavBarWithTextAndFavorites(
-              title: 'Main page',
-              navWidget: MenuIconWidget(width: width),
-              width: width,
-              height: height,
-            ),
-            SizedBox(height: 35),
-            Expanded(
-              child: ListView.builder(
-                itemCount: 1,
-                itemBuilder: (BuildContext context, int index) {
-                  return InkWell(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => Recipe_ingredients(
-                            count: index,
-                            image: images[index],
-                            recipeName: recipes[index],
-                            cookingTime: cookingTime[index],
-                            isFavorite: isFavorite[index],
-                          ),
+    return BlocProvider(
+      create: (context) => RandomRecipeBloc(RecipeService())..add(FetchRandomRecipe()),
+      child: Scaffold(
+        drawer: CustomDrawer(),
+        body: SafeArea(
+          child: Column(
+            children: [
+              NavBarWithTextAndFavorites(
+                title: 'Main page',
+                navWidget: MenuIconWidget(width: width),
+                width: width,
+                height: height,
+              ),
+              SizedBox(height: 35),
+              Expanded(
+                child: BlocBuilder<RandomRecipeBloc, RandomRecipeState>(
+                  builder: (context, state) {
+                    if (state is RecipeLoading) {
+                      return Center(child: CircularProgressIndicator());
+                    } else if (state is RecipeLoaded) {
+                      final recipe = state.recipe;
+                      return InkWell(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => RecipeIngredients(
+                                recipeId: recipe.id
+                              ),
+                            ),
+                          );
+                        },
+                        child: RecipeCardRandom(
+                          image: recipe.image,
+                          recipeName: recipe.title,
+                          isFavorite: recipe.isFavouriteRecipe,
                         ),
                       );
-                    },
-                    child: RecipeCardRandom(
-                      image: images[index],
-                      recipeName: recipes[index],
-                      cookingTime: cookingTime[index],
-                      isFavorite: isFavorite[index],
-                    ),
-                  );
-                },
+                    } else if (state is RecipeError) {
+                      return Center(child: Text('Error: ${state.message}'));
+                    } else {
+                      return Center(child: Text('No data'));
+                    }
+                  },
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
   }
+
 }

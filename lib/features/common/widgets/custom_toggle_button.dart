@@ -1,6 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:recipes/core/domain/models/ingredient_model.dart';
 
 class CustomToggleButton extends StatefulWidget {
+  final List<Ingredient> extendedIngredients;
+  final List<String> steps;
+
+  const CustomToggleButton({super.key,
+    required this.extendedIngredients,
+    required this.steps});
+
   @override
   _CustomToggleButtonState createState() => _CustomToggleButtonState();
 }
@@ -22,14 +30,14 @@ class _CustomToggleButtonState extends State<CustomToggleButton>
     '1 tsp vanilla extract'
   ];
 
-  List<String> instructions = [
-    'Preheat oven to 350°F (175°C).',
-    'In a large bowl, combine flour, sugar, baking powder, and salt.',
-    'Add eggs, milk, oil, and vanilla extract to the bowl and mix well.',
-    'Pour batter into a greased 9x5 inch loaf pan.',
-    'Bake for 50-60 minutes, or until a toothpick inserted into the center comes out clean.',
-    'Let cool in pan for 10 minutes, then remove from pan and let cool completely on a wire rack.'
-  ];
+  // List<String> steps = [
+  //   'Preheat oven to 350°F (175°C).',
+  //   'In a large bowl, combine flour, sugar, baking powder, and salt.',
+  //   'Add eggs, milk, oil, and vanilla extract to the bowl and mix well.',
+  //   'Pour batter into a greased 9x5 inch loaf pan.',
+  //   'Bake for 50-60 minutes, or until a toothpick inserted into the center comes out clean.',
+  //   'Let cool in pan for 10 minutes, then remove from pan and let cool completely on a wire rack.'
+  // ];
 
   int portions = 1;
 
@@ -293,12 +301,12 @@ class _CustomToggleButtonState extends State<CustomToggleButton>
             : ListView.builder(
           physics: NeverScrollableScrollPhysics(),
           shrinkWrap: true,
-          itemCount: instructions.length,
+          itemCount: widget.steps.length,
           itemBuilder: (context, index) {
             return ListTile(
               leading:
               Icon(Icons.circle, color: Color(0xFFFF6E41), size: 7),
-              title: Text(instructions[index],
+              title: Text(widget.steps[index],
                 style: TextStyle(
                   fontFamily: 'Montserrat',
                   color: Color(0xFF000000),

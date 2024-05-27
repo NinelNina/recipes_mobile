@@ -1,1 +1,1 @@
-const String apiRoot = 'http://92.255.76.152:8080/api/';
+const String apiRoot = 'http://92.255.76.152:8080/api';

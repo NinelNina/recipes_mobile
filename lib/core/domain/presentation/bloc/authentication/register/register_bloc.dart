@@ -5,17 +5,18 @@ import 'register_state.dart';
 
 class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
   final AuthenticationService authenticationService;
-  RegisterBloc({required this.authenticationService}) : super(RegisterInitial());
 
-  Stream<RegisterState> mapEventToState(RegisterEvent event) async* {
-    if (event is RegisterButtonPressed) {
-      yield RegisterLoading();
-      try {
-        await authenticationService.register(event.register);
-        yield RegisterSuccess();
-      } catch (error) {
-        yield RegisterFailure(error: error.toString());
-      }
+  RegisterBloc({required this.authenticationService}) : super(RegisterInitial()) {
+    on<RegisterButtonPressed>(_onRegisterButtonPressed);
+  }
+
+  void _onRegisterButtonPressed(RegisterButtonPressed event, Emitter<RegisterState> emit) async {
+    emit(RegisterLoading());
+    try {
+      await authenticationService.register(event.register);
+      emit(RegisterSuccess());
+    } catch (error) {
+      emit(RegisterFailure(error: error.toString()));
     }
   }
 }

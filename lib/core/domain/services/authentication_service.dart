@@ -28,7 +28,7 @@ class AuthenticationService {
   Future<AuthenticationResponse> authenticate(AuthenticationRequest request) async {
     try {
       final response = await dio.post(
-        'https://yourapi.com/authenticate',
+        '$apiRoot/v1/auth/authenticate',
         data: {
           'email': request.email,
           'password': request.password,

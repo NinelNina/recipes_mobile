@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:recipes/features/all_recipes/satatisticField.dart';
+import 'package:recipes/features/all_recipes/satatistic_field.dart';
 import '../dishes_categories/presentation/widgets/category_field.dart';
 
 class Stat extends StatelessWidget {

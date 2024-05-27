@@ -60,12 +60,8 @@ class Favourite_recipes extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                           builder: (context) =>
-                              Recipe_ingredients(
-                                count: index,
-                                image: images[index],
-                                recipeName: recipes[index],
-                                cookingTime: cookingTime[index],
-                                isFavorite: isFavorite[index],
+                              RecipeIngredients(
+                                recipeId: index
                               ),
                         ),
                       );

@@ -2,10 +2,10 @@ import 'package:recipes/core/domain/models/ingredient_model.dart';
 
 class Recipe
 {
-  final String id;
+  final int id;
   final String title;
   final String image;
-  final String description;
+  final String? description;
   final int readyInMinutes;
   final List<Ingredient> extendedIngredients;
   final List<String> steps;

@@ -6,17 +6,17 @@ import 'authorization_state.dart';
 class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> {
   final AuthenticationService authenticationService;
 
-  AuthenticationBloc({required this.authenticationService}) : super(AuthenticationInitial());
+  AuthenticationBloc({required this.authenticationService}) : super(AuthenticationInitial()) {
+    on<AuthenticationButtonPressed>(onAuthenticationButtonPressed);
+  }
 
-  Stream<AuthenticationState> mapEventToState(AuthenticationEvent event) async* {
-    if (event is AuthenticationButtonPressed) {
-      yield AuthenticationLoading();
-      try {
-        final response = await authenticationService.authenticate(event.request);
-        yield AuthenticationSuccess(token: response.token);
-      } catch (error) {
-        yield AuthenticationFailure(error: error.toString());
-      }
+  void onAuthenticationButtonPressed(AuthenticationButtonPressed event, Emitter<AuthenticationState> emit) async {
+    emit(AuthenticationLoading());
+    try {
+      final response = await authenticationService.authenticate(event.request);
+      emit(AuthenticationSuccess(token: response.token));
+    } catch (error) {
+      emit(AuthenticationFailure(error: error.toString()));
     }
   }
 }
