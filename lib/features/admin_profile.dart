@@ -1,17 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:recipes/features/all_resipes/recipe_ingredients.dart';
+import 'package:recipes/features/all_recipes/recipe_ingredients.dart';
 import 'package:recipes/features/common/menu_widgets/drawer_item_in_menu.dart';
 import 'package:recipes/features/common/recipe_card/recipe_card.dart';
 import 'package:recipes/features/common/top_row/top_row.dart';
-import 'package:recipes/features/common/widgets/%D1%81ustomDrawer.dart';
-import 'package:recipes/features/nuv_bar_title_clouse.dart';
+import 'package:recipes/features/common/widgets/custom_drawer.dart';
+import 'package:recipes/features/nav_bar_title_clouse.dart';
 import 'package:recipes/features/sing_in/presentation/sign_in_screen.dart';
 
 import 'common/top_row/top_bar.dart';
 import 'common/widgets/back_icon_widget.dart';
 import 'common/widgets/menu_icon_widget.dart';
-import 'main_page/main_page.dart';
+import 'main_page/presentation/main_page.dart';
 import 'nav_bar_title.dart';
 
 class AdminProfile extends StatelessWidget {

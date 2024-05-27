@@ -3,14 +3,14 @@ import 'package:recipes/features/common/widgets/back_icon_widget.dart';
 import 'package:recipes/features/common/widgets/form_input_field.dart';
 import 'package:recipes/features/common/widgets/nav_bar.dart';
 import 'package:recipes/features/common/widgets/submit_button1.dart';
-import 'package:recipes/features/nuv_bar_title_clouse.dart';
+import 'package:recipes/features/nav_bar_title_clouse.dart';
 import 'package:recipes/features/sign_up/presentation/sign_up_screen.dart';
 
-import '../../all_resipes/all_recipes.dart';
+import '../../all_recipes/all_recipes.dart';
 import '../../dishes_categories/presentation/diets_categories_screen.dart';
 import '../../dishes_categories/presentation/dishes_categories_screen.dart';
-import '../../favorite_button.dart';
-import '../../main_page/main_page.dart';
+import '../../favourite_button.dart';
+import '../../main_page/presentation/main_page.dart';
 import '../../nav_bar_title.dart';
 
 String userRole = '';

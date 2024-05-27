@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:recipes/features/all_resipes/recipe_ingredients.dart';
+import 'package:recipes/features/all_recipes/recipe_ingredients.dart';
 import 'package:recipes/features/common/menu_widgets/drawer_item_in_menu.dart';
 import 'package:recipes/features/common/recipe_card/recipe_card.dart';
 import 'package:recipes/features/common/top_row/top_row.dart';
-import 'package:recipes/features/common/widgets/%D1%81ustomDrawer.dart';
-import 'package:recipes/features/recipe_ingredients_apruve.dart';
+import 'package:recipes/features/common/widgets/custom_drawer.dart';
+import 'package:recipes/features/recipe_ingredients_approve.dart';
 
 import 'common/recipe_card/recipe_card_Ingredients.dart';
 import 'common/top_row/top_bar.dart';
@@ -13,7 +13,7 @@ import 'common/widgets/back_icon_widget.dart';
 import 'common/widgets/menu_icon_widget.dart';
 import 'dishes_categories/presentation/diets_categories_screen.dart';
 import 'dishes_categories/presentation/dishes_categories_screen.dart';
-import 'nav_bar_text_serch.dart';
+import 'nav_bar_text_search.dart';
 
 class ApplicationsForApproval extends StatelessWidget {
   final List<String> recipes = [

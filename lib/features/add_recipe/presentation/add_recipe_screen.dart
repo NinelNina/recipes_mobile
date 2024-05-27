@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:recipes/features/common/widgets/back_icon_widget.dart';
 
 import '../../common/widgets/nav_bar.dart';
-import '../../nuv_bar_title_clouse.dart';
+import '../../nav_bar_title_clouse.dart';
 
 class AddRecipe extends StatefulWidget {
   @override

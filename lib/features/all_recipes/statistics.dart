@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:recipes/features/all_resipes/stat.dart';
-import 'package:recipes/features/common/widgets/%D1%81ustomDrawer.dart';
+import 'package:recipes/features/all_recipes/stat.dart';
+import 'package:recipes/features/common/widgets/custom_drawer.dart';
 import 'package:recipes/features/common/widgets/menu_icon_widget.dart';
 import 'package:recipes/features/dishes_categories/presentation/widgets/category_list.dart';
 
@@ -9,7 +9,7 @@ import '../common/top_row/top_bar.dart';
 import '../common/widgets/back_icon_widget.dart';
 import '../common/widgets/nav_bar.dart';
 import '../nav_bar_title.dart';
-import '../nuv_bar_title_clouse.dart';
+import '../nav_bar_title_clouse.dart';
 
 class Statistic extends StatelessWidget {
   const Statistic({super.key, required this.title, required this.categories, required this.answers});

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:recipes/features/all_resipes/statistics.dart';
+import 'package:recipes/features/all_recipes/statistics.dart';
 
 import 'widgets/categories_screen.dart';
 

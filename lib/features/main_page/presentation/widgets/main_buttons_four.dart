@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'main_batton.dart';
+import 'main_button.dart';
 
 class MainButtons extends StatelessWidget {
 

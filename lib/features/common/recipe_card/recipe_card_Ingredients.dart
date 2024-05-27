@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:recipes/features/favorite_button.dart';
+import 'package:recipes/features/favourite_button.dart';
 
 import '../widgets/custom_toggle_button.dart';
 

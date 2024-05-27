@@ -1,22 +1,22 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:recipes/features/all_resipes/recipe_ingredients.dart';
+import 'package:recipes/features/all_recipes/recipe_ingredients.dart';
 import 'package:recipes/features/common/menu_widgets/drawer_item_in_menu.dart';
 import 'package:recipes/features/common/recipe_card/recipe_card.dart';
 import 'package:recipes/features/common/top_row/top_row.dart';
-import 'package:recipes/features/common/widgets/%D1%81ustomDrawer.dart';
+import 'package:recipes/features/common/widgets/custom_drawer.dart';
 import 'package:recipes/features/my_recipes.dart';
 import 'package:recipes/features/sign_up/presentation/sign_up_screen.dart';
 import 'package:recipes/features/sing_in/presentation/sign_in_screen.dart';
 import 'package:recipes/features/user_recipes.dart';
 
-import 'all_resipes/all_recipes.dart';
+import 'all_recipes/all_recipes.dart';
 import 'common/top_row/top_bar.dart';
 import 'common/widgets/menu_icon_widget.dart';
 import 'dishes_categories/presentation/diets_categories_screen.dart';
 import 'dishes_categories/presentation/dishes_categories_screen.dart';
-import 'fevourites.dart';
-import 'main_page/main_page.dart';
+import 'favourites.dart';
+import 'main_page/presentation/main_page.dart';
 import 'nav_bar_title.dart';
 
 class Profile extends StatelessWidget {

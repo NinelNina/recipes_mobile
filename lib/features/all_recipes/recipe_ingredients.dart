@@ -6,7 +6,7 @@ import 'package:recipes/features/common/recipe_card/recipe_card_Ingredients.dart
 import 'package:recipes/features/common/top_row/top_bar2.dart';
 import 'package:recipes/features/common/top_row/top_row.dart';
 import 'package:recipes/features/common/top_row/top_row_back.dart';
-import 'package:recipes/features/nuv_bar_title_clouse.dart';
+import 'package:recipes/features/nav_bar_title_clouse.dart';
 
 import '../common/widgets/back_icon_widget.dart';
 import '../common/widgets/menu_icon_widget.dart';

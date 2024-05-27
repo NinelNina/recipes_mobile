@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:recipes/features/appBar.dart';
+import 'package:recipes/features/app_bar.dart';
 import 'package:recipes/features/common/widgets/back_icon_widget.dart';
 import 'package:recipes/features/common/widgets/form_input_field.dart';
 import 'package:recipes/features/common/widgets/nav_bar.dart';
 import 'package:recipes/features/common/widgets/submit_button1.dart';
-import 'package:recipes/features/nuv_bar_title_clouse.dart';
+import 'package:recipes/features/nav_bar_title_clouse.dart';
 
-import '../../favorite_button.dart';
-import '../../nav_bar_text_serch.dart';
+import '../../favourite_button.dart';
+import '../../nav_bar_text_search.dart';
 import '../../nav_bar_title.dart';
-import '../../nav_bar_with_favorites.dart';
+import '../../nav_bar_with_favourites.dart';
 import '../../sing_in/presentation/sign_in_screen.dart';
 
 Map<String, String> _users = {};

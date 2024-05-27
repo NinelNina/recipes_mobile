@@ -9,7 +9,7 @@ import 'package:recipes/features/common/top_row/top_row_back.dart';
 import 'package:recipes/features/common/widgets/menu_icon_widget.dart';
 
 import 'common/widgets/back_icon_widget.dart';
-import 'nuv_bar_title_clouse.dart';
+import 'nav_bar_title_clouse.dart';
 
 class Recipe_ingredients_approval extends StatelessWidget {
   final String image;

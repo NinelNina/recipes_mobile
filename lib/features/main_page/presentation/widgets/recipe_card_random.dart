@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'main_batton.dart';
-import 'main_battons_four.dart';
+import 'main_button.dart';
+import 'main_buttons_four.dart';
 
 class RecipeCardRandom extends StatelessWidget {
   final String image;

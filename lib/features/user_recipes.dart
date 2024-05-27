@@ -1,15 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:recipes/features/all_resipes/recipe_ingredients.dart';
+import 'package:recipes/features/all_recipes/recipe_ingredients.dart';
 import 'package:recipes/features/common/menu_widgets/drawer_item_in_menu.dart';
 import 'package:recipes/features/common/recipe_card/recipe_card.dart';
 import 'package:recipes/features/common/top_row/top_row.dart';
-import 'package:recipes/features/common/widgets/%D1%81ustomDrawer.dart';
+import 'package:recipes/features/common/widgets/custom_drawer.dart';
 
 import 'common/top_row/top_bar.dart';
 import 'common/widgets/menu_icon_widget.dart';
 import 'nav_bar_title.dart';
-import 'nav_bar_with_favorites.dart';
+import 'nav_bar_with_favourites.dart';
 
 class User_recipes extends StatelessWidget {
   final List<String> recipes = [
