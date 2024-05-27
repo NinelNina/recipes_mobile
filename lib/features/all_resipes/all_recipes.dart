@@ -31,8 +31,6 @@ class All_recipes extends StatelessWidget {
     'assets/images/imageRecipe.jpeg',
     'assets/images/imageRecipe.jpeg',
     'assets/images/imageRecipe.jpeg',
-
-
   ];
 
   final List<bool> isFavorite = [

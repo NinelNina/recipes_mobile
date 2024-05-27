@@ -6,7 +6,7 @@ class UserRecipe
   final String image;
   final String imageExtension;
   final String description;
-  final String category; //?
+  final String category;
   final int readyInMinutes;
   final List<Ingredient> extendedIngredients;
   final List<String> steps;
