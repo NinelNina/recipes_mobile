@@ -90,7 +90,7 @@ class AdminProfile extends StatelessWidget {
                                 height: height * 0.034,
                                 child: Image.asset('assets/images/shuffle.png'), // Используйте вашу собственную иконку выхода
                               ),
-                              title: Text('application statistics',
+                              title: Text('Application statistics',
                                 style: TextStyle(
                                   fontFamily: 'Montserrat',
                                   color: Color(0xFF000000),

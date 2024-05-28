@@ -2,7 +2,7 @@ class RecipePreview
 {
   final int id;
   final String title;
-  final String image;
+  final String? image;
   final bool isUserRecipe;
   final bool isFavouriteRecipe;
 

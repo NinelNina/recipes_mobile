@@ -3,7 +3,7 @@ import 'package:recipes/core/domain/models/ingredient_model.dart';
 
 class CustomToggleButton extends StatefulWidget {
   final List<Ingredient> extendedIngredients;
-  final List<String> steps;
+  final List<String>? steps;
 
   const CustomToggleButton({super.key,
     required this.extendedIngredients,
@@ -18,17 +18,40 @@ class _CustomToggleButtonState extends State<CustomToggleButton>
   int selectedIndex = 0;
   late AnimationController _animationController;
   late Animation<double> _animation;
+  List<String> ingredients = [];
 
-  List<String> ingredients = [
-    '1 cup flour',
-    '2 eggs',
-    '1/2 cup sugar',
-    '1 tsp baking powder',
-    '1/2 tsp salt',
-    '1/2 cup milk',
-    '1/2 cup vegetable oil',
-    '1 tsp vanilla extract'
-  ];
+  void parseIngredients() {
+    widget.extendedIngredients.forEach((element) {
+      String result;
+      if (element.amount.truncate() == element.amount){
+        result = element.amount.truncate().toString();
+      }
+      else {
+        result = element.amount.toStringAsFixed(2);
+      }
+
+      String tmp_unit = '';
+      if (element.unit.isNotEmpty){
+        tmp_unit = element.unit + ' ';
+      }
+
+      ingredients.add(
+          result + ' '
+              + tmp_unit
+              + element.name);
+    });
+  }
+
+  // List<String> ingredients = [
+  //   '1 cup flour',
+  //   '2 eggs',
+  //   '1/2 cup sugar',
+  //   '1 tsp baking powder',
+  //   '1/2 tsp salt',
+  //   '1/2 cup milk',
+  //   '1/2 cup vegetable oil',
+  //   '1 tsp vanilla extract'
+  // ];
 
   // List<String> steps = [
   //   'Preheat oven to 350°F (175°C).',
@@ -47,6 +70,7 @@ class _CustomToggleButtonState extends State<CustomToggleButton>
     _animationController =
         AnimationController(vsync: this, duration: Duration(milliseconds: 300));
     _animation = Tween<double>(begin: 0, end: 1).animate(_animationController);
+    parseIngredients();
   }
 
   @override
@@ -57,16 +81,31 @@ class _CustomToggleButtonState extends State<CustomToggleButton>
 
   void calculatePortions() {
     setState(() {
-      ingredients = [
-        '${(1 * portions).toStringAsFixed(0)} cup flour',
-        '${(2 * portions).toStringAsFixed(0)} eggs',
-        '${(1 / 2 * portions).toStringAsFixed(2)} cup sugar',
-        '${(1 * portions).toStringAsFixed(0)} tsp baking powder',
-        '${(1 / 2 * portions).toStringAsFixed(2)} tsp salt',
-        '${(1 / 2 * portions).toStringAsFixed(2)} cup milk',
-        '${(1 / 2 * portions).toStringAsFixed(2)} cup vegetable oil',
-        '${(1 * portions).toStringAsFixed(0)} tsp vanilla extract'
-      ];
+      ingredients = [];
+      widget.extendedIngredients.forEach((element) {
+        var tmp_amount = portions * element.amount;
+        String result;
+        if (tmp_amount.truncate() == tmp_amount){
+          result = tmp_amount.truncate().toString();
+        }
+        else {
+          result = tmp_amount.toStringAsFixed(2);
+        }
+        ingredients.add(
+            result + ' '
+                + element.unit + ' '
+                + element.name);
+      });
+      // ingredients = [
+      //   '${(1 * portions).toStringAsFixed(0)} cup flour',
+      //   '${(2 * portions).toStringAsFixed(0)} eggs',
+      //   '${(1 / 2 * portions).toStringAsFixed(2)} cup sugar',
+      //   '${(1 * portions).toStringAsFixed(0)} tsp baking powder',
+      //   '${(1 / 2 * portions).toStringAsFixed(2)} tsp salt',
+      //   '${(1 / 2 * portions).toStringAsFixed(2)} cup milk',
+      //   '${(1 / 2 * portions).toStringAsFixed(2)} cup vegetable oil',
+      //   '${(1 * portions).toStringAsFixed(0)} tsp vanilla extract'
+      // ];
     });
   }
 
@@ -301,12 +340,12 @@ class _CustomToggleButtonState extends State<CustomToggleButton>
             : ListView.builder(
           physics: NeverScrollableScrollPhysics(),
           shrinkWrap: true,
-          itemCount: widget.steps.length,
+          itemCount: widget.steps!.length,
           itemBuilder: (context, index) {
             return ListTile(
               leading:
               Icon(Icons.circle, color: Color(0xFFFF6E41), size: 7),
-              title: Text(widget.steps[index],
+              title: Text(widget.steps![index],
                 style: TextStyle(
                   fontFamily: 'Montserrat',
                   color: Color(0xFF000000),

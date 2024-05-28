@@ -6,6 +6,7 @@ import 'package:recipes/features/common/widgets/submit_button1.dart';
 import 'package:recipes/features/favourites.dart';
 import 'package:recipes/features/my_recipes.dart';
 import 'package:recipes/features/sign_up/presentation/sign_up_screen.dart';
+import 'package:recipes/features/splash/presentation/splash_screen.dart';
 import 'package:recipes/features/user_recipes.dart';
 
 import '../../all_recipes/all_recipes.dart';
@@ -15,7 +16,7 @@ import '../../applications_for_approval.dart';
 import '../../dishes_categories/presentation/diets_categories_screen.dart';
 import '../../dishes_categories/presentation/dishes_categories_screen.dart';
 import '../../main_page/presentation/main_page.dart';
-import '../../profile.dart';
+import '../../user_profile.dart';
 import '../../sing_in/presentation/sign_in_screen.dart';
 
 class Start extends StatelessWidget {
@@ -66,6 +67,7 @@ class Start extends StatelessWidget {
 
     return MaterialApp(
       routes: {
+        '/splash': (context) => SplashScreen(),
         '/all_recipes': (context) => All_recipes(),
         '/categories': (context) => DishesCategories(),
         '/diets': (context) => DietsCategories(),
@@ -75,7 +77,7 @@ class Start extends StatelessWidget {
         '/favourites': (context) => Favourite_recipes(),
         '/user_recipes': (context) => User_recipes(),
         '/admin_profile': (context) => AdminProfile(profile: "admin"),
-        '/user_profile': (context) => Profile(profile: "user",),
+        '/user_profile': (context) => UserProfile(profile: "user",),
         '/approve': (context) => ApplicationsForApproval(),
         '/my_recipes': (context) => MyRecipes(),
         '/add': (context) => AddRecipe(),
@@ -83,16 +85,17 @@ class Start extends StatelessWidget {
         '/stat': (context) => Statistic(title: 'Statistics', categories: ['Total registered users:','Recipes created by users:','The most popular diet (last month):'],answers: ['200','28','vegan'],),
       },
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
+      home: SafeArea(child: Scaffold(
         backgroundColor: Colors.white,
         body: Column(
           children: [
             Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                SizedBox(
+                /*SizedBox(
+
                   height: MediaQuery.of(context).padding.top,
-                ),
+                ),*/
                 Image.asset(
                   'assets/images/start_screen_img.png',
                   width: width,
@@ -140,7 +143,7 @@ class Start extends StatelessWidget {
                     height: height * 0.06,
                     color: Color(0xFFFF6E41),
                     textColor: Colors.white,
-                      path: "/login",
+                      path: "/splash",
                   )
                 ),
                 SizedBox(height: height * 0.03),
@@ -148,7 +151,7 @@ class Start extends StatelessWidget {
             ),
           ],
         ),
-      ),
+      )),
     );
   }
 }

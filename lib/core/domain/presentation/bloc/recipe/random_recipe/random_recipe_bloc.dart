@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:bloc/bloc.dart';
 import 'package:recipes/core/domain/services/recipe_service.dart';
@@ -17,8 +18,12 @@ class RandomRecipeBloc extends Bloc<RandomRecipeEvent, RandomRecipeState> {
       try {
         final recipe = await recipeService.fetchRandomRecipePreview();
         emit(RecipeLoaded(recipe));
-      } catch (e) {
-        emit(RecipeError(e.toString()));
+      } catch (error) {
+        if (error is DioException && error.response?.statusCode == 403) {
+          emit(RecipeError('Sorry, recipes are not available right now :('));
+        } else {
+          emit(RecipeError('An unexpected error occurred'));
+        }
       }
   }
 }

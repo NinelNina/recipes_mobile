@@ -3,13 +3,11 @@ import 'package:flutter/material.dart';
 class RecipeCard extends StatelessWidget {
   final String image;
   final String recipeName;
-  final String cookingTime;
   final bool isFavorite;
 
   const RecipeCard({
     required this.image,
     required this.recipeName,
-    required this.cookingTime,
     required this.isFavorite,
   });
 
@@ -100,25 +98,6 @@ class RecipeCard extends StatelessWidget {
                                     SizedBox(width: width * 0.05),
                                   ],
                                 ),
-                              ),
-                              Row(
-                                children: [
-                                  Icon(
-                                    Icons.timer,
-                                    color: Color(0xFFFF6E41),
-                                    size: 18,
-                                  ),
-                                  SizedBox(width: 4),
-                                  Text(
-                                    cookingTime,
-                                    style: TextStyle(
-                                      fontFamily: 'Montserrat',
-                                      fontWeight: FontWeight.w400,
-                                      color: Color(0xFF5E5E5E),
-                                      fontSize: 13,
-                                    ),
-                                  ),
-                                ],
                               ),
                             ],
                           ),

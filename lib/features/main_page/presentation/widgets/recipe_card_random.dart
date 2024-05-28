@@ -4,7 +4,7 @@ import 'main_button.dart';
 import 'main_buttons_four.dart';
 
 class RecipeCardRandom extends StatelessWidget {
-  final String image;
+  final String? image;
   final String recipeName;
   final bool isFavorite;
 
@@ -67,9 +67,15 @@ class RecipeCardRandom extends StatelessWidget {
                   child: Container(
                     width: width * 0.92,
                     height: height * 0.344,
-                    child: Image.network(
+                    child: image != null
+                        ? Image.network(
                       alignment: Alignment.center,
-                      image,
+                      image!,
+                      fit: BoxFit.cover,
+                    )
+                        : Image.asset(
+                      'assets/images/default_recipe.png',
+                      alignment: Alignment.center,
                       fit: BoxFit.cover,
                     ),
                   ),

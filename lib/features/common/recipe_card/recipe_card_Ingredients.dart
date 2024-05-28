@@ -11,9 +11,8 @@ class RecipeCardIngredients extends StatefulWidget {
   final String title;
   final String readyInMinutes;
   final bool isFavouriteRecipe;
-  //final int readyInMinutes;
   final List<Ingredient> extendedIngredients;
-  final List<String> steps;
+  final List<String>? steps;
 
   const RecipeCardIngredients({
     required this.id,
@@ -30,8 +29,6 @@ class RecipeCardIngredients extends StatefulWidget {
 }
 
 class _RecipeCardIngredientsState extends State<RecipeCardIngredients> {
-  //List<String> ingredients = ['Item 1', 'Item 2', 'Item 3'];
-  //List<String> instructions = ['Step 1', 'Step 2', 'Step 3'];
   int selectedIndex = 0;
   int portions = 1;
 
@@ -104,7 +101,7 @@ class _RecipeCardIngredientsState extends State<RecipeCardIngredients> {
                                 children: [
                                   SizedBox(width: width * 0.01),
                                   Text(
-                                    widget.readyInMinutes as String,
+                                    widget.readyInMinutes,
                                     style: TextStyle(
                                       fontFamily: 'Montserrat',
                                       color: Color(0xFF000000),

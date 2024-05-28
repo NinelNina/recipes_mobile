@@ -14,10 +14,11 @@ import 'package:recipes/features/all_recipes/recipe_ingredients.dart';
 
 import 'features/applications_for_approval.dart';
 import 'features/main_page/presentation/main_page.dart';
-import 'features/profile.dart';
+import 'features/user_profile.dart';
 import 'features/recipe_ingredients_approve.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   //runApp(All_recipes());
   //runApp(MyRecipes());
   //runApp(ApplicationsForApproval());

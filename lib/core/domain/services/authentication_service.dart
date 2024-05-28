@@ -8,7 +8,7 @@ import 'package:dio/dio.dart';
 class AuthenticationService {
   final Dio dio = Dio();
 
-  Future<void> register(Register register) async {
+  Future<AuthenticationResponse> register(Register register) async {
     try {
       final response = await dio.post(
         '$apiRoot/v1/auth/register',
@@ -17,8 +17,8 @@ class AuthenticationService {
           'password': register.password,
         },
       );
-
       print('User registered: ${response.data}');
+      return AuthenticationResponse.fromJson(response.data);
     } on DioException catch (e) {
       print('Error registering user: $e');
       throw e;

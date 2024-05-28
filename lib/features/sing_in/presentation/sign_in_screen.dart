@@ -76,7 +76,7 @@ class _SignInState extends State<SignIn> {
     final double width = size.width;
     final double height = size.height;
 
-    return BlocProvider(
+    return SafeArea(child: BlocProvider(
       create: (context) => AuthenticationBloc(authenticationService: AuthenticationService()),
       child: Scaffold(
         backgroundColor: Colors.white,
@@ -131,7 +131,7 @@ class _SignInState extends State<SignIn> {
                     }
                   } else if (state is AuthenticationFailure) {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('Authentication failed: ${state.error}')),
+                      SnackBar(content: Text('${state.error}'), backgroundColor: Colors.redAccent,),
                     );
                   }
                 },
@@ -196,6 +196,6 @@ class _SignInState extends State<SignIn> {
           SizedBox(height: height * 0.05),
         ]),
       ),
-    );
+    ));
   }
 }

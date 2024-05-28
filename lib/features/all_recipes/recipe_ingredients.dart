@@ -36,7 +36,7 @@ class RecipeIngredients extends StatelessWidget {
                       child: Column(
                         children: [
                           NavBarTitleCl(
-                            title: recipe.title,
+                            title: recipe.title.toUpperCase(),
                             navWidget: BackIconWidget(width: width),
                             width: width,
                             height: height,

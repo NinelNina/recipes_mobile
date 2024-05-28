@@ -8,7 +8,7 @@ class Recipe
   final String? description;
   final int readyInMinutes;
   final List<Ingredient> extendedIngredients;
-  final List<String> steps;
+  final List<String>? steps;
   final bool isUserRecipe;
   final bool isFavouriteRecipe;
 

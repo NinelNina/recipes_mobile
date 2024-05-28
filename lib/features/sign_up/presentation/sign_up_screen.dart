@@ -85,7 +85,7 @@ class _SignUpState extends State<SignUp> {
     final double width = size.width;
     final double height = size.height;
 
-    return BlocProvider(
+    return SafeArea(child: BlocProvider(
       create: (context) => RegisterBloc(authenticationService: AuthenticationService()),
       child: Scaffold(
         backgroundColor: Colors.white,
@@ -219,7 +219,7 @@ class _SignUpState extends State<SignUp> {
           ],
         ),
       ),
-    );
+    ));
   }
 }
 

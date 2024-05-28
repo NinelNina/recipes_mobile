@@ -69,7 +69,6 @@ class Favourite_recipes extends StatelessWidget {
                     child: RecipeCard(
                       image: images[index],
                       recipeName: recipes[index],
-                      cookingTime: cookingTime[index],
                       isFavorite: isFavorite[index],
                     ),
                   );
