@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:recipes/features/common/menu_widgets/drawer_item_in_menu.dart';
 import 'package:recipes/features/common/recipe_card/recipe_card.dart';
-import 'package:recipes/features/common/recipe_card/recipe_card_Ingredients.dart';
+import 'package:recipes/features/common/recipe_card/full_recipe_card.dart';
 import 'package:recipes/features/common/top_row/top_bar2.dart';
 import 'package:recipes/features/common/top_row/top_row.dart';
 import 'package:recipes/features/common/top_row/top_row_back.dart';
@@ -16,13 +16,14 @@ class Recipe_ingredients_approval extends StatelessWidget {
   final String recipeName;
   final String cookingTime;
   final bool isFavorite;
+  final bool isUserRecipe;
   //TODO: добавить поля из модели
 
   Recipe_ingredients_approval({
     required this.image,
     required this.recipeName,
     required this.cookingTime,
-    required this.isFavorite,
+    required this.isFavorite, required this.isUserRecipe,
   });
 
   @override
@@ -39,12 +40,13 @@ class Recipe_ingredients_approval extends StatelessWidget {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    RecipeCardIngredients(
+                    FullRecipeCard(
                       id: 1,
                       image: image,
                       title: recipeName,
                       readyInMinutes: cookingTime,
                       isFavouriteRecipe: isFavorite,
+                      isUserRecipe: isUserRecipe,
                       extendedIngredients: [],
                       steps: [],
                     ),

@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:recipes/features/all_recipes/recipe_ingredients.dart';
+import 'package:recipes/features/all_recipes/full_recipe_screen.dart';
 import 'package:recipes/features/common/menu_widgets/drawer_item_in_menu.dart';
 import 'package:recipes/features/common/recipe_card/recipe_card.dart';
 import 'package:recipes/features/common/top_row/top_row.dart';
@@ -16,14 +16,13 @@ class CategoriesAndDiets extends StatelessWidget {
   final List<String> cookingTime;
   final List<bool> isFavorite;
 
+  //TODO: интегрировать Bloc complexSearch
   CategoriesAndDiets({
     required this.images,
     required this.recipes,
     required this.cookingTime,
     required this.isFavorite,
   });
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +49,7 @@ class CategoriesAndDiets extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => RecipeIngredients(
+                          builder: (context) => FullRecipe(
                             recipeId: index
                           ),
                         ),

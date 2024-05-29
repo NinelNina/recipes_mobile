@@ -3,7 +3,7 @@ import 'package:recipes/features/add_recipe/presentation/add_recipe_screen.dart'
 import 'package:recipes/features/admin_profile.dart';
 import 'package:recipes/features/categories_and_diets.dart';
 import 'package:recipes/features/common/widgets/submit_button1.dart';
-import 'package:recipes/features/favourites.dart';
+import 'package:recipes/features/favourite_recipes_screen.dart';
 import 'package:recipes/features/my_recipes.dart';
 import 'package:recipes/features/sign_up/presentation/sign_up_screen.dart';
 import 'package:recipes/features/splash/presentation/splash_screen.dart';
@@ -68,13 +68,13 @@ class Start extends StatelessWidget {
     return MaterialApp(
       routes: {
         '/splash': (context) => SplashScreen(),
-        '/all_recipes': (context) => All_recipes(),
+        '/all_recipes': (context) => AllRecipes(),
         '/categories': (context) => DishesCategories(),
         '/diets': (context) => DietsCategories(),
         '/home': (context) => MainPage(),
         '/login': (context) => SignIn(),
         '/sign_up': (context) => SignUp(),
-        '/favourites': (context) => Favourite_recipes(),
+        '/favourites': (context) => FavouriteRecipes(),
         '/user_recipes': (context) => User_recipes(),
         '/admin_profile': (context) => AdminProfile(profile: "admin"),
         '/user_profile': (context) => UserProfile(profile: "user",),
@@ -146,7 +146,7 @@ class Start extends StatelessWidget {
                       path: "/splash",
                   )
                 ),
-                SizedBox(height: height * 0.03),
+                //SizedBox(height: height * 0.03),
               ],
             ),
           ],

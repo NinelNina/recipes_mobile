@@ -1,33 +1,45 @@
 import 'package:flutter/material.dart';
-import 'package:recipes/features/sing_in/presentation/sign_in_screen.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:recipes/core/domain/presentation/bloc/favorite/add_to_favorite/favorite_bloc.dart';
+import 'package:recipes/core/domain/presentation/bloc/favorite/add_to_favorite/favorite_event.dart';
+import 'package:recipes/core/domain/services/token_service.dart';
 
 bool isFromFavorites = false;
 
 class FavoritesButton extends StatefulWidget {
-  final int index;
+  final String recipeId;
+  final bool isUserRecipe;
+  final bool isFavorite;
 
-  const FavoritesButton({required this.index});
+  const FavoritesButton({
+    required this.recipeId,
+    required this.isUserRecipe,
+    required this.isFavorite,
+  });
 
   @override
   _FavoritesButtonState createState() => _FavoritesButtonState();
 }
 
 class _FavoritesButtonState extends State<FavoritesButton> {
+  final TokenService _tokenService = TokenService();
+  late bool isFavorite;
 
-
-
-  final List<bool> isFavorite = [
-    true,
-    false,
-    false,
-    false,
-    false,
-  ];
+  @override
+  void initState() {
+    super.initState();
+    isFavorite = widget.isFavorite;
+  }
 
   void _toggleFavorite() {
     setState(() {
-      isFavorite[widget.index] = !isFavorite[widget.index];
+      isFavorite = !isFavorite;
     });
+    if (isFavorite) {
+      context.read<FavoriteBloc>().add(AddRecipeToFavorite(recipeId: widget.recipeId, isUserRecipe: widget.isUserRecipe));
+    } else {
+      context.read<FavoriteBloc>().add(DeleteRecipeFromFavorite(recipeId: widget.recipeId, isUserRecipe: widget.isUserRecipe));
+    }
   }
 
   @override
@@ -52,25 +64,21 @@ class _FavoritesButtonState extends State<FavoritesButton> {
       ),
       child: IconButton(
         icon: Icon(
-          isFavorite[widget.index] ? Icons.favorite : Icons.favorite_border,
+          isFavorite ? Icons.favorite : Icons.favorite_border,
           color: Color(0xFFF40E36),
         ),
         iconSize: 30,
-
         onPressed: () async {
-          if (userRole != 'user') {
+          final token = await _tokenService.getToken();
+          if (token == null) {
             isFromFavorites = true;
             Navigator.of(context).pushReplacementNamed('/login').then((_) {
               if (isFromFavorites) {
-                // After successful login, add recipe to favorites
-                setState(() {
-                  isFavorite[widget.index] = !isFavorite[widget.index];
-                });
+                _toggleFavorite();
                 isFromFavorites = false;
               }
             });
           } else {
-            // User is authenticated, call the original onPressed function
             _toggleFavorite();
           }
         },

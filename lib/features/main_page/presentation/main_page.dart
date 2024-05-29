@@ -7,7 +7,7 @@ import 'package:recipes/core/domain/presentation/bloc/recipe/random_recipe/rando
 import 'package:recipes/core/domain/presentation/bloc/recipe/random_recipe/random_recipe_event.dart';
 import 'package:recipes/core/domain/presentation/bloc/recipe/random_recipe/random_recipe_state.dart';
 import 'package:recipes/core/domain/services/recipe_service.dart';
-import 'package:recipes/features/all_recipes/recipe_ingredients.dart';
+import 'package:recipes/features/all_recipes/full_recipe_screen.dart';
 import 'package:recipes/features/common/menu_widgets/drawer_item_in_menu.dart';
 import 'package:recipes/features/common/recipe_card/recipe_card.dart';
 import 'package:recipes/features/common/top_row/top_row.dart';
@@ -17,7 +17,7 @@ import 'package:recipes/features/main_page/presentation/widgets/recipe_card_rand
 import 'package:recipes/features/sign_up/presentation/sign_up_screen.dart';
 
 import '../../all_recipes/all_recipes.dart';
-import '../../common/recipe_card/recipe_card_Ingredients.dart';
+import '../../common/recipe_card/full_recipe_card.dart';
 import '../../common/top_row/top_bar.dart';
 import '../../common/widgets/menu_icon_widget.dart';
 import '../../dishes_categories/presentation/diets_categories_screen.dart';
@@ -88,7 +88,7 @@ class MainPage extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => RecipeIngredients(
+                              builder: (context) => FullRecipe(
                                 recipeId: recipe.id
                               ),
                             ),

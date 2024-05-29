@@ -11,8 +11,10 @@ class RecipeService {
 
   Future<RecipePreview> fetchRandomRecipePreview() async {
     try {
+      var token = await _tokenService.getToken();
       final response = await dio.get('$apiRoot/v1/recipes/random',
-          queryParameters: {'token': _tokenService.getToken()});
+          queryParameters: {'isUserRecipe': false},
+          options: Options(headers: {'token': token}));
 
       if (response.statusCode == 200) {
         return RecipePreview.fromJson(response.data);
@@ -25,9 +27,11 @@ class RecipeService {
   }
 
   Future<Recipe> fetchRecipe(int id) async {
+    var token = await _tokenService.getToken();
     try {
       final response = await dio.get('$apiRoot/v1/recipes/$id',
-          queryParameters: {'isUserRecipe': false, 'token': _tokenService.getToken()});
+          queryParameters: {'isUserRecipe': false},
+          options: Options(headers: {'token': token}));
 
       if (response.statusCode == 200) {
         final data = response.data;
@@ -52,18 +56,35 @@ class RecipeService {
     }
   }
 
-  Future<RecipePreview> fetchRecipePreview() async {
+  Future<List<RecipePreview>> fetchComplexSearch(
+      String? query,
+      bool isUserRecipe,
+      String? type,
+      String? diet,
+      int? page,
+      {int? number = 10}) async {
     try {
-      final response = await dio.get('$apiRoot/v1/recipes/random',
-          queryParameters: {'token': _tokenService.getToken()});
+      var token = await _tokenService.getToken();
+      final response = await dio.get('$apiRoot/v1/recipes/complexSearch',
+          queryParameters: {
+            'query': query,
+            'isUserRecipes': isUserRecipe,
+            'type': type,
+            'diet': diet,
+            'page': page,
+            'number': number
+          },
+          options: Options(headers: {'token': token}));
 
       if (response.statusCode == 200) {
-        return RecipePreview.fromJson(response.data);
+        List<dynamic> body = response.data['results'];
+        List<RecipePreview> recipes = body.map((dynamic item) => RecipePreview.fromJson(item)).toList();
+        return recipes;
       } else {
-        throw Exception('Failed to load random recipe');
+        throw Exception('Failed to load recipes');
       }
     } on DioException catch (e) {
-      throw Exception('Error fetching random recipe: ${e.message}');
+      throw Exception('Error fetching recipes: ${e.message}');
     }
   }
 }

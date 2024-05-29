@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class RecipeCard extends StatelessWidget {
-  final String image;
+  final String? image;
   final String recipeName;
   final bool isFavorite;
 
@@ -47,9 +47,20 @@ class RecipeCard extends StatelessWidget {
                         topLeft: Radius.circular(30),
                         topRight: Radius.circular(30),
                       ),
-                      child: Image.asset(
-                        image,
-                        fit: BoxFit.cover,
+                      child: Container(
+                        width: width * 0.92,
+                        height: height * 0.344,
+                        child: image != null
+                            ? Image.network(
+                          alignment: Alignment.center,
+                          image!,
+                          fit: BoxFit.cover,
+                        )
+                            : Image.asset(
+                          'assets/images/default_recipe.png',
+                          alignment: Alignment.center,
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     )
                   ),

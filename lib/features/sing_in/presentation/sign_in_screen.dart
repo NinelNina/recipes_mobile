@@ -127,7 +127,7 @@ class _SignInState extends State<SignIn> {
                       Navigator.of(context).pop();
                     } else {
                       userRole = 'user';
-                      Navigator.pushNamed(context, '/user_profile');
+                      Navigator.popAndPushNamed(context, '/user_profile');
                     }
                   } else if (state is AuthenticationFailure) {
                     ScaffoldMessenger.of(context).showSnackBar(

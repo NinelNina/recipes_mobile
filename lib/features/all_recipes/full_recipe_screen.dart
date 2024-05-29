@@ -4,15 +4,15 @@ import 'package:recipes/core/domain/presentation/bloc/recipe/recipe_by_id/recipe
 import 'package:recipes/core/domain/presentation/bloc/recipe/recipe_by_id/recipe_event.dart';
 import 'package:recipes/core/domain/presentation/bloc/recipe/recipe_by_id/recipe_state.dart';
 import 'package:recipes/core/domain/services/recipe_service.dart';
+import 'package:recipes/features/common/recipe_card/full_recipe_card.dart';
 import 'package:recipes/features/common/widgets/back_icon_widget.dart';
 import 'package:recipes/features/common/widgets/menu_icon_widget.dart';
 import 'package:recipes/features/nav_bar_title_clouse.dart';
-import 'package:recipes/features/common/recipe_card/recipe_card_Ingredients.dart';
 
-class RecipeIngredients extends StatelessWidget {
+class FullRecipe extends StatelessWidget {
   final int recipeId;
 
-  RecipeIngredients({required this.recipeId});
+  FullRecipe({required this.recipeId});
 
   @override
   Widget build(BuildContext context) {
@@ -45,14 +45,15 @@ class RecipeIngredients extends StatelessWidget {
                             child: ListView.builder(
                               itemCount: 1,
                               itemBuilder: (BuildContext context, int index) {
-                                return RecipeCardIngredients(
-                                  id: 0,
+                                return FullRecipeCard(
+                                  id: recipe.id,
                                   image: recipe.image,
                                   title: recipe.title,
                                   readyInMinutes: '${recipe.readyInMinutes} min',
                                   isFavouriteRecipe: recipe.isFavouriteRecipe,
                                   extendedIngredients: recipe.extendedIngredients,
                                   steps: recipe.steps,
+                                  isUserRecipe: recipe.isUserRecipe,
                                 );
                               },
                             ),

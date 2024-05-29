@@ -136,6 +136,8 @@ class UserProfile extends StatelessWidget {
                             onTap: () async {
                               await _tokenService.deleteToken();
                               userRole = '';
+                              //Navigator.push(context, ModalRoute.withName('/login'));
+                              //TODO: исправить возврат на экраны
                               Navigator.pushNamed(context, '/login');
                             },
                           ),

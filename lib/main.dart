@@ -10,7 +10,7 @@ import 'package:recipes/features/sign_up/presentation/sign_up_screen.dart';
 import 'package:recipes/features/sing_in/presentation/sign_in_screen.dart';
 import 'package:recipes/features/start/presentation/start_screen.dart';
 import 'package:recipes/features/all_recipes/all_recipes.dart';
-import 'package:recipes/features/all_recipes/recipe_ingredients.dart';
+import 'package:recipes/features/all_recipes/full_recipe_screen.dart';
 
 import 'features/applications_for_approval.dart';
 import 'features/main_page/presentation/main_page.dart';
