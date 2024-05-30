@@ -244,8 +244,21 @@ class _CustomToggleButtonState extends State<CustomToggleButton>
             ? Column(
           children: [
             Row(children: [
-              SizedBox(width: width * 0.036),
-              Icon(Icons.circle, color: Color(0xFFFF6E41), size: 10),
+              SizedBox(width: width * 0.074),
+              Container(
+                width: width * 0.105,
+                height: height * 0.043,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  shape: BoxShape.circle,
+                ),
+                child: Image.asset(
+                  width: width * 0.044,
+                  height: height * 0.018,
+                  'assets/images/group@users.png',
+                  fit: BoxFit.cover,
+                ),
+              ),
               SizedBox(width: width * 0.024),
               Text("Portions",
                 style: TextStyle(
@@ -255,8 +268,7 @@ class _CustomToggleButtonState extends State<CustomToggleButton>
                   fontWeight: FontWeight.w600,
                 ),),
               SizedBox(width: width * 0.041),
-              Expanded(
-                child: Container(
+             Container(
                   width: width * 0.05,
                   child: TextField(
                     keyboardType: TextInputType.number,
@@ -264,15 +276,15 @@ class _CustomToggleButtonState extends State<CustomToggleButton>
                       border: InputBorder.none,
                       focusedBorder: UnderlineInputBorder(
                         borderSide: BorderSide(
-                          color: Color(0xFFFF6E41), // цвет обводки
-                          width: 2, // толщина обводки
+                          color: Color(0xFFFF6E41),
+                          width: 2,
                         ),
                       ),
                       enabledBorder: UnderlineInputBorder(
                         borderSide: BorderSide(
-                          color: Color(0xFF000000), // цвет обводки
+                          color: Color(0xFF000000),
                           width: 0.5,
-                          style: BorderStyle.solid,// толщина обводки
+                          style: BorderStyle.solid,
                         ),
                       ),
 
@@ -284,7 +296,6 @@ class _CustomToggleButtonState extends State<CustomToggleButton>
                     },
                   ),
                 ),
-              ),
             ]),
             SizedBox(height: height * 0.007),
             Container(
@@ -318,12 +329,16 @@ class _CustomToggleButtonState extends State<CustomToggleButton>
               ),
             ),
             SizedBox(height: 16),
+
             ListView.builder(
                 physics: NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 itemCount: ingredients.length,
                 itemBuilder: (context, index) {
-                  return ListTile(
+
+                  return Container(
+                    padding: EdgeInsets.only(left: width * 0.049),
+                    child : ListTile(
                     leading: Icon(Icons.circle,
                         color: Color(0xFFFF6E41), size: 7),
                     title: Text(ingredients[index],
@@ -333,7 +348,9 @@ class _CustomToggleButtonState extends State<CustomToggleButton>
                         fontSize: 14,
                         fontWeight: FontWeight.w600,
                       ),),
+                    ),
                   );
+
                 }),
           ],
         )
@@ -342,9 +359,11 @@ class _CustomToggleButtonState extends State<CustomToggleButton>
           shrinkWrap: true,
           itemCount: widget.steps!.length,
           itemBuilder: (context, index) {
-            return ListTile(
+            return Container(
+                padding: EdgeInsets.only(left: width * 0.049),
+              child: ListTile(
               leading:
-              Icon(Icons.circle, color: Color(0xFFFF6E41), size: 7),
+              Icon(Icons.circle, color: Color(0xFFFF6E41), size: 14),
               title: Text(widget.steps![index],
                 style: TextStyle(
                   fontFamily: 'Montserrat',
@@ -352,6 +371,7 @@ class _CustomToggleButtonState extends State<CustomToggleButton>
                   fontSize: 14,
                   fontWeight: FontWeight.w600,
                 ),),
+              ),
             );
           },
         ),
