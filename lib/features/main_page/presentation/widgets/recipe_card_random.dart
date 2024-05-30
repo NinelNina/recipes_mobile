@@ -115,7 +115,7 @@ class RecipeCardRandom extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Visibility(
-                                visible: favorite,
+                                visible: isFavorite,
                                 child: Row(
                                   children: [
                                     Icon(
@@ -165,7 +165,7 @@ class RecipeCardRandom extends StatelessWidget {
                     ),
                     child: Icon(
                       color: Color(0xFFF40E36),
-                      favorite ? Icons.favorite : Icons.favorite_border,
+                      isFavorite ? Icons.favorite : Icons.favorite_border,
                     ),
                   ),
                 ),
