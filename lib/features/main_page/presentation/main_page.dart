@@ -83,22 +83,12 @@ class MainPage extends StatelessWidget {
                       return Center(child: CircularProgressIndicator());
                     } else if (state is RecipeLoaded) {
                       final recipe = state.recipe;
-                      return InkWell(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => FullRecipe(
-                                recipeId: recipe.id
-                              ),
-                            ),
-                          );
-                        },
-                        child: RecipeCardRandom(
+                      return RecipeCardRandom(
                           image: recipe.image,
                           recipeName: recipe.title,
                           isFavorite: recipe.isFavouriteRecipe,
-                        ),
+                          id: recipe.id
+
                       );
                     } else if (state is RecipeError) {
                       return Center(child: Text('Error: ${state.message}'));

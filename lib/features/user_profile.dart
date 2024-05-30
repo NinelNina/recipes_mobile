@@ -1,3 +1,4 @@
+import 'package:appmetrica_plugin/appmetrica_plugin.dart';
 import 'package:flutter/material.dart';
 import 'package:recipes/core/domain/services/token_service.dart';
 import 'package:recipes/features/common/widgets/custom_drawer.dart';
@@ -6,11 +7,12 @@ import 'package:recipes/features/nav_bar_title.dart';
 import 'package:recipes/features/common/widgets/menu_icon_widget.dart';
 import 'package:recipes/features/sing_in/presentation/sign_in_screen.dart';
 
-class UserProfile extends StatelessWidget {
+
+class UserProfileScreen extends StatelessWidget {
   final String profile;
   final TokenService _tokenService = TokenService();
 
-  UserProfile({required this.profile});
+  UserProfileScreen({required this.profile});
 
   @override
   Widget build(BuildContext context) {
@@ -115,6 +117,7 @@ class UserProfile extends StatelessWidget {
                             ),
                             onTap: () {
                               Navigator.pushNamed(context, '/add');
+                              AppMetrica.reportEvent('ButtonAddRecipe Clicked');
                             },
                           ),
                           SizedBox(height: height * 0.05),

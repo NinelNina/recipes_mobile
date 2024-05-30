@@ -11,6 +11,7 @@ import 'package:recipes/features/common/widgets/form_input_field.dart';
 import 'package:recipes/features/common/widgets/nav_bar.dart';
 import 'package:recipes/features/common/widgets/submit_button1.dart';
 import 'package:recipes/features/nav_bar_title_clouse.dart';
+import 'package:appmetrica_plugin/appmetrica_plugin.dart';
 
 import '../../favourite_button.dart';
 import '../../nav_bar_text_search.dart';
@@ -149,6 +150,7 @@ class _SignUpState extends State<SignUp> {
                         } else {
                           userRole = 'user';
                           Navigator.pushNamed(context, '/user_profile');
+                          AppMetrica.reportEvent('ButtonSignUpToProfile Clicked');
                         }
                       } else if (state is RegisterFailure) {
                         ScaffoldMessenger.of(context).showSnackBar(

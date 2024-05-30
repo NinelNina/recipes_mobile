@@ -86,6 +86,7 @@ class ApplicationsForApproval extends StatelessWidget {
                       image: images[index],
                       recipeName: recipes[index],
                       isFavorite: isFavorite[index],
+                      id: index,
                     ),
                   );
                 },

@@ -148,12 +148,7 @@ class _FullRecipeCardState extends State<FullRecipeCard> {
                               recipeId: widget.id.toString(),
                               isUserRecipe: widget.isUserRecipe,
                               isFavorite: widget.isFavouriteRecipe,
-                              // onPressed: () {
-                              //   context.read<FavoriteBloc>().add(AddRecipeToFavorite(
-                              //     recipeId: widget.id.toString(),
-                              //     isUserRecipe: widget.isFavouriteRecipe,
-                              //   ));
-                              //},
+
                             );
                           }
                         },

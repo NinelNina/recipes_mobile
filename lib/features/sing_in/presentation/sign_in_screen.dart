@@ -10,6 +10,7 @@ import 'package:recipes/features/common/widgets/form_input_field.dart';
 import 'package:recipes/features/common/widgets/nav_bar.dart';
 import 'package:recipes/features/common/widgets/submit_button1.dart';
 import 'package:recipes/features/nav_bar_title_clouse.dart';
+import 'package:appmetrica_plugin/appmetrica_plugin.dart';
 import 'package:recipes/features/sign_up/presentation/sign_up_screen.dart';
 
 import '../../all_recipes/all_recipes.dart';
@@ -165,6 +166,7 @@ class _SignInState extends State<SignIn> {
                   GestureDetector(
                     onTap: () {
                       Navigator.pushNamed(context, '/sign_up');
+                      AppMetrica.reportEvent('ButtonSignUpFromSignIn Clicked');
                     },
                     child: Text(
                       ' Sign up',

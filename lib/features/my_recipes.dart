@@ -90,16 +90,13 @@ class MyRecipes extends StatelessWidget {
                       )
                     : ListView.builder(
                         itemCount: recipes.length + 1,
-                        // добавляем единицу, чтобы включить кнопку
                         itemBuilder: (BuildContext context, int index) {
                           if (index == recipes.length) {
-                            // это последний элемент, возвращаем кнопку
                             return Container(
                               width: width * 0.76,
                               height: height * 0.06,
                             );
                           } else {
-                            // это не последний элемент, возвращаем RecipeCard
                             return Column(
                               children: [
                                 Center(
@@ -107,6 +104,7 @@ class MyRecipes extends StatelessWidget {
                                     image: images[index],
                                     recipeName: recipes[index],
                                     isFavorite: isFavorite[index],
+                                    id: index,
                                   ),
                                 ),
                               ],

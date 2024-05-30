@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:appmetrica_plugin/appmetrica_plugin.dart';
 
 class SubmitButton extends StatelessWidget {
   const SubmitButton({
@@ -27,6 +28,7 @@ class SubmitButton extends StatelessWidget {
           (path != null
               ? () {
             Navigator.pushNamed(context, path!);
+            AppMetrica.reportEvent('ButtonHome Clicked');
           }
               : null),
       style: ButtonStyle(

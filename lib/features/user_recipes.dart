@@ -1,3 +1,4 @@
+import 'package:appmetrica_plugin/appmetrica_plugin.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:recipes/features/all_recipes/full_recipe_screen.dart';
@@ -67,6 +68,7 @@ class User_recipes extends StatelessWidget {
                 itemBuilder: (BuildContext context, int index) {
                   return InkWell(
                     onTap: () {
+                      AppMetrica.reportEvent('ButtonUserRecipeCard Clicked');
                       Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -81,6 +83,7 @@ class User_recipes extends StatelessWidget {
                       image: images[index],
                       recipeName: recipes[index],
                       isFavorite: isFavorite[index],
+                      id: index,
                     ),
                   );
                 },

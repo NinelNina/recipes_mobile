@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../all_recipes/full_recipe_screen.dart';
 import 'main_button.dart';
 import 'main_buttons_four.dart';
 
@@ -7,11 +8,13 @@ class RecipeCardRandom extends StatelessWidget {
   final String? image;
   final String recipeName;
   final bool isFavorite;
+  final int id;
 
   const RecipeCardRandom({
     required this.image,
     required this.recipeName,
     required this.isFavorite,
+    required this.id,
   });
 
 
@@ -21,7 +24,16 @@ class RecipeCardRandom extends StatelessWidget {
     final double width = size.width;
     final double height = size.height;
     bool favorite = isFavorite;
-    return Column(
+    return GestureDetector(
+        onTap: () {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => FullRecipe( recipeId: id),
+        ),
+      );
+    },
+    child: Column(
       children: [
         Center(
           child: Container(
@@ -163,6 +175,7 @@ class RecipeCardRandom extends StatelessWidget {
         ),
         MainButtons(),
       ],
+    ),
     );
   }
 }

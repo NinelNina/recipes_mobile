@@ -42,22 +42,12 @@ class AllRecipes extends StatelessWidget {
                         itemCount: state.recipes.length,
                         itemBuilder: (BuildContext context, int index) {
                           final recipe = state.recipes[index];
-                          return InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => FullRecipe(
-                                    recipeId: recipe.id,
-                                  ),
-                                ),
-                              );
-                            },
-                            child: RecipeCard(
+                          return  RecipeCard(
                               image: recipe.image,
                               recipeName: recipe.title,
                               isFavorite: recipe.isFavouriteRecipe,
-                            ),
+                              id: recipe.id
+
                           );
                         },
                       );

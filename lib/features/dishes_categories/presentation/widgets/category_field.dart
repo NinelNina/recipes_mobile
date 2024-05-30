@@ -13,7 +13,13 @@ class CategoryField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return GestureDetector(
+        onTap: () {
+
+            Navigator.pushNamed(context, '/categories_diets');
+
+    },
+    child: Container(
         height: height,
         width: width,
         decoration: BoxDecoration(
@@ -34,6 +40,6 @@ class CategoryField extends StatelessWidget {
               fontWeight: FontWeight.w600,
               fontSize: 20,
               color: Colors.black,
-            )));
+            ))));
   }
 }
