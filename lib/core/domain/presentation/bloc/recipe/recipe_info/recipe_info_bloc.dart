@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:recipes/core/domain/models/diet_model.dart';
 import 'package:recipes/core/domain/models/ingredient_model.dart';
+import 'package:recipes/core/domain/models/ingredient_with_units_model.dart';
 import 'package:recipes/core/domain/models/meal_type_model.dart';
 import 'package:recipes/core/domain/services/recipe_info_service.dart';
 import 'recipe_info_event.dart';
@@ -19,7 +20,7 @@ class RecipeInfoBloc extends Bloc<RecipeInfoEvent, RecipeInfoState> {
     emit(RecipeInfoLoading());
     try {
       final ingredients = await recipeInfoService.getIngredients();
-      emit(RecipeInfoLoaded<Ingredient>(ingredients));
+      emit(RecipeInfoLoaded<IngredientWithUnits>(ingredients));
     } catch (e) {
       emit(RecipeInfoError(e.toString()));
     }

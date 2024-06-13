@@ -10,8 +10,11 @@ class IngredientService {
       final response = await dio.get('$apiRoot/v1/ingredients/');
       if (response.statusCode == 200) {
         List<IngredientWithUnits> ingredients = [];
-        for (var ingredient in response.data){
-          ingredients.add(IngredientWithUnits.fromJson(ingredient));
+        for (var ingredient in response.data['ingredients']) {
+          List<String> unitsList = List<String>.from(ingredient['units'].map((unit) => unit.toString()));
+
+          ingredients.add(IngredientWithUnits(
+              title: ingredient['title'], units: unitsList));
         }
         return ingredients;
       } else {
@@ -21,4 +24,5 @@ class IngredientService {
       throw Exception('Error getting ingredients: ${e.message}');
     }
   }
+
 }
