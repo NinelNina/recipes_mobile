@@ -255,7 +255,7 @@ class _CustomToggleButtonState extends State<CustomToggleButton>
                 child: Image.asset(
                   width: width * 0.044,
                   height: height * 0.018,
-                  'assets/images/group@users.png',
+                  'assets/images/icon_group.png',
                   fit: BoxFit.cover,
                 ),
               ),

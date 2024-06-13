@@ -1,7 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:equatable/equatable.dart';
 import 'package:recipes/core/domain/services/favorite_service.dart';
-import 'package:recipes/core/domain/models/recipe_preview_model.dart';
 
 import 'favorite_event.dart';
 import 'favorite_state.dart';

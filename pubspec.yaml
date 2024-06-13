@@ -82,7 +82,7 @@ flutter:
     - assets/images/add.png
     - assets/images/Path.png
     - assets/images/imageRecipe.jpeg
-    - assets/images/group@users.png
+    - assets/images/icon_group.png
     - assets/icon/
 
   fonts:
