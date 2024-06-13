@@ -6,15 +6,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:recipes/core/domain/models/ingredient_with_units_model.dart';
 import 'package:recipes/core/domain/models/meal_type_model.dart';
-import 'package:recipes/core/domain/presentation/bloc/ingredient/ingredient_bloc.dart';
-import 'package:recipes/core/domain/presentation/bloc/ingredient/ingredient_event.dart';
-import 'package:recipes/core/domain/presentation/bloc/ingredient/ingredient_state.dart';
 import 'package:recipes/core/domain/presentation/bloc/recipe/recipe_info/recipe_info_bloc.dart';
 import 'package:recipes/core/domain/presentation/bloc/recipe/recipe_info/recipe_info_event.dart';
 import 'package:recipes/core/domain/presentation/bloc/recipe/recipe_info/recipe_info_state.dart';
 import 'package:recipes/core/domain/presentation/bloc/recipe/user_recipe/user_recipe_bloc.dart';
-import 'package:recipes/core/domain/presentation/bloc/recipe/user_recipe/user_recipe_event.dart';
-import 'package:recipes/core/domain/services/ingredient_service.dart';
 import 'package:recipes/core/domain/services/recipe_info_service.dart';
 import 'package:recipes/core/domain/services/user_recipe_service.dart';
 import 'package:recipes/features/add_recipe/presentation/widget/ingredient_row.dart';
@@ -37,7 +32,6 @@ class _AddRecipeState extends State<AddRecipe> {
   List<IngredientRow> ingredientRows = [];
   List<StepRow> stepRows = [];
   List<IngredientWithUnits> listIngredientObj = [];
-  late IngredientBloc ingredientBloc;
   late UserRecipeBloc userRecipeBloc;
   late RecipeInfoBloc recipeInfoBloc;
   late File _imageFile;
@@ -45,11 +39,8 @@ class _AddRecipeState extends State<AddRecipe> {
   @override
   void initState() {
     super.initState();
-    //IngredientService ingredientService = IngredientService();
     UserRecipeService userRecipeService = UserRecipeService();
     RecipeInfoService recipeInfoService = RecipeInfoService();
-    /*ingredientBloc = IngredientBloc(ingredientService);
-    ingredientBloc.add(LoadIngredients());*/
     userRecipeBloc = UserRecipeBloc(userRecipeService);
     recipeInfoBloc = RecipeInfoBloc(recipeInfoService: recipeInfoService);
     recipeInfoBloc.add(FetchMealTypes());
