@@ -43,22 +43,11 @@ class FavouriteRecipes extends StatelessWidget {
                         itemCount: recipes.length,
                         itemBuilder: (BuildContext context, int index) {
                           final recipe = recipes[index];
-                          return InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => FullRecipe(
-                                    recipeId: recipe.id,
-                                  ),
-                                ),
-                              );
-                            },
-                            child: RecipeCard(
+                          return RecipeCard(
                               image: recipe.image,
                               recipeName: recipe.title,
                               isFavorite: true,
-                            ),
+                              id: recipe.id,
                           );
                         },
                       );

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:recipes/features/common/widgets/back_icon_widget.dart';
+import 'package:appmetrica_plugin/appmetrica_plugin.dart';
 
 import '../../common/widgets/nav_bar.dart';
 import '../../nav_bar_title_clouse.dart';
@@ -438,7 +439,9 @@ class _AddRecipeState extends State<AddRecipe> {
                 borderRadius: BorderRadius.circular(30),
               ),
             ),
-            onPressed: () {},
+            onPressed: () {
+              AppMetrica.reportEvent('ButtonSaveRecipe Clicked');
+            },
             child: const Text(
               'SAVE',
               style: TextStyle(

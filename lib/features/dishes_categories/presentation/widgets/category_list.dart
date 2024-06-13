@@ -17,16 +17,13 @@ class CategoryList extends StatelessWidget {
     return Column(
       children: categories.map((category) {
         return Column(children: [
-          InkWell(
-            onTap: () {
-              Navigator.pushNamed(context, '/categories_diets');
-            },
-            child: CategoryField(
+
+
+             CategoryField(
               text: category,
               height: height,
               width: width,
             ),
-          ),
           SizedBox(height: height * 0.28)
         ]);
       }).toList(),

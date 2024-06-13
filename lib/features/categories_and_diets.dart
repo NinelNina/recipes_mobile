@@ -44,22 +44,11 @@ class CategoriesAndDiets extends StatelessWidget {
               child: ListView.builder(
                 itemCount: recipes.length,
                 itemBuilder: (BuildContext context, int index) {
-                  return InkWell(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => FullRecipe(
-                            recipeId: index
-                          ),
-                        ),
-                      );
-                    },
-                    child: RecipeCard(
+                  return RecipeCard(
                       image: images[index],
                       recipeName: recipes[index],
                       isFavorite: isFavorite[index],
-                    ),
+                      id: index,
                   );
                 },
               ),

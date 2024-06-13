@@ -81,11 +81,9 @@ class _FullRecipeCardState extends State<FullRecipeCard> {
                     ),
                     Positioned(
                       top: height * 0.395,
-                      //bottom: 0,
                       left: 0,
                       right: 0,
                       child: Container(
-                        //padding: EdgeInsets.all(16),
                         color: Colors.white,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -105,19 +103,14 @@ class _FullRecipeCardState extends State<FullRecipeCard> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Row(
-                                  children: [
-                                    SizedBox(width: width * 0.01),
-                                    Text(
-                                      widget.readyInMinutes,
-                                      style: TextStyle(
-                                        fontFamily: 'Montserrat',
-                                        color: Color(0xFF000000),
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                    ),
-                                  ],
+                                Text(
+                                  widget.readyInMinutes,
+                                  style: TextStyle(
+                                    fontFamily: 'Montserrat',
+                                    color: Color(0xFF000000),
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w600,
+                                  ),
                                 ),
                               ],
                             ),
@@ -128,35 +121,10 @@ class _FullRecipeCardState extends State<FullRecipeCard> {
                     Positioned(
                       top: height * 0.341,
                       right: width * 0.078,
-                      child: BlocConsumer<FavoriteBloc, FavoriteState>(
-                        listener: (context, state) {
-                          if (state is FavoriteLoaded) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(content: Text('Recipe added to favorites')),
-                            );
-                          } else if (state is FavoriteError) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(content: Text('Error: ${state.message}')),
-                            );
-                          }
-                        },
-                        builder: (context, state) {
-                          if (state is FavoriteLoading) {
-                            return CircularProgressIndicator();
-                          } else {
-                            return FavoritesButton(
-                              recipeId: widget.id.toString(),
-                              isUserRecipe: widget.isUserRecipe,
-                              isFavorite: widget.isFavouriteRecipe,
-                              // onPressed: () {
-                              //   context.read<FavoriteBloc>().add(AddRecipeToFavorite(
-                              //     recipeId: widget.id.toString(),
-                              //     isUserRecipe: widget.isFavouriteRecipe,
-                              //   ));
-                              //},
-                            );
-                          }
-                        },
+                      child: FavoritesButton(
+                        recipeId: widget.id.toString(),
+                        isUserRecipe: widget.isUserRecipe,
+                        isFavorite: widget.isFavouriteRecipe,
                       ),
                     ),
                   ],

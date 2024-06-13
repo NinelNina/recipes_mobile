@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:recipes/features/all_recipes/full_recipe_screen.dart';
 
 class RecipeCard extends StatelessWidget {
   final String? image;
   final String recipeName;
   final bool isFavorite;
+  final int id;
 
   const RecipeCard({
     required this.image,
     required this.recipeName,
     required this.isFavorite,
+    required this.id,
   });
 
   @override
@@ -16,13 +19,25 @@ class RecipeCard extends StatelessWidget {
     final Size size = MediaQuery.of(context).size;
     final double width = size.width;
     final double height = size.height;
-    return Column(
+    return GestureDetector(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => FullRecipe( recipeId: id),
+            ),
+          );
+        },
+      child: Column(
       children: [
         SizedBox(height: 6),
         Center(
           child: Container(
             width: width * 0.92,
-            height: height * 0.46,
+            constraints: BoxConstraints(
+              minHeight: 450,
+              maxHeight: 500,
+            ),
             decoration: BoxDecoration(
               color: Colors.white.withOpacity(1),
               borderRadius: BorderRadius.circular(30),
@@ -147,6 +162,7 @@ class RecipeCard extends StatelessWidget {
         ),
         SizedBox(height: height * 0.023),
       ],
+      )
     );
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:recipes/core/domain/services/token_service.dart';
+import 'package:appmetrica_plugin/appmetrica_plugin.dart';
 
 class CustomDrawer extends StatelessWidget {
   final TokenService _tokenService = TokenService();
@@ -101,6 +102,7 @@ class CustomDrawer extends StatelessWidget {
             title: Text('User recipes'),
             onTap: () {
               Navigator.pushNamed(context, '/user_recipes');
+              AppMetrica.reportEvent('ButtonUserRecipe Clicked');
             },
           ),
           SizedBox(height: height * 0.52),

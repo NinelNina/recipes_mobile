@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:recipes/features/add_recipe/presentation/add_recipe_screen.dart';
 import 'package:recipes/features/admin_profile.dart';
@@ -18,6 +19,7 @@ import '../../dishes_categories/presentation/dishes_categories_screen.dart';
 import '../../main_page/presentation/main_page.dart';
 import '../../user_profile.dart';
 import '../../sing_in/presentation/sign_in_screen.dart';
+import 'package:appmetrica_plugin/appmetrica_plugin.dart';
 
 class Start extends StatelessWidget {
   const Start({super.key});
@@ -27,7 +29,7 @@ class Start extends StatelessWidget {
     final Size size = MediaQuery.of(context).size;
     final double width = size.width;
     final double height = size.height;
-
+    AppMetrica.activate(AppMetricaConfig("d90c902e-58ab-4fd1-920c-0ab9858a41db"));
     final List<String> recipes = [
       'RecipeOrDiet 1',
       'RecipeOrDiet 2',
@@ -77,7 +79,7 @@ class Start extends StatelessWidget {
         '/favourites': (context) => FavouriteRecipes(),
         '/user_recipes': (context) => User_recipes(),
         '/admin_profile': (context) => AdminProfile(profile: "admin"),
-        '/user_profile': (context) => UserProfile(profile: "user",),
+        '/user_profile': (context) => UserProfileScreen(profile: "user",),
         '/approve': (context) => ApplicationsForApproval(),
         '/my_recipes': (context) => MyRecipes(),
         '/add': (context) => AddRecipe(),

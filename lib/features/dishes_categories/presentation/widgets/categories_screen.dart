@@ -19,17 +19,26 @@ class Categories extends StatelessWidget {
     final double height = size.height;
 
     return Scaffold(
-            drawer: CustomDrawer(),
-            backgroundColor: Colors.white,
-            body: Center(
-                child: Column(children: [
-                  NavBarTitle(
-                  title: title,
-                  navWidget: MenuIconWidget(width: width),
-                  width: width,
-                  height: height),
-                  SizedBox(height: height * 0.015),
-                  CategoryList(categories: categories, width: width * 0.92, height: height * 0.06)
-            ])));
+      drawer: CustomDrawer(),
+      backgroundColor: Colors.white,
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            NavBarTitle(
+              title: title,
+              navWidget: MenuIconWidget(width: width),
+              width: width,
+              height: height,
+            ),
+            SizedBox(height: height * 0.015),
+            CategoryList(
+              categories: categories,
+              width: width * 0.92,
+              height: height * 0.06,
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
