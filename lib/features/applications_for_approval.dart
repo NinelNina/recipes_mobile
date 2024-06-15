@@ -77,7 +77,7 @@ class ApplicationsForApproval extends StatelessWidget {
                             image: images[index],
                             recipeName: recipes[index],
                             cookingTime: cookingTime[index],
-                            isFavorite: isFavorite[index], isUserRecipe: false,
+                            isFavorite: isFavorite[index], isUserRecipe: true,
                           ),
                         ),
                       );
@@ -86,7 +86,7 @@ class ApplicationsForApproval extends StatelessWidget {
                       image: images[index],
                       recipeName: recipes[index],
                       isFavorite: isFavorite[index],
-                      id: index,
+                      id: index, isUserRecipe: true,
                     ),
                   );
                 },

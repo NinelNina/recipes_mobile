@@ -48,7 +48,7 @@ class CategoriesAndDiets extends StatelessWidget {
                       image: images[index],
                       recipeName: recipes[index],
                       isFavorite: isFavorite[index],
-                      id: index,
+                      id: index, isUserRecipe: true,
                   );
                 },
               ),

@@ -538,25 +538,27 @@ class _AddRecipeState extends State<AddRecipe> {
       ),
       BlocBuilder<UserRecipeBloc, UserRecipeState>(
         builder: (context, state) {
-          WidgetsBinding.instance.addPostFrameCallback((_) {
-            if (state is UserRecipeCreated) {
+          if (state is UserRecipeCreated) {
+            WidgetsBinding.instance.addPostFrameCallback((_) {
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(
                   content: Text('Recipe saved successfully!'),
                   backgroundColor: Colors.green,
                 ),
               );
-              AppMetrica.reportEvent('ButtonSaveRecipe Clicked');
-              Navigator.pushNamed(context, '/my_recipes');
-            } else if (state is UserRecipeError) {
+            });
+            AppMetrica.reportEvent('ButtonSaveRecipe Clicked');
+            Navigator.pushNamed(context, '/my_recipes');
+          } else if (state is UserRecipeError) {
+            WidgetsBinding.instance.addPostFrameCallback((_) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   content: Text('Error saving recipe: ${state.message}'),
                   backgroundColor: Colors.redAccent,
                 ),
               );
-            }
-          });
+            });
+          }
           return Container();
         },
       )

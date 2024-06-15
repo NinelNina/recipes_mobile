@@ -88,7 +88,6 @@ class MainPage extends StatelessWidget {
                           recipeName: recipe.title,
                           isFavorite: recipe.isFavouriteRecipe,
                           id: recipe.id
-
                       );
                     } else if (state is RecipeError) {
                       return Center(child: Text('Error: ${state.message}'));

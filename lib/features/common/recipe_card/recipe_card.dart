@@ -5,6 +5,7 @@ class RecipeCard extends StatelessWidget {
   final String? image;
   final String recipeName;
   final bool isFavorite;
+  final bool isUserRecipe;
   final int id;
 
   const RecipeCard({
@@ -12,6 +13,7 @@ class RecipeCard extends StatelessWidget {
     required this.recipeName,
     required this.isFavorite,
     required this.id,
+    required this.isUserRecipe,
   });
 
   @override
@@ -24,7 +26,7 @@ class RecipeCard extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => FullRecipe( recipeId: id),
+              builder: (context) => FullRecipe(recipeId: id, isUserRecipe: isUserRecipe),
             ),
           );
         },

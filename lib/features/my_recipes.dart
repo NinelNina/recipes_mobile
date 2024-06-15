@@ -91,6 +91,7 @@ class _MyRecipesScreenState extends State<MyRecipesScreen> {
                                   recipeName: recipe.title,
                                   isFavorite: recipe.isFavouriteRecipe,
                                   id: recipe.id,
+                                  isUserRecipe: recipe.isUserRecipe,
                                 ),
                               ),
                             ],

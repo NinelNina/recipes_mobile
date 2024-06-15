@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipes/core/domain/presentation/bloc/favorite/add_to_favorite/favorite_bloc.dart';
 import 'package:recipes/core/domain/presentation/bloc/favorite/add_to_favorite/favorite_event.dart';
 import 'package:recipes/core/domain/presentation/bloc/favorite/add_to_favorite/favorite_state.dart';
-import 'package:recipes/features/all_recipes/full_recipe_screen.dart';
 import 'package:recipes/features/common/recipe_card/recipe_card.dart';
 import 'package:recipes/features/common/widgets/custom_drawer.dart';
 import 'package:recipes/features/common/top_row/top_bar.dart';
@@ -32,7 +31,9 @@ class FavouriteRecipes extends StatelessWidget {
             ),
             Expanded(
               child: BlocProvider(
-                create: (context) => FavoriteBloc(favoriteService: FavoriteService())..add(GetFavoriteRecipes()),
+                create: (context) =>
+                    FavoriteBloc(favoriteService: FavoriteService())
+                      ..add(GetFavoriteRecipes()),
                 child: BlocBuilder<FavoriteBloc, FavoriteState>(
                   builder: (context, state) {
                     if (state is FavoriteLoading) {
@@ -44,10 +45,11 @@ class FavouriteRecipes extends StatelessWidget {
                         itemBuilder: (BuildContext context, int index) {
                           final recipe = recipes[index];
                           return RecipeCard(
-                              image: recipe.image,
-                              recipeName: recipe.title,
-                              isFavorite: true,
-                              id: recipe.id,
+                            image: recipe.image,
+                            recipeName: recipe.title,
+                            isFavorite: true,
+                            id: recipe.id,
+                            isUserRecipe: recipe.isUserRecipe,
                           );
                         },
                       );

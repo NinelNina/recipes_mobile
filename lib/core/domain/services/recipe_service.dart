@@ -26,11 +26,11 @@ class RecipeService {
     }
   }
 
-  Future<Recipe> fetchRecipe(int id) async {
+  Future<Recipe> fetchRecipe(int id, bool isUserRecipe) async {
     var token = await _tokenService.getToken();
     try {
       final response = await dio.get('$apiRoot/v1/recipes/$id',
-          queryParameters: {'isUserRecipe': false},
+          queryParameters: {'isUserRecipe': isUserRecipe},
           options: Options(headers: {'token': token}));
 
       if (response.statusCode == 200) {

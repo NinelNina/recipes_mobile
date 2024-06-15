@@ -46,8 +46,8 @@ class AllRecipes extends StatelessWidget {
                               image: recipe.image,
                               recipeName: recipe.title,
                               isFavorite: recipe.isFavouriteRecipe,
-                              id: recipe.id
-
+                              id: recipe.id,
+                              isUserRecipe: recipe.isUserRecipe,
                           );
                         },
                       );

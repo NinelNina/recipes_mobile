@@ -11,8 +11,9 @@ import 'package:recipes/features/nav_bar_title_clouse.dart';
 
 class FullRecipe extends StatelessWidget {
   final int recipeId;
+  final bool isUserRecipe;
 
-  FullRecipe({required this.recipeId});
+  FullRecipe({required this.recipeId, required this.isUserRecipe});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +22,8 @@ class FullRecipe extends StatelessWidget {
     final double height = size.height;
 
     return BlocProvider(
-      create: (context) => RecipeBloc(RecipeService())..add(FetchRecipe(recipeId)),
+      create: (context) =>
+          RecipeBloc(RecipeService())..add(FetchRecipe(recipeId, isUserRecipe)),
       child: Scaffold(
         body: SafeArea(
           child: Column(
@@ -49,9 +51,11 @@ class FullRecipe extends StatelessWidget {
                                   id: recipe.id,
                                   image: recipe.image,
                                   title: recipe.title,
-                                  readyInMinutes: '${recipe.readyInMinutes} min',
+                                  readyInMinutes:
+                                      '${recipe.readyInMinutes} min',
                                   isFavouriteRecipe: recipe.isFavouriteRecipe,
-                                  extendedIngredients: recipe.extendedIngredients,
+                                  extendedIngredients:
+                                      recipe.extendedIngredients,
                                   steps: recipe.steps,
                                   isUserRecipe: recipe.isUserRecipe,
                                 );

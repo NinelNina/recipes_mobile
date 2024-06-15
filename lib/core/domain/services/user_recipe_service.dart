@@ -46,10 +46,9 @@ class UserRecipeService {
     required List<String> steps,
     required bool isPublish,
   }) async {
-    //try {
+    try {
       final token = await _tokenService.getToken();
-      print(steps);
-      /*final response = await dio.post(
+      final response = await dio.post(
         '$apiRoot/v1/userRecipes/new',
         data: jsonEncode({
           'title': title,
@@ -72,6 +71,6 @@ class UserRecipeService {
       }
     } on DioException catch (e) {
       throw Exception('Error creating user recipe: ${e.message}');
-    }*/
+    }
   }
 }

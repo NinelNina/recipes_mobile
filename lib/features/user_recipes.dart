@@ -52,7 +52,6 @@ class User_recipes extends StatelessWidget {
     final double height = size.height;
     return Scaffold(
       drawer: CustomDrawer(),
-
       body: SafeArea(
         child: Column(
           children: [
@@ -72,10 +71,10 @@ class User_recipes extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) =>
-                              FullRecipe(
-                                recipeId: index
-                              ),
+                          builder: (context) => FullRecipe(
+                            recipeId: index,
+                            isUserRecipe: true,
+                          ),
                         ),
                       );
                     },
@@ -84,6 +83,7 @@ class User_recipes extends StatelessWidget {
                       recipeName: recipes[index],
                       isFavorite: isFavorite[index],
                       id: index,
+                      isUserRecipe: true,
                     ),
                   );
                 },

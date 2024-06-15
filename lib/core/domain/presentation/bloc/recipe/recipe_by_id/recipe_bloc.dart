@@ -13,18 +13,17 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
   void _onFetchRecipe(FetchRecipe event, Emitter<RecipeState> emit) async {
     emit(RecipeLoading());
     try {
-      final recipe = await recipeService.fetchRecipe(event.id);
+      final recipe = await recipeService.fetchRecipe(event.id, event.isUserRecipe);
       emit(RecipeLoaded(recipe));
     } catch (e) {
       emit(RecipeError(e.toString()));
     }
-
-    emit(RecipeLoading());
+/*    emit(RecipeLoading());
     try {
-      final recipe = await recipeService.fetchRecipe(event.id);
+      final recipe = await recipeService.fetchRecipe(event.id, event.isUserRecipe);
       emit(RecipeLoaded(recipe));
     } catch (e) {
       emit(RecipeError(e.toString()));
-    }
+    }*/
   }
 }
