@@ -3,11 +3,11 @@ import 'package:recipes/core/api/api_root.dart';
 import 'package:recipes/core/domain/models/ingredient_model.dart';
 import 'package:recipes/core/domain/models/recipe_model.dart';
 import 'package:recipes/core/domain/models/recipe_preview_model.dart';
-import 'package:recipes/core/domain/services/token_service.dart';
+import 'package:recipes/core/domain/services/user_service.dart';
 
 class RecipeService {
   final Dio dio = Dio();
-  TokenService _tokenService = TokenService();
+  UserService _tokenService = UserService();
 
   Future<RecipePreview> fetchRandomRecipePreview() async {
     try {

@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:recipes/core/domain/services/token_service.dart';
+import 'package:recipes/core/domain/services/user_service.dart';
 import 'package:recipes/features/sing_in/presentation/sign_in_screen.dart';
 
 class NavBarWithTextAndFavorites extends StatelessWidget {
@@ -19,7 +19,7 @@ class NavBarWithTextAndFavorites extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TokenService _tokenService = TokenService();
+    final UserService _tokenService = UserService();
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,

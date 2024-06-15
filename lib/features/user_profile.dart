@@ -1,6 +1,6 @@
 import 'package:appmetrica_plugin/appmetrica_plugin.dart';
 import 'package:flutter/material.dart';
-import 'package:recipes/core/domain/services/token_service.dart';
+import 'package:recipes/core/domain/services/user_service.dart';
 import 'package:recipes/features/common/widgets/custom_drawer.dart';
 import 'package:recipes/features/main_page/presentation/main_page.dart';
 import 'package:recipes/features/nav_bar_title.dart';
@@ -8,11 +8,45 @@ import 'package:recipes/features/common/widgets/menu_icon_widget.dart';
 import 'package:recipes/features/sing_in/presentation/sign_in_screen.dart';
 
 
-class UserProfileScreen extends StatelessWidget {
-  final String profile;
-  final TokenService _tokenService = TokenService();
+class UserProfileScreen extends StatefulWidget {
 
-  UserProfileScreen({required this.profile});
+  UserProfileScreen();
+
+  @override
+  State<UserProfileScreen> createState() => _UserProfileScreenState();
+}
+
+class _UserProfileScreenState extends State<UserProfileScreen> {
+  final UserService _userService = UserService();
+
+  String _username = '';
+
+  Future<String?> getUsername() async {
+    return await _userService.getUsername();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    if (userRole != 'user') {
+      if (userRole == 'administrator') {
+        Navigator.popAndPushNamed(context, '/admin_profile');
+      }
+      else {
+        Navigator.popAndPushNamed(context, '/login');
+      }
+    }
+
+    getUsername().then((username) {
+      setState(() {
+        _username = username!;
+      });
+      if (_username == ''){
+        Navigator.popAndPushNamed(context, '/login');
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +81,7 @@ class UserProfileScreen extends StatelessWidget {
                         ),
                         child: Center(
                           child: Text(
-                            profile,
+                            _username,
                             style: TextStyle(
                               fontFamily: 'Montserrat',
                               color: Color(0xFFFFFFFF),
@@ -137,11 +171,11 @@ class UserProfileScreen extends StatelessWidget {
                               ),
                             ),
                             onTap: () async {
-                              await _tokenService.deleteToken();
+                              await _userService.deleteToken();
+                              await _userService.deleteUsername();
+                              await _userService.deleteRole();
                               userRole = '';
-                              //Navigator.push(context, ModalRoute.withName('/login'));
-                              //TODO: исправить возврат на экраны
-                              Navigator.pushNamed(context, '/login');
+                              Navigator.pushNamedAndRemoveUntil(context, '/login', (Route<dynamic> route) => false);
                             },
                           ),
                         ],

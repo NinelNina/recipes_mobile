@@ -11,6 +11,7 @@ class Recipe
   final List<String>? steps;
   final bool isUserRecipe;
   final bool isFavouriteRecipe;
+  //TODO: добавить type
 
   Recipe({required this.id, required this.title, required this.image,
     required this.description, required this.readyInMinutes,

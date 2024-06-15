@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipes/core/domain/presentation/bloc/favorite/add_to_favorite/favorite_bloc.dart';
 import 'package:recipes/core/domain/presentation/bloc/favorite/add_to_favorite/favorite_event.dart';
 import 'package:recipes/core/domain/presentation/bloc/favorite/add_to_favorite/favorite_state.dart';
-import 'package:recipes/core/domain/services/token_service.dart';
+import 'package:recipes/core/domain/services/user_service.dart';
 
 bool isFromFavorites = false;
 
@@ -23,7 +23,7 @@ class FavoritesButton extends StatefulWidget {
 }
 
 class _FavoritesButtonState extends State<FavoritesButton> {
-  final TokenService _tokenService = TokenService();
+  final UserService _tokenService = UserService();
   late bool isFavorite;
 
   @override

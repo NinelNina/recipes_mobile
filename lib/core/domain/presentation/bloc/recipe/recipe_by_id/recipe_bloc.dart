@@ -18,12 +18,5 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
     } catch (e) {
       emit(RecipeError(e.toString()));
     }
-/*    emit(RecipeLoading());
-    try {
-      final recipe = await recipeService.fetchRecipe(event.id, event.isUserRecipe);
-      emit(RecipeLoaded(recipe));
-    } catch (e) {
-      emit(RecipeError(e.toString()));
-    }*/
   }
 }

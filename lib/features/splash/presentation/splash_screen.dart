@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:recipes/core/domain/services/token_service.dart';
+import 'package:recipes/core/domain/services/user_service.dart';
+import 'package:recipes/features/sing_in/presentation/sign_in_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -7,7 +8,7 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  final TokenService _tokenService = TokenService();
+  final UserService _tokenService = UserService();
 
   @override
   void initState() {
@@ -18,7 +19,17 @@ class _SplashScreenState extends State<SplashScreen> {
   Future<void> _checkToken() async {
     final token = await _tokenService.getToken();
     if (token != null) {
-      Navigator.pushReplacementNamed(context, '/home');
+      userRole = (await _tokenService.getRole())!;
+      print(userRole);
+      if (userRole == 'user') {
+        Navigator.pushReplacementNamed(context, '/home');
+      }
+      else if (userRole == 'administrator') {
+        Navigator.pushReplacementNamed(context, '/admin_profile');
+      }
+      else {
+        Navigator.pushReplacementNamed(context, '/login');
+      }
     } else {
       Navigator.pushReplacementNamed(context, '/login');
     }

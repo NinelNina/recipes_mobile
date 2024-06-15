@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:recipes/core/domain/services/user_service.dart';
 import 'package:recipes/features/sing_in/presentation/sign_in_screen.dart';
 
 class NavBarWithFavorites extends StatelessWidget {
@@ -18,6 +19,7 @@ class NavBarWithFavorites extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    UserService _tokenService = UserService();
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
@@ -82,12 +84,11 @@ class NavBarWithFavorites extends StatelessWidget {
                   ),
                 ),
               ),
-               // добавьте отступ между текстом и правой иконкой
               IconButton(
-                icon: Icon(Icons.favorite,
-                color: Colors.red),
-                onPressed: () {
-                  if (userRole == 'user') {
+                icon: Icon(Icons.favorite, color: Colors.red),
+                onPressed: () async {
+                  final token = await _tokenService.getToken();
+                  if (token != null) {
                     Navigator.pushNamed(context, "/favourites");
                   } else {
                     Navigator.pushNamed(context, "/login");
@@ -97,7 +98,6 @@ class NavBarWithFavorites extends StatelessWidget {
             ],
           ),
         ),
-
       ],
     );
   }
