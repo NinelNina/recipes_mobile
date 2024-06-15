@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class StepRow extends StatelessWidget {
+class StepRow extends StatefulWidget {
   final double screenWidth;
   final double screenHeight;
   final Function(Key) onRemove;
@@ -13,18 +13,34 @@ class StepRow extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  StepRowState createState() => StepRowState();
+}
+
+class StepRowState extends State<StepRow> {
+  String step = '';
+
+  String getCurrentState() {
+    return step;
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         SizedBox(
-          width: screenWidth * 0.9,
-          height: screenHeight * 0.06,
+          width: widget.screenWidth * 0.9,
+          height: widget.screenHeight * 0.06,
           child: Row(
             children: [
               SizedBox(
-                width: screenWidth * 0.8,
-                height: screenHeight * 0.06,
+                width: widget.screenWidth * 0.8,
+                height: widget.screenHeight * 0.06,
                 child: TextFormField(
+                  onChanged: (String? newValue) {
+                    setState(() {
+                      step = newValue ?? '';
+                    });
+                  },
                   decoration: InputDecoration(
                     contentPadding: const EdgeInsets.all(15),
                     border: OutlineInputBorder(
@@ -33,12 +49,12 @@ class StepRow extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(width: screenWidth * 0.024),
-              buildRemoveStepButton(screenWidth, screenHeight),
+              SizedBox(width: widget.screenWidth * 0.024),
+              buildRemoveStepButton(widget.screenWidth, widget.screenHeight),
             ],
           ),
         ),
-        SizedBox(height: screenHeight * 0.011),
+        SizedBox(height: widget.screenHeight * 0.011),
       ],
     );
   }
@@ -49,7 +65,7 @@ class StepRow extends StatelessWidget {
       height: screenHeight * 0.026,
       child: GestureDetector(
         onTap: () {
-          onRemove(key!);
+          widget.onRemove(widget.key!);
         },
         child: const Icon(
           Icons.remove,

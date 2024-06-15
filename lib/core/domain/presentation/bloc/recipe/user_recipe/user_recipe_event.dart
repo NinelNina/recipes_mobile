@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:recipes/core/domain/models/ingredient_model.dart';
 
 abstract class UserRecipeEvent extends Equatable {
   const UserRecipeEvent();
@@ -11,19 +12,19 @@ class FetchUserRecipes extends UserRecipeEvent {}
 
 class CreateUserRecipe extends UserRecipeEvent {
   final String title;
-  final String image;
-  final String imageExtension;
+  final String? image;
+  final String? imageExtension;
   final String description;
   final String category;
   final int readyInMinutes;
-  final List<Map<String, dynamic>> extendedIngredients;
+  final List<Ingredient> extendedIngredients;
   final List<String> steps;
   final bool isPublish;
 
   const CreateUserRecipe({
     required this.title,
-    required this.image,
-    required this.imageExtension,
+    this.image,
+    this.imageExtension,
     required this.description,
     required this.category,
     required this.readyInMinutes,
@@ -35,8 +36,8 @@ class CreateUserRecipe extends UserRecipeEvent {
   @override
   List<Object> get props => [
     title,
-    image,
-    imageExtension,
+    image ?? '',
+    imageExtension ?? '',
     description,
     category,
     readyInMinutes,

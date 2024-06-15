@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:recipes/core/api/api_root.dart';
+import 'package:recipes/core/domain/models/ingredient_model.dart';
 import 'package:recipes/core/domain/models/recipe_preview_model.dart';
 import 'package:recipes/core/domain/services/token_service.dart';
 
@@ -36,12 +37,12 @@ class UserRecipeService {
 
   Future<void> createUserRecipe({
     required String title,
-    required String image,
-    required String imageExtension,
+    required String? image,
+    required String? imageExtension,
     required String description,
     required String category,
     required int readyInMinutes,
-    required List<Map<String, dynamic>> extendedIngredients,
+    required List<Ingredient> extendedIngredients,
     required List<String> steps,
     required bool isPublish,
   }) async {
@@ -56,7 +57,7 @@ class UserRecipeService {
           'description': description,
           'category': category,
           'readyInMinutes': readyInMinutes,
-          'extendedIngredients': extendedIngredients,
+          'extendedIngredients': extendedIngredients.map((ingredient) => ingredient.toJson()).toList(),
           'steps': steps,
           'isPublish': isPublish,
         }),

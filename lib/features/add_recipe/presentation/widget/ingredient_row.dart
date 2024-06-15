@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:recipes/core/domain/models/ingredient_model.dart';
 import 'package:recipes/core/domain/models/ingredient_with_units_model.dart';
 
 class IngredientRow extends StatefulWidget {
@@ -18,22 +19,28 @@ class IngredientRow extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _IngredientRowState createState() => _IngredientRowState();
+  IngredientRowState createState() => IngredientRowState();
 }
 
-class _IngredientRowState extends State<IngredientRow> {
+class IngredientRowState extends State<IngredientRow> {
   String selectedIngredient = '';
+  double amount = 0;
   String selectedUnit = '';
   List<String> currentUnits = [];
 
   @override
   void initState() {
     super.initState();
-    selectedIngredient = widget.ingredients.isNotEmpty ? widget.ingredients[0] : '';
+    selectedIngredient =
+    widget.ingredients.isNotEmpty ? widget.ingredients[0] : '';
     currentUnits = widget.listIngredientObj
         .firstWhere((ingredient) => ingredient.title == selectedIngredient)
         .units;
     selectedUnit = currentUnits.isNotEmpty ? currentUnits[0] : '';
+  }
+
+  Ingredient getCurrentState() {
+    return Ingredient(name: selectedIngredient, amount: amount, unit: selectedUnit);
   }
 
   @override
@@ -43,30 +50,41 @@ class _IngredientRowState extends State<IngredientRow> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          buildDropdown(widget.screenWidth * 0.45, widget.screenHeight * 0.06, widget.ingredients, onChanged: (String? newValue) {
-            setState(() {
-              selectedIngredient = newValue ?? '';
-              currentUnits = widget.listIngredientObj
-                  .firstWhere((ingredient) => ingredient.title == selectedIngredient)
-                  .units;
-              selectedUnit = currentUnits.isNotEmpty ? currentUnits[0] : '';
-            });
-          }),
+          buildDropdown(widget.screenWidth * 0.45, widget.screenHeight * 0.06,
+              widget.ingredients,
+              onChanged: (String? newValue) {
+                setState(() {
+                  selectedIngredient = newValue ?? '';
+                  currentUnits = widget.listIngredientObj
+                      .firstWhere(
+                          (ingredient) => ingredient.title == selectedIngredient)
+                      .units;
+                  selectedUnit = currentUnits.isNotEmpty ? currentUnits[0] : '';
+                });
+              }),
           SizedBox(width: widget.screenWidth * 0.01),
-          buildTextField(widget.screenWidth * 0.20, widget.screenHeight * 0.06, ' '),
+          buildTextField(
+              widget.screenWidth * 0.20, widget.screenHeight * 0.06, ' ',
+              onChanged: (String? newValue) {
+                setState(() {
+                  amount = double.tryParse(newValue!) ?? 0;
+                });
+              }),
           SizedBox(width: widget.screenWidth * 0.01),
-          buildDropdown(widget.screenWidth * 0.20, widget.screenHeight * 0.06, currentUnits, onChanged: (String? newValue) {
-            setState(() {
-              selectedUnit = newValue ?? '';
-            });
-          }),
+          buildDropdown(widget.screenWidth * 0.20, widget.screenHeight * 0.06,
+              currentUnits, onChanged: (String? newValue) {
+                setState(() {
+                  selectedUnit = newValue ?? '';
+                });
+              }),
           buildRemoveIngredientButton(widget.screenWidth, widget.screenHeight),
         ],
       ),
     );
   }
 
-  Widget buildDropdown(double width, double height, List<String> items, {required Function(String? newValue)? onChanged}) {
+  Widget buildDropdown(double width, double height, List<String> items,
+      {required Function(String? newValue)? onChanged}) {
     return SizedBox(
       width: width,
       height: height,
@@ -95,11 +113,13 @@ class _IngredientRowState extends State<IngredientRow> {
     );
   }
 
-  Widget buildTextField(double width, double height, String hintText) {
+  Widget buildTextField(double width, double height, String hintText,
+      {required Function(String? newValue)? onChanged}) {
     return SizedBox(
       width: width,
       height: height,
       child: TextFormField(
+        onChanged: onChanged,
         decoration: InputDecoration(
           hintText: hintText,
           contentPadding: const EdgeInsets.all(15),
