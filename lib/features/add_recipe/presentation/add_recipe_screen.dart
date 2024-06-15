@@ -388,6 +388,7 @@ class _AddRecipeState extends State<AddRecipe> {
         onPressed: () {
           setState(() {
             var key = GlobalKey<StepRowState>();
+            stepKeys.add(key);
             stepRows.add(StepRow(
               key: key,
               screenWidth: screenWidth,
@@ -521,13 +522,6 @@ class _AddRecipeState extends State<AddRecipe> {
                     extendedIngredients: _extendedIngredients,
                     steps: _steps,
                     isPublish: isChecked));
-
-                //TODO: ошибка SnackBar: The showSnackBar() method cannot be called during build.
-                // ScaffoldMessenger.of(context).showSnackBar(
-                //   SnackBar(
-                //     content: Text('Save button clicked.'), backgroundColor: Colors.green,
-                //   ),
-                // );
               },
               child: const Text(
                 'SAVE',
