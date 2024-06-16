@@ -1,19 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:recipes/core/domain/services/user_service.dart';
-import 'package:recipes/features/full_recipe/presentation/full_recipe_screen.dart';
-import 'package:recipes/features/common/menu_widgets/drawer_item_in_menu.dart';
-import 'package:recipes/features/common/recipe_card/recipe_card.dart';
-import 'package:recipes/features/common/top_row/top_row.dart';
 import 'package:recipes/features/common/widgets/custom_drawer.dart';
 import 'package:recipes/features/common/widgets/nav_bar_title_clouse.dart';
 import 'package:recipes/features/sing_in/presentation/sign_in_screen.dart';
 
-import '../../common/top_row/top_bar.dart';
 import '../../common/widgets/back_icon_widget.dart';
-import '../../common/widgets/menu_icon_widget.dart';
-import '../../main_page/presentation/main_page.dart';
-import '../../common/widgets/nav_bar_title.dart';
 
 class AdminProfile extends StatefulWidget {
   const AdminProfile();
@@ -103,7 +94,7 @@ class _AdminProfileState extends State<AdminProfile> {
                               leading: Container(
                                 width: width * 0.073,
                                 height: height * 0.034,
-                                child: Image.asset('assets/images/vector.png'), // Используйте вашу собственную иконку выхода
+                                child: Image.asset('assets/images/vector.png'),
                               ),
                               title: Text('Applications for approval',
                                 style: TextStyle(
@@ -139,7 +130,7 @@ class _AdminProfileState extends State<AdminProfile> {
                               leading: Container(
                                 width: width * 0.073,
                                 height: height * 0.034,
-                                child: Image.asset('assets/images/logout.png'), // Используйте вашу собственную иконку выхода
+                                child: Image.asset('assets/images/logout.png'),
                               ),
                               title: Text('Logout',
                                 style: TextStyle(
@@ -150,11 +141,9 @@ class _AdminProfileState extends State<AdminProfile> {
                                 ),),
                               onTap: () async {
                                 userRole = '';
-                                // Сбросьте любую другую сохраненную информацию о пользователе
                                 await _userService.deleteToken();
                                 await _userService.deleteUsername();
                                 await _userService.deleteRole();
-                                // Перенаправление на экран входа или главный экран
                                 Navigator.pushNamedAndRemoveUntil(context, '/login', (Route<dynamic> route) => false);
                               },
                             ),

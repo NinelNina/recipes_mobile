@@ -3,11 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipes/core/domain/presentation/bloc/favorite/add_to_favorite/favorite_bloc.dart';
 import 'package:recipes/core/domain/presentation/bloc/favorite/add_to_favorite/favorite_event.dart';
 import 'package:recipes/core/domain/presentation/bloc/favorite/add_to_favorite/favorite_state.dart';
-import 'package:recipes/features/common/recipe_card/recipe_card.dart';
-import 'package:recipes/features/common/widgets/custom_drawer.dart';
-import 'package:recipes/features/common/top_row/top_bar.dart';
-import 'package:recipes/features/common/widgets/menu_icon_widget.dart';
 import 'package:recipes/core/domain/services/favorite_service.dart';
+import 'package:recipes/features/common/recipe_card/recipe_card.dart';
+import 'package:recipes/features/common/top_row/top_bar.dart';
+import 'package:recipes/features/common/widgets/custom_drawer.dart';
+import 'package:recipes/features/common/widgets/menu_icon_widget.dart';
 
 class FavouriteRecipes extends StatelessWidget {
   @override

@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:recipes/features/sing_in/presentation/sign_in_screen.dart';
 
 class NavBarTitleCl extends StatelessWidget {
   const NavBarTitleCl({

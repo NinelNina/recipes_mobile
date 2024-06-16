@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:recipes/core/domain/services/authentication_service.dart';
 import 'package:recipes/core/domain/services/user_service.dart';
+
 import 'authorization_event.dart';
 import 'authorization_state.dart';
 

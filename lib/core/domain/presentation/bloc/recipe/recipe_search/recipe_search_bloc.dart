@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
-import 'package:recipes/core/domain/models/recipe_preview_model.dart';
 import 'package:recipes/core/domain/services/recipe_service.dart';
+
 import 'recipe_search_event.dart';
 import 'recipe_search_state.dart';
 

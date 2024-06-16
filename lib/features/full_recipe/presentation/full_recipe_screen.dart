@@ -6,7 +6,6 @@ import 'package:recipes/core/domain/presentation/bloc/recipe/recipe_by_id/recipe
 import 'package:recipes/core/domain/services/recipe_service.dart';
 import 'package:recipes/features/common/recipe_card/full_recipe_card.dart';
 import 'package:recipes/features/common/widgets/back_icon_widget.dart';
-import 'package:recipes/features/common/widgets/menu_icon_widget.dart';
 import 'package:recipes/features/common/widgets/nav_bar_title_clouse.dart';
 
 class FullRecipe extends StatelessWidget {

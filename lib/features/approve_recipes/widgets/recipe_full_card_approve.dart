@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:recipes/core/domain/services/admin_service.dart';
-import 'package:recipes/core/domain/services/recipe_service.dart';
-import 'package:recipes/features/common/widgets/back_icon_widget.dart';
-import 'package:recipes/features/common/widgets/nav_bar_title_clouse.dart';
-import 'package:recipes/core/domain/presentation/bloc/recipe/recipe_by_id/recipe_bloc.dart';
-import 'package:recipes/core/domain/presentation/bloc/recipe/recipe_by_id/recipe_event.dart';
-import 'package:recipes/core/domain/presentation/bloc/recipe/recipe_by_id/recipe_state.dart';
 import 'package:recipes/core/domain/presentation/bloc/admin/admin_bloc.dart';
 import 'package:recipes/core/domain/presentation/bloc/admin/admin_event.dart';
 import 'package:recipes/core/domain/presentation/bloc/admin/admin_state.dart';
+import 'package:recipes/core/domain/presentation/bloc/recipe/recipe_by_id/recipe_bloc.dart';
+import 'package:recipes/core/domain/presentation/bloc/recipe/recipe_by_id/recipe_event.dart';
+import 'package:recipes/core/domain/presentation/bloc/recipe/recipe_by_id/recipe_state.dart';
+import 'package:recipes/core/domain/services/admin_service.dart';
+import 'package:recipes/core/domain/services/recipe_service.dart';
 import 'package:recipes/features/common/recipe_card/full_recipe_card.dart';
+import 'package:recipes/features/common/widgets/back_icon_widget.dart';
+import 'package:recipes/features/common/widgets/nav_bar_title_clouse.dart';
 
 class RecipeFullCardApprove extends StatefulWidget {
   final int id;
@@ -71,7 +71,7 @@ class _RecipeFullCardApproveState extends State<RecipeFullCardApprove> {
                               image: recipe.image,
                               title: recipe.title,
                               type: recipe.type ?? '',
-                              readyInMinutes: recipe.readyInMinutes.toString(),
+                              readyInMinutes: recipe.readyInMinutes.toString() + ' min',
                               isFavouriteRecipe: recipe.isFavouriteRecipe,
                               isUserRecipe: recipe.isUserRecipe,
                               extendedIngredients: recipe.extendedIngredients,
@@ -132,6 +132,7 @@ class _RecipeFullCardApproveState extends State<RecipeFullCardApprove> {
                                                     ? Colors.green
                                                     : Colors.redAccent));
                                   });
+                                  Navigator.pop(context);
                                 } else if (adminState is AdminError) {
                                   return Text('Error: ${adminState.message}');
                                 }

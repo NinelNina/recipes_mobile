@@ -1,4 +1,5 @@
 
+import 'package:appmetrica_plugin/appmetrica_plugin.dart';
 import 'package:flutter/material.dart';
 import 'package:recipes/features/add_recipe/presentation/add_recipe_screen.dart';
 import 'package:recipes/features/admin_profile/presentation/admin_profile.dart';
@@ -11,15 +12,13 @@ import 'package:recipes/features/splash/presentation/splash_screen.dart';
 import 'package:recipes/features/user_recipes.dart';
 
 import '../../all_recipes/presentation/all_recipes.dart';
-import '../../statistics/widgets/stat.dart';
-import '../../statistics/presentation/statistics.dart';
 import '../../approve_recipes/presentation/applications_for_approval.dart';
 import '../../dishes_categories/presentation/diets_categories_screen.dart';
 import '../../dishes_categories/presentation/dishes_categories_screen.dart';
 import '../../main_page/presentation/main_page.dart';
-import '../../user_profile/presentation/user_profile.dart';
 import '../../sing_in/presentation/sign_in_screen.dart';
-import 'package:appmetrica_plugin/appmetrica_plugin.dart';
+import '../../statistics/presentation/statistics.dart';
+import '../../user_profile/presentation/user_profile.dart';
 
 class Start extends StatelessWidget {
   const Start({super.key});

@@ -1,7 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:recipes/core/domain/services/user_service.dart';
-import 'package:recipes/features/sing_in/presentation/sign_in_screen.dart';
 
 class NavBarWithFavorites extends StatelessWidget {
   const NavBarWithFavorites({

@@ -1,3 +1,4 @@
+import 'package:appmetrica_plugin/appmetrica_plugin.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipes/core/domain/models/authentication_request.dart';
@@ -8,9 +9,9 @@ import 'package:recipes/core/domain/services/authentication_service.dart';
 import 'package:recipes/core/domain/services/user_service.dart';
 import 'package:recipes/features/common/widgets/back_icon_widget.dart';
 import 'package:recipes/features/common/widgets/form_input_field.dart';
-import 'package:recipes/features/common/widgets/submit_button1.dart';
 import 'package:recipes/features/common/widgets/nav_bar_title_clouse.dart';
-import 'package:appmetrica_plugin/appmetrica_plugin.dart';
+import 'package:recipes/features/common/widgets/submit_button1.dart';
+
 import '../../common/recipe_card/favourite_button.dart';
 
 String userRole = '';

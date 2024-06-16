@@ -4,8 +4,9 @@ import 'package:recipes/core/domain/presentation/bloc/admin/admin_bloc.dart';
 import 'package:recipes/core/domain/presentation/bloc/admin/admin_event.dart';
 import 'package:recipes/core/domain/presentation/bloc/admin/admin_state.dart';
 import 'package:recipes/core/domain/services/admin_service.dart';
-import 'package:recipes/features/statistics/widgets/stat.dart';
 import 'package:recipes/features/common/widgets/custom_drawer.dart';
+import 'package:recipes/features/statistics/widgets/stat.dart';
+
 import '../../common/widgets/back_icon_widget.dart';
 import '../../common/widgets/nav_bar_title_clouse.dart';
 
