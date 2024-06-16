@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:recipes/core/domain/presentation/bloc/admin/admin_event.dart';
+import 'package:recipes/core/domain/presentation/bloc/admin/admin_state.dart';
 import 'package:recipes/core/domain/services/admin_service.dart';
-import 'admin_event.dart';
-import 'admin_state.dart';
 
 class AdminBloc extends Bloc<AdminEvent, AdminState> {
   final AdminService adminService;
@@ -36,7 +36,7 @@ class AdminBloc extends Bloc<AdminEvent, AdminState> {
     emit(AdminLoading());
     try {
       await adminService.checkRecipe(event.recipeId, event.isApproved);
-      emit(RecipeChecked());
+      emit(event.isApproved ? RecipeApproved() : RecipeRejected());
     } catch (e) {
       emit(AdminError(message: e.toString()));
     }

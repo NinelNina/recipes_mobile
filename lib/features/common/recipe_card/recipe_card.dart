@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:recipes/features/approve_recipes/widgets/recipe_full_card_approve.dart';
 import 'package:recipes/features/full_recipe/presentation/full_recipe_screen.dart';
+import 'package:recipes/features/sing_in/presentation/sign_in_screen.dart';
 
 class RecipeCard extends StatelessWidget {
   final String? image;
@@ -23,12 +25,26 @@ class RecipeCard extends StatelessWidget {
     final double height = size.height;
     return GestureDetector(
         onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => FullRecipe(recipeId: id, isUserRecipe: isUserRecipe),
-            ),
-          );
+          if (userRole == 'user') {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) =>
+                    FullRecipe(recipeId: id, isUserRecipe: isUserRecipe),
+              ),
+            );
+          }
+          else if (userRole == 'administrator'){
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => RecipeFullCardApprove(
+                  id: id,
+                  isUserRecipe: true,
+                ),
+              ),
+            );
+          }
         },
       child: Column(
       children: [
@@ -152,7 +168,8 @@ class RecipeCard extends StatelessWidget {
                         ),
                       ],
                     ),
-                    child: Icon(
+                    child:
+                    Icon(
                       color: Color(0xFFF40E36),
                       isFavorite ? Icons.favorite : Icons.favorite_border,
                     ),

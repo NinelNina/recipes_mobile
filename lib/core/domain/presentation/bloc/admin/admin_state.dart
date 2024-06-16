@@ -39,3 +39,6 @@ class AdminError extends AdminState {
   @override
   List<Object> get props => [message];
 }
+
+class RecipeApproved extends RecipeChecked {}
+class RecipeRejected extends RecipeChecked {}

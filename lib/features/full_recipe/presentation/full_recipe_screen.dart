@@ -58,6 +58,7 @@ class FullRecipe extends StatelessWidget {
                                       recipe.extendedIngredients,
                                   steps: recipe.steps,
                                   isUserRecipe: recipe.isUserRecipe,
+                                  type: recipe.type,
                                 );
                               },
                             ),

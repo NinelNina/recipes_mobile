@@ -12,8 +12,9 @@ import '../widgets/custom_toggle_button.dart';
 
 class FullRecipeCard extends StatefulWidget {
   final int id;
-  final String image;
+  final String? image;
   final String title;
+  final String? type;
   final String readyInMinutes;
   final bool isFavouriteRecipe;
   final bool isUserRecipe;
@@ -27,7 +28,9 @@ class FullRecipeCard extends StatefulWidget {
     required this.readyInMinutes,
     required this.isFavouriteRecipe,
     required this.extendedIngredients,
-    required this.steps, required this.isUserRecipe,
+    required this.steps,
+    required this.isUserRecipe,
+    required this.type,
   });
 
   @override
@@ -69,12 +72,20 @@ class _FullRecipeCardState extends State<FullRecipeCard> {
                               color: Colors.grey.withOpacity(0.5),
                               spreadRadius: 2,
                               blurRadius: 5,
-                              offset: Offset(0, 3), // changes position of shadow
+                              offset:
+                                  Offset(0, 3), // changes position of shadow
                             ),
                           ],
                         ),
-                        child: Image.network(
-                          widget.image,
+                        child: widget.image != null
+                            ? Image.network(
+                          alignment: Alignment.center,
+                          widget.image!,
+                          fit: BoxFit.cover,
+                        )
+                            : Image.asset(
+                          'assets/images/default_recipe.png',
+                          alignment: Alignment.center,
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -133,7 +144,9 @@ class _FullRecipeCardState extends State<FullRecipeCard> {
             ],
           ),
           SizedBox(height: height * 0.008),
-          CustomToggleButton(extendedIngredients: widget.extendedIngredients, steps: widget.steps),
+          CustomToggleButton(
+              extendedIngredients: widget.extendedIngredients,
+              steps: widget.steps),
         ],
       ),
     );

@@ -47,6 +47,7 @@ class RecipeService {
           steps: List<String>.from(data['steps']),
           isUserRecipe: data['isUserRecipe'],
           isFavouriteRecipe: data['isFavouriteRecipe'],
+          type: data['type'],
         );
       } else {
         throw Exception('Failed to load recipe');
