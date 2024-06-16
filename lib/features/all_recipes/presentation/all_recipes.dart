@@ -6,9 +6,9 @@ import 'package:recipes/core/domain/presentation/bloc/recipe/recipe_search/recip
 import 'package:recipes/core/domain/services/recipe_service.dart';
 import 'package:recipes/features/common/widgets/custom_drawer.dart';
 import 'package:recipes/features/common/recipe_card/recipe_card.dart';
-import 'package:recipes/features/all_recipes/full_recipe_screen.dart';
+import 'package:recipes/features/full_recipe/presentation/full_recipe_screen.dart';
 import 'package:recipes/features/common/widgets/menu_icon_widget.dart';
-import 'package:recipes/features/nav_bar_with_favourites.dart';
+import 'package:recipes/features/common/widgets/nav_bar_with_favourites.dart';
 
 class AllRecipes extends StatelessWidget {
   @override

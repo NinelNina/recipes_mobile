@@ -19,7 +19,7 @@ import 'package:recipes/core/domain/services/user_recipe_service.dart';
 import 'package:recipes/features/add_recipe/presentation/widget/ingredient_row.dart';
 import 'package:recipes/features/add_recipe/presentation/widget/step_row.dart';
 import 'package:recipes/features/common/widgets/back_icon_widget.dart';
-import 'package:recipes/features/nav_bar_title_clouse.dart';
+import 'package:recipes/features/common/widgets/nav_bar_title_clouse.dart';
 
 class AddRecipe extends StatefulWidget {
   @override

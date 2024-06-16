@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:recipes/features/all_recipes/full_recipe_screen.dart';
+import 'package:recipes/features/full_recipe/presentation/full_recipe_screen.dart';
 
 class RecipeCard extends StatelessWidget {
   final String? image;

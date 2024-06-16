@@ -1,23 +1,23 @@
 
 import 'package:flutter/material.dart';
 import 'package:recipes/features/add_recipe/presentation/add_recipe_screen.dart';
-import 'package:recipes/features/admin_profile.dart';
+import 'package:recipes/features/admin_profile/presentation/admin_profile.dart';
 import 'package:recipes/features/categories_and_diets.dart';
 import 'package:recipes/features/common/widgets/submit_button1.dart';
-import 'package:recipes/features/favourite_recipes_screen.dart';
-import 'package:recipes/features/my_recipes.dart';
+import 'package:recipes/features/favorite_recipes/presentation/favourite_recipes_screen.dart';
+import 'package:recipes/features/my_recipes/presentation/my_recipes.dart';
 import 'package:recipes/features/sign_up/presentation/sign_up_screen.dart';
 import 'package:recipes/features/splash/presentation/splash_screen.dart';
 import 'package:recipes/features/user_recipes.dart';
 
-import '../../all_recipes/all_recipes.dart';
-import '../../all_recipes/stat.dart';
-import '../../all_recipes/statistics.dart';
-import '../../applications_for_approval.dart';
+import '../../all_recipes/presentation/all_recipes.dart';
+import '../../statistics/widgets/stat.dart';
+import '../../statistics/presentation/statistics.dart';
+import '../../approve_recipes/presentation/applications_for_approval.dart';
 import '../../dishes_categories/presentation/diets_categories_screen.dart';
 import '../../dishes_categories/presentation/dishes_categories_screen.dart';
 import '../../main_page/presentation/main_page.dart';
-import '../../user_profile.dart';
+import '../../user_profile/presentation/user_profile.dart';
 import '../../sing_in/presentation/sign_in_screen.dart';
 import 'package:appmetrica_plugin/appmetrica_plugin.dart';
 
@@ -84,7 +84,7 @@ class Start extends StatelessWidget {
         '/my_recipes': (context) => MyRecipesScreen(),
         '/add': (context) => AddRecipe(),
         '/categories_diets': (context) => CategoriesAndDiets(images: images, recipes: recipes, cookingTime: cookingTime, isFavorite: isFavorite),
-        '/stat': (context) => Statistic(title: 'Statistics', categories: ['Total registered users:','Recipes created by users:','The most popular diet (last month):'],answers: ['200','28','vegan'],),
+        '/stat': (context) => StatisticScreen(),
       },
       debugShowCheckedModeBanner: false,
       home: SafeArea(child: Scaffold(

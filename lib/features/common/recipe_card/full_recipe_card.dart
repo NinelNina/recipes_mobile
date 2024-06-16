@@ -6,7 +6,7 @@ import 'package:recipes/core/domain/presentation/bloc/favorite/add_to_favorite/f
 import 'package:recipes/core/domain/presentation/bloc/favorite/add_to_favorite/favorite_event.dart';
 import 'package:recipes/core/domain/presentation/bloc/favorite/add_to_favorite/favorite_state.dart';
 import 'package:recipes/core/domain/services/favorite_service.dart';
-import 'package:recipes/features/favourite_button.dart';
+import 'package:recipes/features/common/recipe_card/favourite_button.dart';
 
 import '../widgets/custom_toggle_button.dart';
 

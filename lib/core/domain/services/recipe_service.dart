@@ -7,11 +7,11 @@ import 'package:recipes/core/domain/services/user_service.dart';
 
 class RecipeService {
   final Dio dio = Dio();
-  UserService _tokenService = UserService();
+  UserService _userService = UserService();
 
   Future<RecipePreview> fetchRandomRecipePreview() async {
     try {
-      var token = await _tokenService.getToken();
+      var token = await _userService.getToken();
       final response = await dio.get('$apiRoot/v1/recipes/random',
           queryParameters: {'isUserRecipe': false},
           options: Options(headers: {'token': token}));
@@ -27,7 +27,7 @@ class RecipeService {
   }
 
   Future<Recipe> fetchRecipe(int id, bool isUserRecipe) async {
-    var token = await _tokenService.getToken();
+    var token = await _userService.getToken();
     try {
       final response = await dio.get('$apiRoot/v1/recipes/$id',
           queryParameters: {'isUserRecipe': isUserRecipe},
@@ -64,7 +64,7 @@ class RecipeService {
       int? page,
       {int? number = 10}) async {
     try {
-      var token = await _tokenService.getToken();
+      var token = await _userService.getToken();
       final response = await dio.get('$apiRoot/v1/recipes/complexSearch',
           queryParameters: {
             'query': query,

@@ -9,9 +9,9 @@ import 'package:recipes/core/domain/services/user_service.dart';
 import 'package:recipes/features/common/widgets/back_icon_widget.dart';
 import 'package:recipes/features/common/widgets/form_input_field.dart';
 import 'package:recipes/features/common/widgets/submit_button1.dart';
-import 'package:recipes/features/nav_bar_title_clouse.dart';
+import 'package:recipes/features/common/widgets/nav_bar_title_clouse.dart';
 import 'package:appmetrica_plugin/appmetrica_plugin.dart';
-import '../../favourite_button.dart';
+import '../../common/recipe_card/favourite_button.dart';
 
 String userRole = '';
 

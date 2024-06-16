@@ -8,8 +8,8 @@ import 'package:recipes/features/common/top_row/top_row.dart';
 import 'package:recipes/features/common/top_row/top_row_back.dart';
 import 'package:recipes/features/common/widgets/menu_icon_widget.dart';
 
-import 'common/widgets/back_icon_widget.dart';
-import 'nav_bar_title_clouse.dart';
+import '../../common/widgets/back_icon_widget.dart';
+import '../../common/widgets/nav_bar_title_clouse.dart';
 
 class Recipe_ingredients_approval extends StatelessWidget {
   final String image;
@@ -23,7 +23,8 @@ class Recipe_ingredients_approval extends StatelessWidget {
     required this.image,
     required this.recipeName,
     required this.cookingTime,
-    required this.isFavorite, required this.isUserRecipe,
+    required this.isFavorite,
+    required this.isUserRecipe,
   });
 
   @override

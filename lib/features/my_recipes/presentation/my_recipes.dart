@@ -4,7 +4,7 @@ import 'package:recipes/core/domain/presentation/bloc/recipe/user_recipe/user_re
 import 'package:recipes/core/domain/presentation/bloc/recipe/user_recipe/user_recipe_event.dart';
 import 'package:recipes/core/domain/presentation/bloc/recipe/user_recipe/user_recipe_state.dart';
 import 'package:recipes/core/domain/services/user_recipe_service.dart';
-import 'package:recipes/features/app_bar.dart';
+import 'package:recipes/features/common/widgets/app_bar.dart';
 import 'package:recipes/features/common/recipe_card/recipe_card.dart';
 import 'package:recipes/features/common/widgets/custom_drawer.dart';
 import 'package:recipes/features/common/widgets/menu_icon_widget.dart';

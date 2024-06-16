@@ -5,18 +5,18 @@ import 'package:recipes/core/domain/presentation/bloc/authentication/register/re
 import 'package:recipes/core/domain/presentation/bloc/authentication/register/register_event.dart';
 import 'package:recipes/core/domain/presentation/bloc/authentication/register/register_state.dart';
 import 'package:recipes/core/domain/services/authentication_service.dart';
-import 'package:recipes/features/app_bar.dart';
+import 'package:recipes/features/common/widgets/app_bar.dart';
 import 'package:recipes/features/common/widgets/back_icon_widget.dart';
 import 'package:recipes/features/common/widgets/form_input_field.dart';
 import 'package:recipes/features/common/widgets/nav_bar.dart';
 import 'package:recipes/features/common/widgets/submit_button1.dart';
-import 'package:recipes/features/nav_bar_title_clouse.dart';
+import 'package:recipes/features/common/widgets/nav_bar_title_clouse.dart';
 import 'package:appmetrica_plugin/appmetrica_plugin.dart';
 
-import '../../favourite_button.dart';
-import '../../nav_bar_text_search.dart';
-import '../../nav_bar_title.dart';
-import '../../nav_bar_with_favourites.dart';
+import '../../common/recipe_card/favourite_button.dart';
+import '../../common/widgets/nav_bar_text_search.dart';
+import '../../common/widgets/nav_bar_title.dart';
+import '../../common/widgets/nav_bar_with_favourites.dart';
 import '../../sing_in/presentation/sign_in_screen.dart';
 
 Map<String, String> _users = {};

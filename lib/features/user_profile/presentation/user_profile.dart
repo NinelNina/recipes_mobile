@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:recipes/core/domain/services/user_service.dart';
 import 'package:recipes/features/common/widgets/custom_drawer.dart';
 import 'package:recipes/features/main_page/presentation/main_page.dart';
-import 'package:recipes/features/nav_bar_title.dart';
+import 'package:recipes/features/common/widgets/nav_bar_title.dart';
 import 'package:recipes/features/common/widgets/menu_icon_widget.dart';
 import 'package:recipes/features/sing_in/presentation/sign_in_screen.dart';
 
