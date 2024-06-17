@@ -93,7 +93,6 @@ class RecipeCard extends StatelessWidget {
                         Center(
                         child : Text(
                           recipeName.toUpperCase(),
-
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontFamily: 'Montserrat',
