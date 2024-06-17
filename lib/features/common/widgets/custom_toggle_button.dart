@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:recipes/core/domain/models/ingredient_model.dart';
 
+import 'NumberedCircleIcon.dart';
+
 class CustomToggleButton extends StatefulWidget {
   final List<Ingredient> extendedIngredients;
   final List<String>? steps;
@@ -19,6 +21,8 @@ class _CustomToggleButtonState extends State<CustomToggleButton>
   late AnimationController _animationController;
   late Animation<double> _animation;
   List<String> ingredients = [];
+  List<String> ingredients_name = [];
+  List<String> ingredients_unit = [];
 
   void parseIngredients() {
     widget.extendedIngredients.forEach((element) {
@@ -32,13 +36,17 @@ class _CustomToggleButtonState extends State<CustomToggleButton>
 
       String tmp_unit = '';
       if (element.unit.isNotEmpty){
-        tmp_unit = element.unit + ' ';
+        tmp_unit = element.unit ;
       }
 
-      ingredients.add(
-          result + ' '
-              + tmp_unit
-              + element.name);
+      ingredients.add(result);
+      ingredients_name.add(element.name);
+      if (element.unit.isEmpty){
+        tmp_unit = 'unit';
+      }
+
+      ingredients_unit.add(tmp_unit);
+
     });
   }
 
@@ -82,6 +90,8 @@ class _CustomToggleButtonState extends State<CustomToggleButton>
   void calculatePortions() {
     setState(() {
       ingredients = [];
+      ingredients_name = [];
+      ingredients_unit = [];
       widget.extendedIngredients.forEach((element) {
         var tmp_amount = portions * element.amount;
         String result;
@@ -91,10 +101,14 @@ class _CustomToggleButtonState extends State<CustomToggleButton>
         else {
           result = tmp_amount.toStringAsFixed(2);
         }
-        ingredients.add(
-            result + ' '
-                + element.unit + ' '
-                + element.name);
+        ingredients.add(result);
+        ingredients_name.add(element.name);
+
+        if (element.unit.isEmpty){
+          ingredients_unit.add('unit');
+        }else {
+          ingredients_unit.add(element.unit);
+        }
       });
       // ingredients = [
       //   '${(1 * portions).toStringAsFixed(0)} cup flour',
@@ -153,7 +167,7 @@ class _CustomToggleButtonState extends State<CustomToggleButton>
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
-                            'Ingredients',
+                            'Ingredients'.toUpperCase(),
                             style: TextStyle(
                               fontFamily: 'Montserrat',
                               color: Color(0xFF5E5E5E),
@@ -186,7 +200,7 @@ class _CustomToggleButtonState extends State<CustomToggleButton>
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
-                            'Instructions',
+                            'Instructions'.toUpperCase(),
                             style: TextStyle(
                               fontFamily: 'Montserrat',
                               color: Color(0xFF5E5E5E),
@@ -224,7 +238,7 @@ class _CustomToggleButtonState extends State<CustomToggleButton>
                     child: Padding(
                       padding: const EdgeInsets.all(6.0),
                       child: Text(
-                        selectedIndex == 0 ? 'Ingredients' : 'Instructions',
+                        selectedIndex == 0 ? 'Ingredients'.toUpperCase() : 'Instructions'.toUpperCase(),
                         style: TextStyle(
                           fontFamily: 'Montserrat',
                           color: Color(0xFF000000),
@@ -319,12 +333,13 @@ class _CustomToggleButtonState extends State<CustomToggleButton>
                   ),
                 ),
                 onPressed: calculatePortions,
-                child: Text('Calculate',
+                child: Text('Calculate'.toUpperCase(),
                   style: TextStyle(
                     fontFamily: 'Montserrat',
                     color: Color(0xFFFFFFFF),
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
+                    fontStyle: FontStyle.italic,
                   ),),
               ),
             ),
@@ -338,18 +353,70 @@ class _CustomToggleButtonState extends State<CustomToggleButton>
 
                   return Container(
                     padding: EdgeInsets.only(left: width * 0.049),
-                    child : ListTile(
-                    leading: Icon(Icons.circle,
-                        color: Color(0xFFFF6E41), size: 7),
-                    title: Text(ingredients[index],
-                      style: TextStyle(
-                        fontFamily: 'Montserrat',
-                        color: Color(0xFF000000),
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
-                      ),),
+                    child: ListTile(
+                      leading: Container(
+                        width: 24,
+                        child: Icon(Icons.circle, color: Color(0xFFFF6E41), size: 7),
+                      ),
+                      title: Row(
+                        children: [
+                          Container(
+                            width: width * 0.34,
+                            child: Text(
+                              ingredients_name[index],
+                              style: TextStyle(
+                                fontFamily: 'Montserrat',
+                                color: Color(0xFF000000),
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+
+                          ),
+                      SizedBox(width: 16,),
+                      Column(
+                            // crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [ Text(
+
+                            ingredients[index],
+
+                            style: TextStyle(
+                              fontFamily: 'Montserrat',
+                              color: Color(0xFF000000),
+                              fontSize: 14,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          ],
+                          ),
+
+
+
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children:[
+
+                            Text(
+                              textAlign: TextAlign.left,
+                            ingredients_unit[index],
+
+                            style: TextStyle(
+                              fontFamily: 'Montserrat',
+                              color: Color(0xFF000000),
+                              fontSize: 14,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                  ],
+                          ),
+                      ),
+                        ],
+
+                      ),
                     ),
                   );
+
 
                 }),
           ],
@@ -362,14 +429,16 @@ class _CustomToggleButtonState extends State<CustomToggleButton>
             return Container(
                 padding: EdgeInsets.only(left: width * 0.049),
               child: ListTile(
-              leading:
-              Icon(Icons.circle, color: Color(0xFFFF6E41), size: 14),
+              leading: NumberedCircleIcon(
+                number: index + 1,
+                color: Color(0xFFFF6E41),
+              ),
               title: Text(widget.steps![index],
                 style: TextStyle(
                   fontFamily: 'Montserrat',
                   color: Color(0xFF000000),
                   fontSize: 14,
-                  fontWeight: FontWeight.w600,
+                  fontWeight: FontWeight.w400,
                 ),),
               ),
             );

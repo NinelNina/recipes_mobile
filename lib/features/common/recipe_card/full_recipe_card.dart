@@ -59,23 +59,41 @@ class _FullRecipeCardState extends State<FullRecipeCard> {
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(20),
                         topRight: Radius.circular(20),
+
                       ),
+
                       child: Container(
                         width: width * 0.92,
                         height: height * 0.381,
                         decoration: BoxDecoration(
+
                           boxShadow: [
                             BoxShadow(
                               color: Colors.grey.withOpacity(0.5),
                               spreadRadius: 2,
                               blurRadius: 5,
-                              offset: Offset(0, 3), // changes position of shadow
+                              offset: Offset(0, 3),
                             ),
                           ],
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(20),
+                            topRight: Radius.circular(20),
+                          ),
+                          border: Border.all(
+                            color: Color(0xFFFF6E41),
+                            width: 2,
+                          ),
                         ),
-                        child: Image.network(
-                          widget.image,
-                          fit: BoxFit.cover,
+
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(20),
+                            topRight: Radius.circular(20),
+                          ),
+                          child: Image.network(
+                            widget.image,
+                            fit: BoxFit.cover,
+                          ),
                         ),
                       ),
                     ),
@@ -84,7 +102,6 @@ class _FullRecipeCardState extends State<FullRecipeCard> {
                       left: 0,
                       right: 0,
                       child: Container(
-                        color: Colors.white,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [

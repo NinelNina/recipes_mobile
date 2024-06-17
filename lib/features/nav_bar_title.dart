@@ -61,7 +61,7 @@ class NavBarTitle extends StatelessWidget {
                   ),
                 ),
               ),
-              // добавьте отступ между текстом и правой иконкой
+
               SizedBox(width: 50)
             ],
           ),

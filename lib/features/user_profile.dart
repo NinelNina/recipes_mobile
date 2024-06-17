@@ -45,8 +45,14 @@ class UserProfileScreen extends StatelessWidget {
                           color: Color(0xFFFF6E41),
                           borderRadius: BorderRadius.circular(15),
                         ),
-                        child: Center(
-                          child: Text(
+                          child: Center(
+                          child:Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                          children : [
+                            Image.asset('assets/images/profile.png'),
+                            SizedBox(width: width * 0.026),
+                             Text(
                             profile,
                             style: TextStyle(
                               fontFamily: 'Montserrat',
@@ -55,8 +61,12 @@ class UserProfileScreen extends StatelessWidget {
                               fontWeight: FontWeight.w600,
                             ),
                           ),
-                        ),
-                      ),
+
+                  ]
+                          ),
+                          )
+                          )
+
                     ),
                     Container(
                       padding: EdgeInsets.only(left: width * 0.044),

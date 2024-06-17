@@ -268,7 +268,7 @@ class _AddRecipeState extends State<AddRecipe> {
 
   Widget buildTitleText(String title) {
     return Padding(
-      padding: const EdgeInsets.only(left: 35.0), // This adds left padding
+      padding: const EdgeInsets.only(left: 35.0),
       child: Align(
         alignment: Alignment.centerLeft,
         child: Text(

@@ -34,31 +34,12 @@ class RecipeCard extends StatelessWidget {
       children: [
         SizedBox(height: 6),
         Center(
-          child: Container(
-            width: width * 0.92,
-            constraints: BoxConstraints(
-              minHeight: 450,
-              maxHeight: 500,
-            ),
-            decoration: BoxDecoration(
-              color: Colors.white.withOpacity(1),
-              borderRadius: BorderRadius.circular(30),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.17),
-                  blurRadius: 5,
-                  spreadRadius: 1,
-                  offset: const Offset(0, 3),
-                ),
-              ],
-            ),
             child: Stack(
               children: [
-                Positioned(
-                  child: Container(
+                Column(
+                  children: [ Container(
                     width: width * 0.92,
                     height: height * 0.34,
-
                     child: ClipRRect(
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(30),
@@ -80,28 +61,58 @@ class RecipeCard extends StatelessWidget {
                         ),
                       ),
                     )
-                  ),
                 ),
-                Positioned(
-                  top: height * 0.38,
-                  left: 0,
-                  right: 0,
-                  child: Container(
+                    Container(
+                        constraints: BoxConstraints(
+                          minHeight: 0,
+                        ),
+                        width:  width * 0.92,
+                        decoration: BoxDecoration(
+                          color: Colors.white.withOpacity(1),
+                          borderRadius: BorderRadius.only(
+                              bottomLeft: Radius.circular(30),
+                              bottomRight: Radius.circular(30)),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.17),
+                              blurRadius: 5,
+                              spreadRadius: 1,
+                              offset: const Offset(0, 3),
+                            ),
+                          ],
+                        ),
+
+                    child: Column(
+                    children: [
+                      SizedBox(height: height * 0.0342),
+                      Container(
+                    padding: EdgeInsets.only(left: 40, right: 40),
                     width: width * 0.92,
                     child: Column(
                       children: [
-                        Text(
-                          recipeName,
+                        Center(
+                        child : Text(
+                          recipeName.toUpperCase(),
+
+                          textAlign: TextAlign.center,
                           style: TextStyle(
                             fontFamily: 'Montserrat',
                             color: Color(0xFF000000),
                             fontSize: 16,
                             fontWeight: FontWeight.w600,
+
                           ),
+
                         ),
-                        SizedBox(height: 8),
+
+
+                        ),
                         Center(
-                          child: Row(
+                          child: Column(
+                          children : [
+                            if(isFavorite)
+                            SizedBox(height: 8),
+                             Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Visibility(
@@ -129,10 +140,17 @@ class RecipeCard extends StatelessWidget {
                               ),
                             ],
                           ),
+                          ]
+                          ),
                         ),
                       ],
                     ),
-                  ),
+                ),
+                      SizedBox(height: height * 0.0342),
+                    ])
+                    ),
+
+                ]
                 ),
                 Positioned(
                   top: height * 0.3,
@@ -161,7 +179,7 @@ class RecipeCard extends StatelessWidget {
               ],
             ),
           ),
-        ),
+
         SizedBox(height: height * 0.023),
       ],
       )

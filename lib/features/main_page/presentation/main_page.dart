@@ -75,7 +75,7 @@ class MainPage extends StatelessWidget {
                 width: width,
                 height: height,
               ),
-              SizedBox(height: 35),
+              SizedBox(height: height * 0.029),
               Expanded(
                 child: BlocBuilder<RandomRecipeBloc, RandomRecipeState>(
                   builder: (context, state) {

@@ -26,7 +26,9 @@ class NavBarTitleCl extends StatelessWidget {
         ),
         Container(
           width: width,
-          height: height * 0.07,
+          constraints: BoxConstraints(
+            minHeight: 0,
+          ),
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(7),
@@ -52,6 +54,7 @@ class NavBarTitleCl extends StatelessWidget {
                 child: Center(
                   child: Text(
                     title,
+                    textAlign: TextAlign.center,
                     style: const TextStyle(
                       color: Color(0xFFFF6E41),
                       fontFamily: 'Poppins',

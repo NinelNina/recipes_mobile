@@ -52,14 +52,23 @@ class AdminProfile extends StatelessWidget {
                               borderRadius: BorderRadius.circular(15),
                             ),
                             child: Center(
-                              child: Text(
-                                profile,
-                                style: TextStyle(
-                                  fontFamily: 'Montserrat',
-                                  color: Color(0xFFFFFFFF),
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w600,
-                                ),
+                              child:Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children : [
+                                    Image.asset('assets/images/profile.png'),
+                                    SizedBox(width: width * 0.026),
+                                    Text(
+                                      profile,
+                                      style: TextStyle(
+                                        fontFamily: 'Montserrat',
+                                        color: Color(0xFFFFFFFF),
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
+
+                                  ]
                               ),
                             )),
                       ),
@@ -71,7 +80,7 @@ class AdminProfile extends StatelessWidget {
                               leading: Container(
                                 width: width * 0.073,
                                 height: height * 0.034,
-                                child: Image.asset('assets/images/vector.png'), // Используйте вашу собственную иконку выхода
+                                child: Image.asset('assets/images/vector.png'),
                               ),
                               title: Text('Applications for approval',
                                 style: TextStyle(
