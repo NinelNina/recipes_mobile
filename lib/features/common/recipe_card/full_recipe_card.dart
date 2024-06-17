@@ -1,10 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipes/core/domain/models/ingredient_model.dart';
 import 'package:recipes/core/domain/presentation/bloc/favorite/add_to_favorite/favorite_bloc.dart';
-import 'package:recipes/core/domain/presentation/bloc/favorite/add_to_favorite/favorite_event.dart';
-import 'package:recipes/core/domain/presentation/bloc/favorite/add_to_favorite/favorite_state.dart';
 import 'package:recipes/core/domain/services/favorite_service.dart';
 import 'package:recipes/features/common/recipe_card/favourite_button.dart';
 import 'package:recipes/features/sing_in/presentation/sign_in_screen.dart';
@@ -149,8 +146,9 @@ class _FullRecipeCardState extends State<FullRecipeCard> {
                         ),
                       ),
                     ),
-                    userRole == 'user'
-                        ? Positioned(
+                    userRole == 'administrator'
+                        ? SizedBox()
+                        : Positioned(
                             top: height * 0.341,
                             right: width * 0.078,
                             child: FavoritesButton(
@@ -158,8 +156,7 @@ class _FullRecipeCardState extends State<FullRecipeCard> {
                               isUserRecipe: widget.isUserRecipe,
                               isFavorite: widget.isFavouriteRecipe,
                             ),
-                          )
-                        : SizedBox(),
+                          ),
                   ],
                 ),
               ),
