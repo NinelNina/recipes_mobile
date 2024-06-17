@@ -3,11 +3,11 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:recipes/core/api/api_root.dart';
 import 'package:recipes/core/domain/models/recipe_preview_model.dart';
-import 'package:recipes/core/domain/services/token_service.dart';
+import 'package:recipes/core/domain/services/user_service.dart';
 
 class FavoriteService{
   final Dio dio = Dio();
-  TokenService _tokenService = TokenService();
+  UserService _tokenService = UserService();
 
   Future<void> addRecipeToFavorite(String recipeId, bool isUserRecipe) async {
     try {

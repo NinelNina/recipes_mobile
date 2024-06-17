@@ -5,20 +5,13 @@ import 'package:recipes/core/domain/presentation/bloc/authentication/authorizati
 import 'package:recipes/core/domain/presentation/bloc/authentication/authorization/authorization_event.dart';
 import 'package:recipes/core/domain/presentation/bloc/authentication/authorization/authorization_state.dart';
 import 'package:recipes/core/domain/services/authentication_service.dart';
+import 'package:recipes/core/domain/services/user_service.dart';
 import 'package:recipes/features/common/widgets/back_icon_widget.dart';
 import 'package:recipes/features/common/widgets/form_input_field.dart';
-import 'package:recipes/features/common/widgets/nav_bar.dart';
 import 'package:recipes/features/common/widgets/submit_button1.dart';
-import 'package:recipes/features/nav_bar_title_clouse.dart';
+import 'package:recipes/features/common/widgets/nav_bar_title_clouse.dart';
 import 'package:appmetrica_plugin/appmetrica_plugin.dart';
-import 'package:recipes/features/sign_up/presentation/sign_up_screen.dart';
-
-import '../../all_recipes/all_recipes.dart';
-import '../../dishes_categories/presentation/diets_categories_screen.dart';
-import '../../dishes_categories/presentation/dishes_categories_screen.dart';
-import '../../favourite_button.dart';
-import '../../main_page/presentation/main_page.dart';
-import '../../nav_bar_title.dart';
+import '../../common/recipe_card/favourite_button.dart';
 
 String userRole = '';
 
@@ -33,6 +26,8 @@ class _SignInState extends State<SignIn> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+
+  final UserService _userService = UserService();
 
   @override
   void dispose() {
@@ -67,7 +62,9 @@ class _SignInState extends State<SignIn> {
       final password = _passwordController.text;
 
       final request = AuthenticationRequest(email, password);
-      context.read<AuthenticationBloc>().add(AuthenticationButtonPressed(request: request));
+      context
+          .read<AuthenticationBloc>()
+          .add(AuthenticationButtonPressed(request: request));
     }
   }
 
@@ -77,8 +74,10 @@ class _SignInState extends State<SignIn> {
     final double width = size.width;
     final double height = size.height;
 
-    return SafeArea(child: BlocProvider(
-      create: (context) => AuthenticationBloc(authenticationService: AuthenticationService()),
+    return SafeArea(
+        child: BlocProvider(
+      create: (context) =>
+          AuthenticationBloc(authenticationService: AuthenticationService()),
       child: Scaffold(
         backgroundColor: Colors.white,
         body: Column(children: [
@@ -118,27 +117,34 @@ class _SignInState extends State<SignIn> {
               ),
               SizedBox(height: height * 0.05),
               BlocConsumer<AuthenticationBloc, AuthenticationState>(
-                listener: (context, state) {
+                listener: (context, state) async {
                   if (state is AuthenticationSuccess) {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('Authentication successful')),
+                      SnackBar(content: Text('Authentication successful'),
+                      backgroundColor: Colors.green),
                     );
-                    if (isFromFavorites) {
-                      userRole = 'user';
-                      Navigator.of(context).pop();
+                    userRole = (await getRole())!;
+                    if (userRole == 'user') {
+                      if (isFromFavorites) {
+                        Navigator.of(context).pop();
+                      } else {
+                        Navigator.popAndPushNamed(context, '/user_profile');
+                      }
                     } else {
-                      userRole = 'user';
-                      Navigator.popAndPushNamed(context, '/user_profile');
+                      Navigator.popAndPushNamed(context, '/admin_profile');
                     }
                   } else if (state is AuthenticationFailure) {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('${state.error}'), backgroundColor: Colors.redAccent,),
+                      SnackBar(
+                        content: Text('${state.error}'),
+                        backgroundColor: Colors.redAccent,
+                      ),
                     );
                   }
                 },
                 builder: (context, state) {
                   if (state is AuthenticationLoading) {
-                    return CircularProgressIndicator();
+                    return CircularProgressIndicator(color: Color(0xFFFF6E41));
                   }
                   return SubmitButton(
                     text: 'Sign In',
@@ -199,5 +205,9 @@ class _SignInState extends State<SignIn> {
         ]),
       ),
     ));
+  }
+
+  Future<String?> getRole() async {
+    return await _userService.getRole();
   }
 }

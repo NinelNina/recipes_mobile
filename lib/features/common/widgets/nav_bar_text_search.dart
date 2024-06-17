@@ -1,10 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:recipes/core/domain/services/token_service.dart';
-import 'package:recipes/features/sing_in/presentation/sign_in_screen.dart';
 
-class NavBarWithTextAndFavorites extends StatelessWidget {
-  const NavBarWithTextAndFavorites({
+class NavBarWithTextAndSearch extends StatelessWidget {
+    const NavBarWithTextAndSearch({
     super.key,
     required this.title,
     required this.navWidget,
@@ -19,8 +16,6 @@ class NavBarWithTextAndFavorites extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TokenService _tokenService = TokenService();
-
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
@@ -48,7 +43,7 @@ class NavBarWithTextAndFavorites extends StatelessWidget {
                 color: const Color(0xFFFF6E41),
                 icon: navWidget,
                 onPressed: () {
-                  Scaffold.of(context).openDrawer();
+                  Navigator.pop(context);
                 },
               ),
               Expanded(
@@ -64,18 +59,7 @@ class NavBarWithTextAndFavorites extends StatelessWidget {
                   ),
                 ),
               ),
-              IconButton(
-                icon: Icon(Icons.favorite,
-                    color: Colors.red),
-                onPressed: () async {
-                  final token = await _tokenService.getToken();
-                  if (token != null) {
-                    Navigator.pushNamed(context, "/favourites");
-                  } else {
-                    Navigator.pushNamed(context, "/login");
-                  }
-                },
-              ),
+              SizedBox(width: 40)
             ],
           ),
         ),

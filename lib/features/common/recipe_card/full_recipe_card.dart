@@ -6,18 +6,20 @@ import 'package:recipes/core/domain/presentation/bloc/favorite/add_to_favorite/f
 import 'package:recipes/core/domain/presentation/bloc/favorite/add_to_favorite/favorite_event.dart';
 import 'package:recipes/core/domain/presentation/bloc/favorite/add_to_favorite/favorite_state.dart';
 import 'package:recipes/core/domain/services/favorite_service.dart';
-import 'package:recipes/features/favourite_button.dart';
+import 'package:recipes/features/common/recipe_card/favourite_button.dart';
+import 'package:recipes/features/sing_in/presentation/sign_in_screen.dart';
 
 import '../widgets/custom_toggle_button.dart';
 
 class FullRecipeCard extends StatefulWidget {
   final int id;
-  final String image;
+  final String? image;
   final String title;
-  final String readyInMinutes;
+  final String? type;
+  final String? readyInMinutes;
   final bool isFavouriteRecipe;
   final bool isUserRecipe;
-  final List<Ingredient> extendedIngredients;
+  final List<Ingredient>? extendedIngredients;
   final List<String>? steps;
 
   const FullRecipeCard({
@@ -27,7 +29,9 @@ class FullRecipeCard extends StatefulWidget {
     required this.readyInMinutes,
     required this.isFavouriteRecipe,
     required this.extendedIngredients,
-    required this.steps, required this.isUserRecipe,
+    required this.steps,
+    required this.isUserRecipe,
+    required this.type,
   });
 
   @override
@@ -72,7 +76,9 @@ class _FullRecipeCardState extends State<FullRecipeCard> {
                               color: Colors.grey.withOpacity(0.5),
                               spreadRadius: 2,
                               blurRadius: 5,
+
                               offset: Offset(0, 3),
+
                             ),
                           ],
                           borderRadius: BorderRadius.only(
@@ -90,11 +96,19 @@ class _FullRecipeCardState extends State<FullRecipeCard> {
                             topLeft: Radius.circular(20),
                             topRight: Radius.circular(20),
                           ),
-                          child: Image.network(
-                            widget.image,
-                            fit: BoxFit.cover,
+                          child: widget.image != null
+                          ? Image.network(
+                          alignment: Alignment.center,
+                          widget.image!,
+                          fit: BoxFit.cover,
+                          )
+                              : Image.asset(
+                          'assets/images/default_recipe.png',
+                          alignment: Alignment.center,
+                          fit: BoxFit.cover,
                           ),
                         ),
+
                       ),
                     ),
                     Positioned(
@@ -121,7 +135,7 @@ class _FullRecipeCardState extends State<FullRecipeCard> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  widget.readyInMinutes,
+                                  widget.readyInMinutes!,
                                   style: TextStyle(
                                     fontFamily: 'Montserrat',
                                     color: Color(0xFF000000),
@@ -135,22 +149,26 @@ class _FullRecipeCardState extends State<FullRecipeCard> {
                         ),
                       ),
                     ),
-                    Positioned(
-                      top: height * 0.341,
-                      right: width * 0.078,
-                      child: FavoritesButton(
-                        recipeId: widget.id.toString(),
-                        isUserRecipe: widget.isUserRecipe,
-                        isFavorite: widget.isFavouriteRecipe,
-                      ),
-                    ),
+                    userRole == 'user'
+                        ? Positioned(
+                            top: height * 0.341,
+                            right: width * 0.078,
+                            child: FavoritesButton(
+                              recipeId: widget.id.toString(),
+                              isUserRecipe: widget.isUserRecipe,
+                              isFavorite: widget.isFavouriteRecipe,
+                            ),
+                          )
+                        : SizedBox(),
                   ],
                 ),
               ),
             ],
           ),
           SizedBox(height: height * 0.008),
-          CustomToggleButton(extendedIngredients: widget.extendedIngredients, steps: widget.steps),
+          CustomToggleButton(
+              extendedIngredients: widget.extendedIngredients!,
+              steps: widget.steps),
         ],
       ),
     );

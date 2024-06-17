@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:recipes/features/sing_in/presentation/sign_in_screen.dart';
+import 'package:recipes/core/domain/services/user_service.dart';
 
-class NavBarWithFavorites extends StatelessWidget {
-  const NavBarWithFavorites({
+class NavBarWithTextAndFavorites extends StatelessWidget {
+  const NavBarWithTextAndFavorites({
     super.key,
     required this.title,
     required this.navWidget,
@@ -18,6 +18,8 @@ class NavBarWithFavorites extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final UserService _tokenService = UserService();
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
@@ -50,44 +52,23 @@ class NavBarWithFavorites extends StatelessWidget {
               ),
               Expanded(
                 child: Center(
-                  child: ClipRRect(
-                    child: Container(
-                      width: 287,
-                      height: 43,
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          width: 1,
-                          color: const Color(0xFFb613207).withOpacity(1),
-                        ),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: const TextField(
-                        decoration: InputDecoration(
-                          hintText: 'Search',
-                          border: InputBorder.none,
-                          prefixIcon: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              SizedBox(width: 8),
-                              Icon(
-                                Icons.search,
-                                color: Colors.grey,
-                              ),
-                              SizedBox(width: 10.36),
-                            ],
-                          ),
-                        ),
-                      ),
+                  child: Text(
+                    title,
+                    style: const TextStyle(
+                      color: Color(0xFFFF6E41),
+                      fontFamily: 'Poppins',
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
               ),
-               // добавьте отступ между текстом и правой иконкой
               IconButton(
                 icon: Icon(Icons.favorite,
-                color: Colors.red),
-                onPressed: () {
-                  if (userRole == 'user') {
+                    color: Colors.red),
+                onPressed: () async {
+                  final token = await _tokenService.getToken();
+                  if (token != null) {
                     Navigator.pushNamed(context, "/favourites");
                   } else {
                     Navigator.pushNamed(context, "/login");

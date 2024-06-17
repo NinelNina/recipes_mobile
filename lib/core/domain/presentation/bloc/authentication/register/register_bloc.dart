@@ -1,12 +1,12 @@
 import 'package:bloc/bloc.dart';
 import 'package:recipes/core/domain/services/authentication_service.dart';
-import 'package:recipes/core/domain/services/token_service.dart';
+import 'package:recipes/core/domain/services/user_service.dart';
 import 'register_event.dart';
 import 'register_state.dart';
 
 class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
   final AuthenticationService authenticationService;
-  final TokenService tokenService = TokenService();
+  final UserService tokenService = UserService();
 
   RegisterBloc({required this.authenticationService}) : super(RegisterInitial()) {
     on<RegisterButtonPressed>(_onRegisterButtonPressed);

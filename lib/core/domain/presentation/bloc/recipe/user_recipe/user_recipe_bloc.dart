@@ -24,6 +24,7 @@ class UserRecipeBloc extends Bloc<UserRecipeEvent, UserRecipeState> {
 
   Future<void> _onCreateUserRecipe(
       CreateUserRecipe event, Emitter<UserRecipeState> emit) async {
+    emit(UserRecipeLoading());
     try {
       await userRecipeService.createUserRecipe(
         title: event.title,

@@ -7,7 +7,7 @@ import 'package:recipes/core/domain/services/recipe_service.dart';
 import 'package:recipes/features/common/recipe_card/full_recipe_card.dart';
 import 'package:recipes/features/common/widgets/back_icon_widget.dart';
 import 'package:recipes/features/common/widgets/menu_icon_widget.dart';
-import 'package:recipes/features/nav_bar_title_clouse.dart';
+import 'package:recipes/features/common/widgets/nav_bar_title_clouse.dart';
 
 class FullRecipe extends StatelessWidget {
   final int recipeId;
@@ -31,7 +31,7 @@ class FullRecipe extends StatelessWidget {
               BlocBuilder<RecipeBloc, RecipeState>(
                 builder: (context, state) {
                   if (state is RecipeLoading) {
-                    return Center(child: CircularProgressIndicator());
+                    return Center(child: CircularProgressIndicator(color: Color(0xFFFF6E41)));
                   } else if (state is RecipeLoaded) {
                     final recipe = state.recipe;
                     return Expanded(
@@ -58,6 +58,7 @@ class FullRecipe extends StatelessWidget {
                                       recipe.extendedIngredients,
                                   steps: recipe.steps,
                                   isUserRecipe: recipe.isUserRecipe,
+                                  type: recipe.type,
                                 );
                               },
                             ),

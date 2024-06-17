@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../all_recipes/full_recipe_screen.dart';
+import '../../../full_recipe/presentation/full_recipe_screen.dart';
 import 'main_buttons_four.dart';
 
 class RecipeCardRandom extends StatelessWidget {

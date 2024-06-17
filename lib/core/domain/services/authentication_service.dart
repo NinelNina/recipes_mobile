@@ -17,15 +17,19 @@ class AuthenticationService {
           'password': register.password,
         },
       );
-      print('User registered: ${response.data}');
-      return AuthenticationResponse.fromJson(response.data);
+      if (response.statusCode == 200) {
+        return AuthenticationResponse.fromJson(response.data);
+      } else {
+        throw Exception('Failed registering user');
+      }
     } on DioException catch (e) {
       print('Error registering user: $e');
       throw e;
     }
   }
 
-  Future<AuthenticationResponse> authenticate(AuthenticationRequest request) async {
+  Future<AuthenticationResponse> authenticate(
+      AuthenticationRequest request) async {
     try {
       final response = await dio.post(
         '$apiRoot/v1/auth/authenticate',
@@ -34,7 +38,11 @@ class AuthenticationService {
           'password': request.password,
         },
       );
-      return AuthenticationResponse.fromJson(response.data);
+      if (response.statusCode == 200) {
+        return AuthenticationResponse.fromJson(response.data);
+      } else {
+        throw Exception('Failed user authentication');
+      }
     } on DioException catch (e) {
       print('Error authenticating user: $e');
       throw e;
