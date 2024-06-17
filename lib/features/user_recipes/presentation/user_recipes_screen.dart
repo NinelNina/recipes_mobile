@@ -8,12 +8,12 @@ import 'package:recipes/features/common/widgets/custom_drawer.dart';
 import 'package:recipes/features/common/widgets/menu_icon_widget.dart';
 import 'package:recipes/features/common/widgets/nav_bar_with_favourites.dart';
 
-class AllRecipes extends StatefulWidget {
+class UserRecipesScreen extends StatefulWidget {
   @override
-  State<AllRecipes> createState() => _AllRecipesState();
+  State<UserRecipesScreen> createState() => _UserRecipesScreenState();
 }
 
-class _AllRecipesState extends State<AllRecipes> {
+class _UserRecipesScreenState extends State<UserRecipesScreen> {
   bool isSearchActive = false;
 
   void _handleSearchPressed() {
@@ -37,17 +37,17 @@ class _AllRecipesState extends State<AllRecipes> {
             child: Column(
               children: [
                 NavBarWithFavorites(
-                  title: 'Recipes',
+                  title: 'User recipes',
                   navWidget: MenuIconWidget(width: width),
                   width: width,
                   height: height,
-                  isUserRecipe: false,
+                  isUserRecipe: true,
                   onSearchPressed: _handleSearchPressed,
                 ),
                 isSearchActive
                     ? RecipesSearchTemplate(width: width, height: height)
                     : RecipesTemplate(
-                        isUserRecipe: false, width: width, height: height)
+                        isUserRecipe: true, width: width, height: height)
               ],
             ),
           ),

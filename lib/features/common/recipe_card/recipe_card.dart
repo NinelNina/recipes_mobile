@@ -1,3 +1,4 @@
+import 'package:appmetrica_plugin/appmetrica_plugin.dart';
 import 'package:flutter/material.dart';
 import 'package:recipes/features/approve_recipes/widgets/recipe_full_card_approve.dart';
 import 'package:recipes/features/full_recipe/presentation/full_recipe_screen.dart';
@@ -25,15 +26,7 @@ class RecipeCard extends StatelessWidget {
     final double height = size.height;
     return GestureDetector(
         onTap: () {
-          if (userRole == 'user') {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) =>
-                    FullRecipe(recipeId: id, isUserRecipe: isUserRecipe),
-              ),
-            );
-          } else if (userRole == 'administrator') {
+          if (userRole == 'administrator') {
             Navigator.push(
               context,
               MaterialPageRoute(
@@ -41,6 +34,17 @@ class RecipeCard extends StatelessWidget {
                   id: id,
                   isUserRecipe: true,
                 ),
+              ),
+            );
+          } else {
+            if (isUserRecipe) {
+              AppMetrica.reportEvent('ButtonUserRecipeCard Clicked');
+            }
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) =>
+                    FullRecipe(recipeId: id, isUserRecipe: isUserRecipe),
               ),
             );
           }
@@ -147,8 +151,9 @@ class RecipeCard extends StatelessWidget {
                         ),
                       ),
                     ),
-                    userRole == 'user'
-                        ? Positioned(
+                    userRole == 'administrator'
+                        ? SizedBox()
+                        : Positioned(
                             top: height * 0.3,
                             left: width * 0.027,
                             child: Container(
@@ -173,8 +178,7 @@ class RecipeCard extends StatelessWidget {
                                     : Icons.favorite_border,
                               ),
                             ),
-                          )
-                        : SizedBox(),
+                          ),
                   ],
                 ),
               ),

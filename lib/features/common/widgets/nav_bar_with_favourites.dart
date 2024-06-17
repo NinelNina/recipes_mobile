@@ -1,11 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipes/core/domain/presentation/bloc/recipe/recipe_search/recipe_search_bloc.dart';
 import 'package:recipes/core/domain/presentation/bloc/recipe/recipe_search/recipe_search_event.dart';
-import 'package:recipes/core/domain/services/recipe_service.dart';
 import 'package:recipes/core/domain/services/user_service.dart';
-import 'package:recipes/features/sing_in/presentation/sign_in_screen.dart';
 
 class NavBarWithFavorites extends StatelessWidget {
   NavBarWithFavorites({
@@ -17,6 +14,7 @@ class NavBarWithFavorites extends StatelessWidget {
     required this.isUserRecipe,
     this.type,
     this.diet,
+    required this.onSearchPressed,
   });
 
   final String title;
@@ -26,6 +24,7 @@ class NavBarWithFavorites extends StatelessWidget {
   final bool isUserRecipe;
   final String? type;
   final String? diet;
+  final VoidCallback onSearchPressed;
 
   final TextEditingController searchController = TextEditingController();
 
@@ -33,16 +32,13 @@ class NavBarWithFavorites extends StatelessWidget {
     final query = searchController.text;
     context.read<RecipeSearchBloc>().add(FetchRecipes(
         isUserRecipe: isUserRecipe, type: type, diet: diet, query: query, page: 0, number: 10));
+    onSearchPressed();
   }
 
   @override
   Widget build(BuildContext context) {
-    String? query = '';
-
     UserService _tokenService = UserService();
-    return BlocProvider(
-        create: (context) => RecipeSearchBloc(recipeService: RecipeService()),
-        child: Column(
+    return Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             SizedBox(
@@ -86,11 +82,9 @@ class NavBarWithFavorites extends StatelessWidget {
                             borderRadius: BorderRadius.circular(10),
                           ),
                           child: TextField(
-                            //TODO: add search
                             controller: searchController,
-                            onChanged: (value) {
-                              print(searchController
-                                  .text); // Здесь можно обработать запрос
+                            onSubmitted: (value) {
+                              search(context);
                             },
                             decoration: InputDecoration(
                               hintText: 'Search',
@@ -129,6 +123,6 @@ class NavBarWithFavorites extends StatelessWidget {
               ),
             ),
           ],
-        ));
+        );
   }
 }

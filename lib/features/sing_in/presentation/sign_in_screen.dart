@@ -194,6 +194,10 @@ class _SignInState extends State<SignIn> {
             alignment: Alignment.bottomCenter,
             child: SubmitButton(
               text: 'Skip',
+              onPressed: () {
+                userRole = '';
+                Navigator.pushNamed(context, '/home');
+              },
               height: height * 0.06,
               width: width * 0.76,
               color: Color(0xFFFFE0D7),

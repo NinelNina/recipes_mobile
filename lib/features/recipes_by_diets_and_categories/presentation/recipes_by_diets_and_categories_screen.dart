@@ -8,12 +8,19 @@ import 'package:recipes/features/common/widgets/custom_drawer.dart';
 import 'package:recipes/features/common/widgets/menu_icon_widget.dart';
 import 'package:recipes/features/common/widgets/nav_bar_with_favourites.dart';
 
-class AllRecipes extends StatefulWidget {
+class RecipesByDietsAndCategoriesScreen extends StatefulWidget {
+  final String? diet;
+  final String? type;
+
+  const RecipesByDietsAndCategoriesScreen({super.key, this.diet, this.type});
+
   @override
-  State<AllRecipes> createState() => _AllRecipesState();
+  State<RecipesByDietsAndCategoriesScreen> createState() =>
+      _RecipesByDietsAndCategoriesScreenState();
 }
 
-class _AllRecipesState extends State<AllRecipes> {
+class _RecipesByDietsAndCategoriesScreenState
+    extends State<RecipesByDietsAndCategoriesScreen> {
   bool isSearchActive = false;
 
   void _handleSearchPressed() {
@@ -28,6 +35,8 @@ class _AllRecipesState extends State<AllRecipes> {
     final double width = size.width;
     final double height = size.height;
 
+    String title = widget.diet ?? widget.type!;
+
     return Scaffold(
         drawer: CustomDrawer(),
         body: SafeArea(
@@ -37,17 +46,23 @@ class _AllRecipesState extends State<AllRecipes> {
             child: Column(
               children: [
                 NavBarWithFavorites(
-                  title: 'Recipes',
+                  title: title,
                   navWidget: MenuIconWidget(width: width),
                   width: width,
                   height: height,
                   isUserRecipe: false,
+                  diet: widget.diet,
+                  type: widget.type,
                   onSearchPressed: _handleSearchPressed,
                 ),
                 isSearchActive
                     ? RecipesSearchTemplate(width: width, height: height)
                     : RecipesTemplate(
-                        isUserRecipe: false, width: width, height: height)
+                        isUserRecipe: false,
+                        width: width,
+                        height: height,
+                        diet: widget.diet,
+                        type: widget.type)
               ],
             ),
           ),

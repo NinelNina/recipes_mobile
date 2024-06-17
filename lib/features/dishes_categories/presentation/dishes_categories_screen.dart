@@ -23,7 +23,7 @@ class DishesCategories extends StatelessWidget {
             return Center(child: Text('Failed to load meal types: ${state.message}'));
           } else if (state is RecipeInfoLoaded<MealType>) {
             final categories = state.items.map((mealType) => mealType.title).toList();
-            return Categories(title: 'Categories', categories: categories);
+            return Categories(title: 'Categories', categories: categories, isDiet: false,);
           } else {
             return Center(child: Text('No categories found'));
           }
