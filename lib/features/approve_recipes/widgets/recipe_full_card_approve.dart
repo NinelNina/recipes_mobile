@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:recipes/core/domain/presentation/bloc/admin/admin_bloc.dart';
-import 'package:recipes/core/domain/presentation/bloc/admin/admin_event.dart';
-import 'package:recipes/core/domain/presentation/bloc/admin/admin_state.dart';
+import 'package:recipes/core/domain/services/admin_service.dart';
+import 'package:recipes/core/domain/services/recipe_service.dart';
+import 'package:recipes/features/common/widgets/back_icon_widget.dart';
+import 'package:recipes/features/common/widgets/nav_bar_title_clouse.dart';
 import 'package:recipes/core/domain/presentation/bloc/recipe/recipe_by_id/recipe_bloc.dart';
 import 'package:recipes/core/domain/presentation/bloc/recipe/recipe_by_id/recipe_event.dart';
 import 'package:recipes/core/domain/presentation/bloc/recipe/recipe_by_id/recipe_state.dart';
-import 'package:recipes/core/domain/services/admin_service.dart';
-import 'package:recipes/core/domain/services/recipe_service.dart';
+import 'package:recipes/core/domain/presentation/bloc/admin/admin_bloc.dart';
+import 'package:recipes/core/domain/presentation/bloc/admin/admin_event.dart';
+import 'package:recipes/core/domain/presentation/bloc/admin/admin_state.dart';
 import 'package:recipes/features/common/recipe_card/full_recipe_card.dart';
-import 'package:recipes/features/common/widgets/back_icon_widget.dart';
-import 'package:recipes/features/common/widgets/nav_bar_title_clouse.dart';
 
 class RecipeFullCardApprove extends StatefulWidget {
   final int id;
@@ -60,7 +60,7 @@ class _RecipeFullCardApproveState extends State<RecipeFullCardApprove> {
                 child: BlocBuilder<RecipeBloc, RecipeState>(
                   builder: (context, state) {
                     if (state is RecipeLoading) {
-                      return Center(child: CircularProgressIndicator());
+                      return Center(child: CircularProgressIndicator(color: Color(0xFFFF6E41)));
                     } else if (state is RecipeLoaded) {
                       final recipe = state.recipe;
                       return SingleChildScrollView(
@@ -71,7 +71,8 @@ class _RecipeFullCardApproveState extends State<RecipeFullCardApprove> {
                               image: recipe.image,
                               title: recipe.title,
                               type: recipe.type ?? '',
-                              readyInMinutes: recipe.readyInMinutes.toString() + ' min',
+                              readyInMinutes:
+                                  recipe.readyInMinutes.toString() + ' min',
                               isFavouriteRecipe: recipe.isFavouriteRecipe,
                               isUserRecipe: recipe.isUserRecipe,
                               extendedIngredients: recipe.extendedIngredients,
@@ -116,29 +117,31 @@ class _RecipeFullCardApproveState extends State<RecipeFullCardApprove> {
                                 ],
                               ),
                             ),
-                            BlocBuilder<AdminBloc, AdminState>(
-                              builder: (context, adminState) {
-                                if (adminState is AdminLoading) {
-                                  return CircularProgressIndicator();
-                                } else if (adminState is RecipeChecked) {
-                                  WidgetsBinding.instance
-                                      .addPostFrameCallback((_) {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                        SnackBar(
-                                            content: Text(
-                                                'Recipe has been ${adminState is RecipeApproved ? "approved" : "rejected"}'),
-                                            backgroundColor:
-                                                adminState is RecipeApproved
-                                                    ? Colors.green
-                                                    : Colors.redAccent));
-                                  });
-                                  Navigator.pop(context);
-                                } else if (adminState is AdminError) {
-                                  return Text('Error: ${adminState.message}');
-                                }
-                                return Container();
-                              },
-                            ),
+                            BlocConsumer<AdminBloc, AdminState>(
+                                listener: (context, adminState) {
+                              if (adminState is RecipeChecked) {
+                                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                    content: Text(
+                                        'Recipe has been ${adminState is RecipeApproved ? "approved" : "rejected"}'),
+                                    backgroundColor:
+                                        adminState is RecipeApproved
+                                            ? Colors.green
+                                            : Colors.redAccent));
+                                Navigator.pop(context);
+                                Navigator.pushReplacementNamed(context, '/approve');
+                              } else if (adminState is AdminError) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                        content: Text(
+                                            'Error: ${adminState.message}'),
+                                        backgroundColor: Colors.redAccent));
+                              }
+                            }, builder: (context, adminState) {
+                              if (adminState is AdminLoading) {
+                                return CircularProgressIndicator(color: Color(0xFFFF6E41));
+                              }
+                              return Container();
+                            }),
                           ],
                         ),
                       );

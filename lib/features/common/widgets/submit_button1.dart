@@ -1,5 +1,5 @@
-import 'package:appmetrica_plugin/appmetrica_plugin.dart';
 import 'package:flutter/material.dart';
+import 'package:appmetrica_plugin/appmetrica_plugin.dart';
 
 class SubmitButton extends StatelessWidget {
   const SubmitButton({

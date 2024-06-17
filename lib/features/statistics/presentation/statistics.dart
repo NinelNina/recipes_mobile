@@ -4,9 +4,8 @@ import 'package:recipes/core/domain/presentation/bloc/admin/admin_bloc.dart';
 import 'package:recipes/core/domain/presentation/bloc/admin/admin_event.dart';
 import 'package:recipes/core/domain/presentation/bloc/admin/admin_state.dart';
 import 'package:recipes/core/domain/services/admin_service.dart';
-import 'package:recipes/features/common/widgets/custom_drawer.dart';
 import 'package:recipes/features/statistics/widgets/stat.dart';
-
+import 'package:recipes/features/common/widgets/custom_drawer.dart';
 import '../../common/widgets/back_icon_widget.dart';
 import '../../common/widgets/nav_bar_title_clouse.dart';
 
@@ -58,7 +57,7 @@ class _StatisticScreenState extends State<StatisticScreen> {
                     BlocBuilder<AdminBloc, AdminState>(
                       builder: (context, state) {
                         if (state is AdminLoading) {
-                          return CircularProgressIndicator();
+                          return CircularProgressIndicator(color: Color(0xFFFF6E41));
                         } else if (state is StatisticLoaded) {
                           final answers = [
                             state.statistic.quantityUsers.toString(),

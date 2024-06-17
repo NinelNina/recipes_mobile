@@ -147,7 +147,7 @@ class _AddRecipeState extends State<AddRecipe> {
                             .toList();
                         _dishCategory = mealTypes[0];
                       } else if (state is RecipeInfoLoading) {
-                        return CircularProgressIndicator();
+                        return CircularProgressIndicator(color: Color(0xFFFF6E41));
                       } else if (state is RecipeInfoError) {
                         return Text(
                             'Error loading meal types: ${state.message}');
@@ -196,7 +196,7 @@ class _AddRecipeState extends State<AddRecipe> {
                   BlocBuilder<RecipeInfoBloc, RecipeInfoState>(
                     builder: (context, state) {
                       if (state is RecipeInfoLoading) {
-                        return CircularProgressIndicator();
+                        return CircularProgressIndicator(color: Color(0xFFFF6E41));
                       } else if (state is RecipeInfoLoaded) {
                         listIngredientObj =
                             (state.items).cast<IngredientWithUnits>();
@@ -536,28 +536,30 @@ class _AddRecipeState extends State<AddRecipe> {
           ),
         ],
       ),
-      BlocBuilder<UserRecipeBloc, UserRecipeState>(
-        builder: (context, state) {
+      BlocConsumer<UserRecipeBloc, UserRecipeState>(
+        listener: (context, state) {
           if (state is UserRecipeCreated) {
-            WidgetsBinding.instance.addPostFrameCallback((_) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text('Recipe saved successfully!'),
-                  backgroundColor: Colors.green,
-                ),
-              );
-            });
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text('Recipe saved successfully!'),
+                backgroundColor: Colors.green,
+              ),
+            );
             AppMetrica.reportEvent('ButtonSaveRecipe Clicked');
-            Navigator.pushNamed(context, '/my_recipes');
+            Navigator.pop(context);
+            Navigator.pushReplacementNamed(context, '/my_recipes');
           } else if (state is UserRecipeError) {
-            WidgetsBinding.instance.addPostFrameCallback((_) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text('Error saving recipe: ${state.message}'),
-                  backgroundColor: Colors.redAccent,
-                ),
-              );
-            });
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text('Error saving recipe: ${state.message}'),
+                backgroundColor: Colors.redAccent,
+              ),
+            );
+          }
+        },
+        builder: (context, state) {
+          if (state is UserRecipeLoading) {
+            return CircularProgressIndicator(color: Color(0xFFFF6E41));
           }
           return Container();
         },

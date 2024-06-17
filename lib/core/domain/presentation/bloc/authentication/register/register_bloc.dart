@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:recipes/core/domain/services/authentication_service.dart';
 import 'package:recipes/core/domain/services/user_service.dart';
-
 import 'register_event.dart';
 import 'register_state.dart';
 

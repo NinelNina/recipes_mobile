@@ -1,4 +1,3 @@
-import 'package:appmetrica_plugin/appmetrica_plugin.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipes/core/domain/models/register_model.dart';
@@ -8,8 +7,9 @@ import 'package:recipes/core/domain/presentation/bloc/authentication/register/re
 import 'package:recipes/core/domain/services/authentication_service.dart';
 import 'package:recipes/features/common/widgets/back_icon_widget.dart';
 import 'package:recipes/features/common/widgets/form_input_field.dart';
-import 'package:recipes/features/common/widgets/nav_bar_title_clouse.dart';
 import 'package:recipes/features/common/widgets/submit_button1.dart';
+import 'package:recipes/features/common/widgets/nav_bar_title_clouse.dart';
+import 'package:appmetrica_plugin/appmetrica_plugin.dart';
 
 import '../../common/recipe_card/favourite_button.dart';
 import '../../sing_in/presentation/sign_in_screen.dart';
@@ -136,7 +136,8 @@ class _SignUpState extends State<SignUp> {
                     listener: (context, state) {
                       if (state is RegisterSuccess) {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text('Registration successful')),
+                          SnackBar(content: Text('Registration successful'),
+                          backgroundColor: Colors.green),
                         );
                         if (isFromFavorites) {
                           userRole = 'user';
@@ -144,18 +145,19 @@ class _SignUpState extends State<SignUp> {
                           Navigator.of(context).pop();
                         } else {
                           userRole = 'user';
-                          Navigator.pushNamed(context, '/user_profile');
+                          Navigator.popAndPushNamed(context, '/user_profile');
                           AppMetrica.reportEvent('ButtonSignUpToProfile Clicked');
                         }
                       } else if (state is RegisterFailure) {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text('Registration failed: ${state.error}')),
+                          SnackBar(content: Text('Registration failed: ${state.error}'),
+                          backgroundColor: Colors.redAccent),
                         );
                       }
                     },
                     builder: (context, state) {
                       if (state is RegisterLoading) {
-                        return CircularProgressIndicator();
+                        return CircularProgressIndicator(color: Color(0xFFFF6E41));
                       }
                       return SubmitButton(
                         text: 'Sign Up',

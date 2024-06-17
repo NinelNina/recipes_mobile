@@ -1,6 +1,6 @@
-import 'package:appmetrica_plugin/appmetrica_plugin.dart';
 import 'package:flutter/material.dart';
 import 'package:recipes/core/domain/services/user_service.dart';
+import 'package:appmetrica_plugin/appmetrica_plugin.dart';
 
 class CustomDrawer extends StatelessWidget {
   final UserService _tokenService = UserService();

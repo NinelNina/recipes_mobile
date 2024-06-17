@@ -1,7 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipes/core/domain/models/ingredient_model.dart';
 import 'package:recipes/core/domain/presentation/bloc/favorite/add_to_favorite/favorite_bloc.dart';
+import 'package:recipes/core/domain/presentation/bloc/favorite/add_to_favorite/favorite_event.dart';
+import 'package:recipes/core/domain/presentation/bloc/favorite/add_to_favorite/favorite_state.dart';
 import 'package:recipes/core/domain/services/favorite_service.dart';
 import 'package:recipes/features/common/recipe_card/favourite_button.dart';
 import 'package:recipes/features/sing_in/presentation/sign_in_screen.dart';
@@ -13,10 +16,10 @@ class FullRecipeCard extends StatefulWidget {
   final String? image;
   final String title;
   final String? type;
-  final String readyInMinutes;
+  final String? readyInMinutes;
   final bool isFavouriteRecipe;
   final bool isUserRecipe;
-  final List<Ingredient> extendedIngredients;
+  final List<Ingredient>? extendedIngredients;
   final List<String>? steps;
 
   const FullRecipeCard({
@@ -113,7 +116,7 @@ class _FullRecipeCardState extends State<FullRecipeCard> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  widget.readyInMinutes,
+                                  widget.readyInMinutes!,
                                   style: TextStyle(
                                     fontFamily: 'Montserrat',
                                     color: Color(0xFF000000),
@@ -145,7 +148,7 @@ class _FullRecipeCardState extends State<FullRecipeCard> {
           ),
           SizedBox(height: height * 0.008),
           CustomToggleButton(
-              extendedIngredients: widget.extendedIngredients,
+              extendedIngredients: widget.extendedIngredients!,
               steps: widget.steps),
         ],
       ),

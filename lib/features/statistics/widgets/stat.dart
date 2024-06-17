@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:recipes/features/statistics/widgets/satatistic_field.dart';
+import '../../dishes_categories/presentation/widgets/category_field.dart';
 
 class Stat extends StatelessWidget {
   final List<String> categories;

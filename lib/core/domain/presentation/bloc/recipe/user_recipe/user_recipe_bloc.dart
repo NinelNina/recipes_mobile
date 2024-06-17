@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:recipes/core/domain/services/user_recipe_service.dart';
-
 import 'user_recipe_event.dart';
 import 'user_recipe_state.dart';
 
@@ -25,6 +24,7 @@ class UserRecipeBloc extends Bloc<UserRecipeEvent, UserRecipeState> {
 
   Future<void> _onCreateUserRecipe(
       CreateUserRecipe event, Emitter<UserRecipeState> emit) async {
+    emit(UserRecipeLoading());
     try {
       await userRecipeService.createUserRecipe(
         title: event.title,

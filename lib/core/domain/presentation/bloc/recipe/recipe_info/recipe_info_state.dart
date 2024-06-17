@@ -1,4 +1,7 @@
 import 'package:equatable/equatable.dart';
+import 'package:recipes/core/domain/models/ingredient_model.dart';
+import 'package:recipes/core/domain/models/diet_model.dart';
+import 'package:recipes/core/domain/models/meal_type_model.dart';
 
 abstract class RecipeInfoState extends Equatable {
   @override

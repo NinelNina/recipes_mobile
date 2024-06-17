@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:recipes/features/common/widgets/back_icon_widget.dart';
 
 class Bar2 extends StatelessWidget {
   const Bar2({

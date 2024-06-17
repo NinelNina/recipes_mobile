@@ -1,4 +1,3 @@
-import 'package:appmetrica_plugin/appmetrica_plugin.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipes/core/domain/models/authentication_request.dart';
@@ -9,9 +8,9 @@ import 'package:recipes/core/domain/services/authentication_service.dart';
 import 'package:recipes/core/domain/services/user_service.dart';
 import 'package:recipes/features/common/widgets/back_icon_widget.dart';
 import 'package:recipes/features/common/widgets/form_input_field.dart';
-import 'package:recipes/features/common/widgets/nav_bar_title_clouse.dart';
 import 'package:recipes/features/common/widgets/submit_button1.dart';
-
+import 'package:recipes/features/common/widgets/nav_bar_title_clouse.dart';
+import 'package:appmetrica_plugin/appmetrica_plugin.dart';
 import '../../common/recipe_card/favourite_button.dart';
 
 String userRole = '';
@@ -121,7 +120,8 @@ class _SignInState extends State<SignIn> {
                 listener: (context, state) async {
                   if (state is AuthenticationSuccess) {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('Authentication successful')),
+                      SnackBar(content: Text('Authentication successful'),
+                      backgroundColor: Colors.green),
                     );
                     userRole = (await getRole())!;
                     if (userRole == 'user') {
@@ -144,7 +144,7 @@ class _SignInState extends State<SignIn> {
                 },
                 builder: (context, state) {
                   if (state is AuthenticationLoading) {
-                    return CircularProgressIndicator();
+                    return CircularProgressIndicator(color: Color(0xFFFF6E41));
                   }
                   return SubmitButton(
                     text: 'Sign In',

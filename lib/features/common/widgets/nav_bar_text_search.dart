@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class NavBarWithTextAndSearh extends StatelessWidget {
-    const NavBarWithTextAndSearh({
+class NavBarWithTextAndSearch extends StatelessWidget {
+    const NavBarWithTextAndSearch({
     super.key,
     required this.title,
     required this.navWidget,

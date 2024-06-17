@@ -4,8 +4,8 @@ import 'package:recipes/core/domain/presentation/bloc/recipe/recipe_search/recip
 import 'package:recipes/core/domain/presentation/bloc/recipe/recipe_search/recipe_search_event.dart';
 import 'package:recipes/core/domain/presentation/bloc/recipe/recipe_search/recipe_search_state.dart';
 import 'package:recipes/core/domain/services/recipe_service.dart';
-import 'package:recipes/features/common/recipe_card/recipe_card.dart';
 import 'package:recipes/features/common/widgets/custom_drawer.dart';
+import 'package:recipes/features/common/recipe_card/recipe_card.dart';
 import 'package:recipes/features/common/widgets/menu_icon_widget.dart';
 import 'package:recipes/features/common/widgets/nav_bar_with_favourites.dart';
 
@@ -26,7 +26,7 @@ class AllRecipes extends StatelessWidget {
               title: 'Recipes',
               navWidget: MenuIconWidget(width: width),
               width: width,
-              height: height,
+              height: height, isUserRecipe: false,
             ),
             BlocProvider(
               create: (context) => RecipeSearchBloc(recipeService: RecipeService())
@@ -35,7 +35,7 @@ class AllRecipes extends StatelessWidget {
                 child: BlocBuilder<RecipeSearchBloc, RecipeSearchState>(
                   builder: (context, state) {
                     if (state is RecipeSearchLoading) {
-                      return Center(child: CircularProgressIndicator());
+                      return Center(child: CircularProgressIndicator(color: Color(0xFFFF6E41)));
                     } else if (state is RecipeSearchLoaded) {
                       return ListView.builder(
                         itemCount: state.recipes.length,
