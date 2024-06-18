@@ -10,11 +10,8 @@ import 'package:recipes/features/common/widgets/form_input_field.dart';
 import 'package:recipes/features/common/widgets/submit_button1.dart';
 import 'package:recipes/features/common/widgets/nav_bar_title_clouse.dart';
 import 'package:appmetrica_plugin/appmetrica_plugin.dart';
-
 import '../../common/recipe_card/favourite_button.dart';
 import '../../sing_in/presentation/sign_in_screen.dart';
-
-Map<String, String> _users = {};
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -207,6 +204,10 @@ class _SignUpState extends State<SignUp> {
               alignment: Alignment.bottomCenter,
               child: SubmitButton(
                 text: 'Skip',
+                onPressed: () {
+                  userRole = '';
+                  Navigator.pushNamed(context, '/home');
+                },
                 height: height * 0.06,
                 width: width * 0.76,
                 color: const Color(0xFFFFE0D7),

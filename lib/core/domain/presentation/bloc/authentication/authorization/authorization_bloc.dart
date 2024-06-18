@@ -7,7 +7,7 @@ import 'authorization_state.dart';
 
 class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> {
   final AuthenticationService authenticationService;
-  final UserService tokenService = UserService();
+  final UserService userService = UserService();
 
   AuthenticationBloc({required this.authenticationService}) : super(AuthenticationInitial()) {
     on<AuthenticationButtonPressed>(onAuthenticationButtonPressed);
@@ -17,9 +17,9 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
     emit(AuthenticationLoading());
     try {
       final response = await authenticationService.authenticate(event.request);
-      await tokenService.saveToken(response.token);
-      await tokenService.saveUsername(response.email);
-      await tokenService.saveRole(response.role.toLowerCase());
+      await userService.saveToken(response.token);
+      await userService.saveUsername(response.email);
+      await userService.saveRole(response.role.toLowerCase());
       emit(AuthenticationSuccess(token: response.token));
     } catch (error) {
       if (error is DioException && error.response?.statusCode == 403) {
