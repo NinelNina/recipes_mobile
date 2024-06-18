@@ -1,12 +1,16 @@
 import 'package:bloc/bloc.dart';
+import 'package:dio/dio.dart';
+import 'package:recipes/core/domain/presentation/bloc/authentication/authorization/authorization_bloc.dart';
+import 'package:recipes/core/domain/presentation/bloc/authentication/authorization/authorization_event.dart';
 import 'package:recipes/core/domain/services/user_recipe_service.dart';
 import 'user_recipe_event.dart';
 import 'user_recipe_state.dart';
 
 class UserRecipeBloc extends Bloc<UserRecipeEvent, UserRecipeState> {
   final UserRecipeService userRecipeService;
+  final AuthenticationBloc authenticationBloc;
 
-  UserRecipeBloc(this.userRecipeService) : super(UserRecipeInitial()) {
+  UserRecipeBloc(this.userRecipeService, this.authenticationBloc) : super(UserRecipeInitial()) {
     on<FetchUserRecipes>(_onFetchUserRecipes);
     on<CreateUserRecipe>(_onCreateUserRecipe);
   }
@@ -18,7 +22,14 @@ class UserRecipeBloc extends Bloc<UserRecipeEvent, UserRecipeState> {
       final recipes = await userRecipeService.getUserRecipes();
       emit(UserRecipeLoaded(recipes));
     } catch (e) {
-      emit(UserRecipeError('Failed to load user recipes: ${e.toString()}'));
+      if (e is DioException) {
+        if (e.response?.statusCode == 401) {
+          authenticationBloc.add(LoggedOut());
+          emit(UserRecipeError('Unauthorized. Please log in again.'));
+        }
+      } else {
+        emit(UserRecipeError('Failed to load user recipes: ${e.toString()}'));
+      }
     }
   }
 
@@ -39,7 +50,14 @@ class UserRecipeBloc extends Bloc<UserRecipeEvent, UserRecipeState> {
       );
       emit(UserRecipeCreated());
     } catch (e) {
-      emit(UserRecipeError('Failed to create user recipe: ${e.toString()}'));
+      if (e is DioException) {
+        if (e.response?.statusCode == 401) {
+          authenticationBloc.add(LoggedOut());
+          emit(UserRecipeError('Unauthorized. Please log in again.'));
+        }
+      } else {
+        emit(UserRecipeError('Failed to create user recipe: ${e.toString()}'));
+      }
     }
   }
 }

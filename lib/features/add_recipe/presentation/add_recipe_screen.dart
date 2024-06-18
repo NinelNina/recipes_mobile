@@ -8,18 +8,21 @@ import 'package:image_picker/image_picker.dart';
 import 'package:recipes/core/domain/models/ingredient_model.dart';
 import 'package:recipes/core/domain/models/ingredient_with_units_model.dart';
 import 'package:recipes/core/domain/models/meal_type_model.dart';
+import 'package:recipes/core/domain/presentation/bloc/authentication/authorization/authorization_bloc.dart';
 import 'package:recipes/core/domain/presentation/bloc/recipe/recipe_info/recipe_info_bloc.dart';
 import 'package:recipes/core/domain/presentation/bloc/recipe/recipe_info/recipe_info_event.dart';
 import 'package:recipes/core/domain/presentation/bloc/recipe/recipe_info/recipe_info_state.dart';
 import 'package:recipes/core/domain/presentation/bloc/recipe/user_recipe/user_recipe_bloc.dart';
 import 'package:recipes/core/domain/presentation/bloc/recipe/user_recipe/user_recipe_event.dart';
 import 'package:recipes/core/domain/presentation/bloc/recipe/user_recipe/user_recipe_state.dart';
+import 'package:recipes/core/domain/services/authentication_service.dart';
 import 'package:recipes/core/domain/services/recipe_info_service.dart';
 import 'package:recipes/core/domain/services/user_recipe_service.dart';
 import 'package:recipes/features/add_recipe/presentation/widget/ingredient_row.dart';
 import 'package:recipes/features/add_recipe/presentation/widget/step_row.dart';
 import 'package:recipes/features/common/widgets/back_icon_widget.dart';
 import 'package:recipes/features/common/widgets/nav_bar_title_clouse.dart';
+import 'package:recipes/features/common/widgets/unauthenticated_widget.dart';
 
 class AddRecipe extends StatefulWidget {
   @override
@@ -49,13 +52,15 @@ class _AddRecipeState extends State<AddRecipe> {
   late bool isPublish;
   List<GlobalKey<IngredientRowState>> ingredientKeys = [];
   List<GlobalKey<StepRowState>> stepKeys = [];
+  final AuthenticationBloc authenticationBloc =
+  AuthenticationBloc(authenticationService: AuthenticationService());
 
   @override
   void initState() {
     super.initState();
     UserRecipeService userRecipeService = UserRecipeService();
     RecipeInfoService recipeInfoService = RecipeInfoService();
-    userRecipeBloc = UserRecipeBloc(userRecipeService);
+    userRecipeBloc = UserRecipeBloc(userRecipeService, authenticationBloc);
     recipeInfoBloc = RecipeInfoBloc(recipeInfoService: recipeInfoService);
     recipeInfoBloc.add(FetchMealTypes());
     recipeInfoBloc.add(FetchIngredients());
@@ -70,6 +75,7 @@ class _AddRecipeState extends State<AddRecipe> {
         providers: [
           BlocProvider.value(value: recipeInfoBloc),
           BlocProvider.value(value: userRecipeBloc),
+          BlocProvider.value(value: authenticationBloc)
         ],
         child: SafeArea(
             child: Scaffold(
@@ -85,6 +91,7 @@ class _AddRecipeState extends State<AddRecipe> {
               padding: EdgeInsets.only(top: screenHeight * 0.023),
               child: Column(
                 children: [
+                  UnauthenticatedWidget(),
                   _imageFile != null
                       ? Stack(
                           children: [

@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:dio/dio.dart';
 import 'package:recipes/core/api/api_root.dart';
 import 'package:recipes/core/domain/models/recipe_preview_model.dart';
@@ -27,7 +25,7 @@ class FavoriteService{
         throw Exception('Failed to add recipe to favorites');
       }
     } on DioException catch (e) {
-      throw Exception('Error adding recipe to favorites: ${e.message}');
+      throw e;
     }
   }
 
@@ -49,7 +47,7 @@ class FavoriteService{
         throw Exception('Failed to delete recipe from favorites');
       }
     } on DioException catch (e) {
-      throw Exception('Error adding recipe from favorites: ${e.message}');
+      throw e;
     }
   }
 
@@ -79,7 +77,7 @@ class FavoriteService{
         throw Exception('Failed to load favorite recipes');
       }
     } on DioException catch (e) {
-      throw Exception('Error fetching favorite recipes: ${e.message}');
+      throw e;
     }
   }
 }

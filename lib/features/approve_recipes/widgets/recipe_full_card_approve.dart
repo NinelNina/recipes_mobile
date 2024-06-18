@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:recipes/core/domain/presentation/bloc/authentication/authorization/authorization_bloc.dart';
 import 'package:recipes/core/domain/services/admin_service.dart';
+import 'package:recipes/core/domain/services/authentication_service.dart';
 import 'package:recipes/core/domain/services/recipe_service.dart';
 import 'package:recipes/features/common/widgets/back_icon_widget.dart';
 import 'package:recipes/features/common/widgets/nav_bar_title_clouse.dart';
@@ -11,6 +13,7 @@ import 'package:recipes/core/domain/presentation/bloc/admin/admin_bloc.dart';
 import 'package:recipes/core/domain/presentation/bloc/admin/admin_event.dart';
 import 'package:recipes/core/domain/presentation/bloc/admin/admin_state.dart';
 import 'package:recipes/features/common/recipe_card/full_recipe_card.dart';
+import 'package:recipes/features/common/widgets/unauthenticated_widget.dart';
 
 class RecipeFullCardApprove extends StatefulWidget {
   final int id;
@@ -26,8 +29,10 @@ class RecipeFullCardApprove extends StatefulWidget {
 }
 
 class _RecipeFullCardApproveState extends State<RecipeFullCardApprove> {
-  RecipeBloc recipeBloc = RecipeBloc(RecipeService());
-  AdminBloc adminBloc = AdminBloc(adminService: AdminService());
+  final AuthenticationBloc authenticationBloc =
+  AuthenticationBloc(authenticationService: AuthenticationService());
+  late RecipeBloc recipeBloc = RecipeBloc(RecipeService(), authenticationBloc);
+  late AdminBloc adminBloc = AdminBloc(adminService: AdminService(), authenticationBloc: authenticationBloc);
 
   @override
   void initState() {
@@ -44,7 +49,8 @@ class _RecipeFullCardApproveState extends State<RecipeFullCardApprove> {
     return MultiBlocProvider(
       providers: [
         BlocProvider.value(value: recipeBloc),
-        BlocProvider.value(value: adminBloc)
+        BlocProvider.value(value: adminBloc),
+        BlocProvider.value(value: authenticationBloc)
       ],
       child: Scaffold(
         body: SafeArea(
@@ -152,6 +158,7 @@ class _RecipeFullCardApproveState extends State<RecipeFullCardApprove> {
                   },
                 ),
               ),
+              UnauthenticatedWidget()
             ],
           ),
         ),

@@ -1,13 +1,16 @@
 import 'package:bloc/bloc.dart';
-import 'package:recipes/core/domain/models/recipe_preview_model.dart';
+import 'package:dio/dio.dart';
+import 'package:recipes/core/domain/presentation/bloc/authentication/authorization/authorization_bloc.dart';
+import 'package:recipes/core/domain/presentation/bloc/authentication/authorization/authorization_event.dart';
 import 'package:recipes/core/domain/services/recipe_service.dart';
 import 'recipe_search_event.dart';
 import 'recipe_search_state.dart';
 
 class RecipeSearchBloc extends Bloc<RecipeSearchEvent, RecipeSearchState> {
   final RecipeService recipeService;
+  final AuthenticationBloc authenticationBloc;
 
-  RecipeSearchBloc({required this.recipeService}) : super(RecipeSearchInitial()) {
+  RecipeSearchBloc({required this.authenticationBloc, required this.recipeService}) : super(RecipeSearchInitial()) {
     on<FetchRecipes>(_onFetchRecipes);
   }
 
@@ -24,7 +27,14 @@ class RecipeSearchBloc extends Bloc<RecipeSearchEvent, RecipeSearchState> {
       );
       emit(RecipeSearchLoaded(recipes));
     } catch (e) {
-      emit(RecipeSearchError(e.toString()));
+      if (e is DioException) {
+        if (e.response?.statusCode == 401) {
+          authenticationBloc.add(LoggedOut());
+          emit(RecipeSearchError('Unauthorized. Please log in again.'));
+        }
+      } else {
+        emit(RecipeSearchError(e.toString()));
+      }
     }
   }
 }

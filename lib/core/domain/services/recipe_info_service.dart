@@ -1,8 +1,6 @@
-import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:recipes/core/api/api_root.dart';
 import 'package:recipes/core/domain/models/diet_model.dart';
-import 'package:recipes/core/domain/models/ingredient_model.dart';
 import 'package:recipes/core/domain/models/ingredient_with_units_model.dart';
 import 'package:recipes/core/domain/models/meal_type_model.dart';
 

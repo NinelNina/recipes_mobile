@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:recipes/core/domain/presentation/bloc/authentication/authorization/authorization_bloc.dart';
 import 'package:recipes/core/domain/presentation/bloc/recipe/user_recipe/user_recipe_bloc.dart';
 import 'package:recipes/core/domain/presentation/bloc/recipe/user_recipe/user_recipe_event.dart';
 import 'package:recipes/core/domain/presentation/bloc/recipe/user_recipe/user_recipe_state.dart';
+import 'package:recipes/core/domain/services/authentication_service.dart';
 import 'package:recipes/core/domain/services/user_recipe_service.dart';
 import 'package:recipes/features/common/widgets/app_bar.dart';
 import 'package:recipes/features/common/recipe_card/recipe_card.dart';
 import 'package:recipes/features/common/widgets/custom_drawer.dart';
 import 'package:recipes/features/common/widgets/menu_icon_widget.dart';
+import 'package:recipes/features/common/widgets/unauthenticated_widget.dart';
 
 class MyRecipesScreen extends StatefulWidget {
   @override
@@ -17,11 +20,13 @@ class MyRecipesScreen extends StatefulWidget {
 class _MyRecipesScreenState extends State<MyRecipesScreen> {
   late UserRecipeBloc userRecipeBloc;
   UserRecipeService userRecipeService = UserRecipeService();
+  final AuthenticationBloc authenticationBloc =
+      AuthenticationBloc(authenticationService: AuthenticationService());
 
   @override
   void initState() {
     super.initState();
-    userRecipeBloc = UserRecipeBloc(userRecipeService);
+    userRecipeBloc = UserRecipeBloc(userRecipeService, authenticationBloc);
     userRecipeBloc.add(FetchUserRecipes());
   }
 
@@ -31,8 +36,11 @@ class _MyRecipesScreenState extends State<MyRecipesScreen> {
     final double width = size.width;
     final double height = size.height;
 
-    return BlocProvider.value(
-        value: userRecipeBloc,
+    return MultiBlocProvider(
+        providers: [
+          BlocProvider.value(value: userRecipeBloc),
+          BlocProvider.value(value: authenticationBloc)
+        ],
         child: SafeArea(
           child: Scaffold(
             drawer: CustomDrawer(),
@@ -113,6 +121,7 @@ class _MyRecipesScreenState extends State<MyRecipesScreen> {
                     },
                   ),
                 ),
+                UnauthenticatedWidget(),
               ],
             ),
           ),

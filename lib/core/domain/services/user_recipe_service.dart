@@ -31,7 +31,7 @@ class UserRecipeService {
       }
     }
     on DioException catch (e) {
-      throw Exception('Error fetching user recipes: ${e.message}');
+      throw e;
     }
   }
 
@@ -70,7 +70,7 @@ class UserRecipeService {
         throw Exception('Failed to create user recipe');
       }
     } on DioException catch (e) {
-      throw Exception('Error creating user recipe: ${e.message}');
+      throw e;
     }
   }
 }

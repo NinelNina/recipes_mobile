@@ -11,6 +11,7 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
 
   AuthenticationBloc({required this.authenticationService}) : super(AuthenticationInitial()) {
     on<AuthenticationButtonPressed>(onAuthenticationButtonPressed);
+    on<LoggedOut>(onAuthenticationLoggedOut);
   }
 
   void onAuthenticationButtonPressed(AuthenticationButtonPressed event, Emitter<AuthenticationState> emit) async {
@@ -28,5 +29,12 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
         emit(AuthenticationFailure(error: 'An unexpected error occurred'));
       }
     }
+  }
+
+  void onAuthenticationLoggedOut(LoggedOut event, Emitter<AuthenticationState> emit) async {
+    emit(Unauthenticated());
+    /*await userService.deleteToken();
+    await userService.deleteUsername();
+    await userService.deleteRole();*/
   }
 }
