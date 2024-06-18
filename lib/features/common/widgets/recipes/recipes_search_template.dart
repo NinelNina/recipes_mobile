@@ -1,3 +1,4 @@
+/*
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipes/core/domain/presentation/bloc/recipe/recipe_search/recipe_search_bloc.dart';
@@ -53,7 +54,7 @@ class RecipesSearchTemplate extends StatelessWidget {
             }
           },
         ),
-      //),
     );
   }
 }
+*/

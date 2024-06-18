@@ -1,8 +1,10 @@
 import 'package:equatable/equatable.dart';
 
 abstract class RecipeSearchEvent extends Equatable {
+  const RecipeSearchEvent();
+
   @override
-  List<Object?> get props => [];
+  List<Object> get props => [];
 }
 
 class FetchRecipes extends RecipeSearchEvent {
@@ -13,8 +15,15 @@ class FetchRecipes extends RecipeSearchEvent {
   final int? page;
   final int? number;
 
-  FetchRecipes({this.query, required this.isUserRecipe, this.type, this.diet, this.page, this.number});
+  const FetchRecipes({
+    required this.query,
+    required this.isUserRecipe,
+    required this.type,
+    required this.diet,
+    required this.page,
+    required this.number,
+  });
 
   @override
-  List<Object?> get props => [query, isUserRecipe, type, diet, page, number];
+  List<Object> get props => [query!, isUserRecipe, type!, diet!, page!, number!];
 }

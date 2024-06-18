@@ -57,7 +57,7 @@ class _UserRecipesScreenState extends State<UserRecipesScreen> {
                 UnauthenticatedWidget(),
                 Expanded(
                   child: isSearchActive
-                      ? RecipesSearchTemplate(width: width, height: height)
+                      ? Container()//RecipesSearchTemplate(width: width, height: height)
                       : RecipesTemplate(
                           isUserRecipe: true, width: width, height: height),
                 )

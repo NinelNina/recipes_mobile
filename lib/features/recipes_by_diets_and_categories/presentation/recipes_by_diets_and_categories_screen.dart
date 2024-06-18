@@ -68,7 +68,7 @@ class _RecipesByDietsAndCategoriesScreenState
                 UnauthenticatedWidget(),
                 Expanded(
                   child: isSearchActive
-                      ? RecipesSearchTemplate(width: width, height: height)
+                      ? Container()//RecipesSearchTemplate(width: width, height: height)
                       : RecipesTemplate(
                           isUserRecipe: false,
                           width: width,

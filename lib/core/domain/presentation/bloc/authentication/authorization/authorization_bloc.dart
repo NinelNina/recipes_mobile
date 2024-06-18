@@ -33,8 +33,8 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
 
   void onAuthenticationLoggedOut(LoggedOut event, Emitter<AuthenticationState> emit) async {
     emit(Unauthenticated());
-    /*await userService.deleteToken();
+    await userService.deleteToken();
     await userService.deleteUsername();
-    await userService.deleteRole();*/
+    await userService.deleteRole();
   }
 }
