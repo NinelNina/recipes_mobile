@@ -65,6 +65,7 @@ class IngredientRowState extends State<IngredientRow> {
           SizedBox(width: widget.screenWidth * 0.01),
           buildTextField(
               widget.screenWidth * 0.20, widget.screenHeight * 0.06, ' ',
+
               onChanged: (String? newValue) {
                 setState(() {
                   amount = double.tryParse(newValue!) ?? 0;
@@ -124,6 +125,7 @@ class IngredientRowState extends State<IngredientRow> {
       width: width,
       height: height,
       child: TextFormField(
+        keyboardType: TextInputType.number,
         onChanged: onChanged,
         decoration: InputDecoration(
           hintText: hintText,

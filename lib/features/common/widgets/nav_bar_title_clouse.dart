@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:recipes/features/sing_in/presentation/sign_in_screen.dart';
 
 class NavBarTitleCl extends StatelessWidget {
+
+
   const NavBarTitleCl({
     super.key,
     required this.title,
@@ -48,6 +50,7 @@ class NavBarTitleCl extends StatelessWidget {
                 icon: navWidget,
                 onPressed: () {
                   Navigator.pop(context);
+
                 },
               ),
               Expanded(

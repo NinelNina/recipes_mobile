@@ -19,6 +19,7 @@ class FullRecipeCard extends StatefulWidget {
   final List<Ingredient>? extendedIngredients;
   final List<String>? steps;
 
+
   const FullRecipeCard({
     required this.id,
     required this.image,

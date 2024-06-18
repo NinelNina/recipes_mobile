@@ -32,20 +32,29 @@ class StepRowState extends State<StepRow> {
           height: widget.screenHeight * 0.06,
           child: Row(
             children: [
-              SizedBox(
+              Container(
                 width: widget.screenWidth * 0.8,
                 height: widget.screenHeight * 0.06,
+                decoration: BoxDecoration(
+                    border: Border.all(
+                        color: Colors.black54
+                    ),
+                    borderRadius: BorderRadius.all(Radius.circular(10))
+                ),
                 child: TextFormField(
+
                   onChanged: (String? newValue) {
                     setState(() {
                       step = newValue ?? '';
                     });
                   },
+                  maxLength: 250,
+                  maxLines: null,
+
                   decoration: InputDecoration(
-                    contentPadding: const EdgeInsets.all(15),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
+                      counterText: "",
+                      contentPadding: const EdgeInsets.all(0),
+                      border: InputBorder.none
                   ),
                 ),
               ),

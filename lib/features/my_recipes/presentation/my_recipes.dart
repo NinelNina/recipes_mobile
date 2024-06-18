@@ -57,23 +57,31 @@ class _MyRecipesScreenState extends State<MyRecipesScreen> {
                             ? Column(
                                 children: [
                                   SizedBox(height: height * 0.02),
-                                  Text('There\'s nothing here :('),
+                                  Text('There\'s nothing here :('.toUpperCase(),
+                                    style: TextStyle(
+                                      fontFamily: 'Montserrat',
+                                      color: Color(0xFF000000),
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
                                   SizedBox(height: height * 0.04),
                                   Container(
-                                    width: double.infinity,
-                                    padding:
-                                        EdgeInsets.symmetric(horizontal: 20),
+                                    width: width * 0.485,
+                                    height: height * 0.047,
+
                                     child: ElevatedButton(
                                       onPressed: () {
                                         Navigator.pushNamed(context, '/add');
                                       },
                                       style: ElevatedButton.styleFrom(
+                                         backgroundColor: Color(0xFFFF6E41),
                                         shape: RoundedRectangleBorder(
                                           borderRadius:
-                                              BorderRadius.circular(18.0),
+                                              BorderRadius.circular(30),
                                         ),
                                       ),
-                                      child: Text('Add Recipe'),
+                                      child: Text('CREATE RECIPE', style: TextStyle(color: Colors.white),),
                                     ),
                                   ),
                                 ],

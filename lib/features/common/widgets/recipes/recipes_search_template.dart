@@ -28,7 +28,14 @@ class RecipesSearchTemplate extends StatelessWidget {
               if (state.recipes.length == 0){
                 return Column(children: [
                   SizedBox(height: 10),
-                  Text('There\'s nothing here :('),
+                  Text('There\'s nothing here :('.toUpperCase(),
+                  style: TextStyle(
+                    fontFamily: 'Montserrat',
+                    color: Color(0xFF000000),
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                  ),
+                  ),
                 ]);
               } else {
                 return ListView.builder(

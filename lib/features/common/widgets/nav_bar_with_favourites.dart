@@ -82,12 +82,15 @@ class NavBarWithFavorites extends StatelessWidget {
                             borderRadius: BorderRadius.circular(10),
                           ),
                           child: TextField(
+                            maxLength: 250,
                             controller: searchController,
                             onSubmitted: (value) {
                               search(context);
                             },
                             decoration: InputDecoration(
                               hintText: 'Search',
+                              counterText: "",
+                              contentPadding: const EdgeInsets.all(10),
                               border: InputBorder.none,
                               prefixIcon: Row(
                                 mainAxisSize: MainAxisSize.min,

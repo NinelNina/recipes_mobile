@@ -39,7 +39,6 @@ class NavBarWithAddAndSearch extends StatelessWidget {
             ],
           ),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               IconButton(
                 color: const Color(0xFFFF6E41),
@@ -48,7 +47,6 @@ class NavBarWithAddAndSearch extends StatelessWidget {
                   Scaffold.of(context).openDrawer();
                 },
               ),
-              SizedBox(width: 30),
               Expanded(
                 child: Center(
                   child: Text(
@@ -62,16 +60,13 @@ class NavBarWithAddAndSearch extends StatelessWidget {
                   ),
                 ),
               ),
-              Row(
-                children: [
-                  IconButton(
-                    iconSize: 30,
-                    icon: Icon(Icons.add),
-                    onPressed: () {
-                      Navigator.pushNamed(context, "/add");
-                    },
-                  ),
-                ],
+              IconButton(
+                iconSize: 30,
+                icon: Icon(Icons.add_circle),
+                color: Color(0xFFFF6E41),
+                onPressed: () {
+                  Navigator.pushNamed(context, "/add");
+                },
               ),
             ],
           ),
