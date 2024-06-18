@@ -88,17 +88,21 @@ class IngredientRowState extends State<IngredientRow> {
     return SizedBox(
       width: width,
       height: height,
-      child: DropdownButtonFormField<String>(
+      child:
+      DropdownButtonFormField<String>(
+        isExpanded: true,
         items: items.map((String item) {
           return DropdownMenuItem<String>(
             value: item,
-            child: Text(
+            child:
+            Text(
               item,
               style: const TextStyle(
                 fontFamily: 'Montserrat',
                 fontWeight: FontWeight.w500,
                 fontSize: 14,
               ),
+
             ),
           );
         }).toList(),
@@ -110,6 +114,7 @@ class IngredientRowState extends State<IngredientRow> {
           ),
         ),
       ),
+
     );
   }
 

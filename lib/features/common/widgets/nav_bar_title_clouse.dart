@@ -59,6 +59,7 @@ class NavBarTitleCl extends StatelessWidget {
                       color: Color(0xFFFF6E41),
                       fontFamily: 'Poppins',
                       fontSize: 20,
+                      height: 1.1,
                       fontWeight: FontWeight.bold,
                     ),
                   ),

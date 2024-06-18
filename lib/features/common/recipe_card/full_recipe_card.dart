@@ -84,7 +84,7 @@ class _FullRecipeCardState extends State<FullRecipeCard> {
                           ),
                           border: Border.all(
                             color: Color(0xFFFF6E41),
-                            width: 2,
+                            width: 1,
                           ),
                         ),
 
@@ -157,6 +157,37 @@ class _FullRecipeCardState extends State<FullRecipeCard> {
                               isFavorite: widget.isFavouriteRecipe,
                             ),
                           ),
+                    widget.type == null
+                    ? SizedBox()
+                    : Positioned(
+                      top: height * 0.01,
+                      left: width * 0.044,
+                      child: Container(
+                        width: width * 0.21,
+                        height: height * 0.047,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(30),
+                          border: Border.all(
+                            color: Color(0xFFFF6E41),
+                            width: 1,
+                          ),
+                        ),
+
+                        child: Center(
+                              child: Text(
+                                widget.type.toString().toUpperCase(),
+                                style: TextStyle(
+                                  fontFamily: 'Montserrat',
+                                  color: Color(0xFF000000),
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.w600,
+                                ),
+
+                        ),
+                        ),
+                      )
+                    ),
                   ],
                 ),
               ),

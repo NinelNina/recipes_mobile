@@ -286,19 +286,29 @@ class _AddRecipeState extends State<AddRecipe> {
 
   Widget buildTextField(double width, double height, String hintText,
       {required Function(String? newValue)? onChanged}) {
-    return SizedBox(
-      width: width,
-      height: height,
-      child: TextFormField(
+    return Container(
+      width: width ,
+      height: height ,
+        decoration: BoxDecoration(
+          border: Border.all(
+            color: Colors.black54
+          ),
+          borderRadius: BorderRadius.all(Radius.circular(10))
+        ),
+        child: IntrinsicHeight(
+        child: TextFormField(
+        maxLength: 250,
+        maxLines: null,
+
         onChanged: onChanged,
         decoration: InputDecoration(
           hintText: hintText,
-          contentPadding: const EdgeInsets.all(15),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
+          counterText: "",
+          contentPadding: const EdgeInsets.all(0),
+          border: InputBorder.none
         ),
       ),
+        ),
     );
   }
 
