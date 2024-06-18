@@ -7,7 +7,11 @@ class StatisticField extends StatelessWidget {
   final String answer;
   final double width;
 
-  const StatisticField({super.key, required this.text, required this.answer, required this.width});
+  const StatisticField(
+      {super.key,
+      required this.text,
+      required this.answer,
+      required this.width});
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +46,10 @@ class StatisticField extends StatelessWidget {
             maxLines: null,
             textDirection: TextDirection.ltr,
           );
-          textPainter.layout(minWidth: constraints.minWidth / 2, maxWidth: constraints.maxWidth / 2); // Половина ширины родительского контейнера
+          textPainter.layout(
+              minWidth: constraints.minWidth / 2,
+              maxWidth: constraints.maxWidth /
+                  2); // Половина ширины родительского контейнера
 
           final TextSpan answerSpan = TextSpan(
             text: answer,
@@ -58,19 +65,43 @@ class StatisticField extends StatelessWidget {
             maxLines: null,
             textDirection: TextDirection.ltr,
           );
-          answerPainter.layout(minWidth: constraints.minWidth / 2, maxWidth: constraints.maxWidth / 2); // Половина ширины родительского контейнера
+          answerPainter.layout(
+              minWidth: constraints.minWidth / 2,
+              maxWidth: constraints.maxWidth / 2);
 
           return Container(
-            width: constraints.maxWidth, // Ширина родительского контейнера
-            height: max(textPainter.size.height, answerPainter.size.height) + 8, // Высота контейнера равна максимальной высоте текстов
+            width: constraints.maxWidth,
+            constraints: BoxConstraints(
+              minHeight: 0,
+            ),
             child: Row(
               children: [
                 Expanded(
-                  child: Text(text, style: textSpan.style),
+                  child: Text(
+                    text,
+                    style: TextStyle(
+                      fontFamily: 'Montserrat',
+                      color: Color(0xFF000000),
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                    ),
+                    textAlign: TextAlign.left,
+                  ),
                 ),
-                const SizedBox(width: 100), // Расстояние между текстами
                 Expanded(
-                  child: Text(answer, style: answerSpan.style, textAlign: TextAlign.center), // Выравнивание текста по центру
+                  child: Text(
+                    answer,
+                    style: TextStyle(
+                      fontFamily: 'Montserrat',
+                      color: Color(0xFF000000),
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                      decoration: double.tryParse(answer) == null
+                          ? TextDecoration.underline
+                          : TextDecoration.none,
+                    ),
+                    textAlign: TextAlign.right,
+                  ),
                 ),
               ],
             ),

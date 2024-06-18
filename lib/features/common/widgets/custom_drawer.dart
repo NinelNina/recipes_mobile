@@ -20,7 +20,7 @@ class CustomDrawer extends StatelessWidget {
             height: 30,
             child: Image.asset('assets/images/frame.png'),
           ),
-          title: Text('Personal Area'),
+          title: Text('Account'),
           onTap: () {
             if (userRole == 'admin'){
               Navigator.pushNamed(context, '/admin_profile');
