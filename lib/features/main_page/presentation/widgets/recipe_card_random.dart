@@ -1,20 +1,34 @@
 import 'package:flutter/material.dart';
-
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:recipes/core/domain/presentation/bloc/favorite/add_to_favorite/favorite_bloc.dart';
+import 'package:recipes/core/domain/presentation/bloc/favorite/add_to_favorite/favorite_state.dart';
 import '../../../full_recipe/presentation/full_recipe_screen.dart';
 import 'main_buttons_four.dart';
 
-class RecipeCardRandom extends StatelessWidget {
+class RecipeCardRandom extends StatefulWidget {
   final String? image;
   final String recipeName;
   final bool isFavorite;
   final int id;
 
-  const RecipeCardRandom({
-    required this.image,
-    required this.recipeName,
-    required this.isFavorite,
-    required this.id
-  });
+  const RecipeCardRandom(
+      {required this.image,
+      required this.recipeName,
+      required this.isFavorite,
+      required this.id});
+
+  @override
+  State<RecipeCardRandom> createState() => _RecipeCardRandomState();
+}
+
+class _RecipeCardRandomState extends State<RecipeCardRandom> {
+  bool isFavorite = false;
+
+  @override
+  void initState() {
+    super.initState();
+    isFavorite = widget.isFavorite;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,13 +36,21 @@ class RecipeCardRandom extends StatelessWidget {
     final double width = size.width;
     final double height = size.height;
     bool favorite = isFavorite;
+    return BlocConsumer<FavoriteBloc, FavoriteState>(
+    listener: (context, state) {
+    if (state is FavoriteAdded && state.recipeId == widget.id) {
+    setState(() {
+    isFavorite = state.isFavorite;
+    });
+    }
+    }, builder: (context, state) {
     return GestureDetector(
       onTap: () {
         Navigator.push(
           context,
           MaterialPageRoute(
             builder: (context) =>
-                FullRecipe(recipeId: id, isUserRecipe: false),
+                FullRecipe(recipeId: widget.id, isUserRecipe: false),
           ),
         );
       },
@@ -68,10 +90,10 @@ class RecipeCardRandom extends StatelessWidget {
                             child: Container(
                               width: width * 0.92,
                               height: height * 0.344,
-                              child: image != null
+                              child: widget.image != null
                                   ? Image.network(
                                 alignment: Alignment.center,
-                                image!,
+                                widget.image!,
                                 fit: BoxFit.cover,
                               )
                                   : Image.asset(
@@ -111,7 +133,7 @@ class RecipeCardRandom extends StatelessWidget {
                                       children: [
                                         Center(
                                           child : Text(
-                                            recipeName.toUpperCase(),
+                                            widget.recipeName.toUpperCase(),
 
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
@@ -192,15 +214,20 @@ class RecipeCardRandom extends StatelessWidget {
                       child: Icon(
                         color: Color(0xFFF40E36),
                         isFavorite ? Icons.favorite : Icons.favorite_border,
+
                       ),
                     ),
                   ),
-                ],
+                  ],
+                ),
               ),
-            ),
+
+
             MainButtons(),
           ],
-        )
-    );
+
+        ),
+      );
+    });
   }
 }

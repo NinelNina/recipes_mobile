@@ -27,7 +27,7 @@ class RecipeCard extends StatefulWidget {
 }
 
 class _RecipeCardState extends State<RecipeCard> {
-  bool isFavorite = true;
+  bool isFavorite = false;
 
   @override
   void initState() {
