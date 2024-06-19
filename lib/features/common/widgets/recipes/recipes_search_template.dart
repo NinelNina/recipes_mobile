@@ -21,7 +21,8 @@ class RecipesSearchTemplate extends StatefulWidget {
     this.type,
     this.diet,
     required this.width,
-    required this.height, required this.query,
+    required this.height,
+    required this.query,
   });
 
   @override
@@ -41,15 +42,26 @@ class _RecipesSearchTemplateState extends State<RecipesSearchTemplate> {
     });
   }
 
+  @override
+  void didUpdateWidget(covariant RecipesSearchTemplate oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.query != widget.query ||
+        oldWidget.type != widget.type ||
+        oldWidget.diet != widget.diet ||
+        oldWidget.isUserRecipe != widget.isUserRecipe) {
+      _pagingController.refresh();
+    }
+  }
+
   Future<void> _fetchPage(int pageKey) async {
     context.read<RecipeSearchBloc>().add(
       FetchRecipes(
-          isUserRecipe: widget.isUserRecipe,
-          type: widget.type,
-          diet: widget.diet,
-          page: pageKey,
-          number: _pageSize,
-          query: widget.query
+        isUserRecipe: widget.isUserRecipe,
+        type: widget.type,
+        diet: widget.diet,
+        page: pageKey,
+        number: _pageSize,
+        query: widget.query,
       ),
     );
   }
@@ -70,6 +82,8 @@ class _RecipesSearchTemplateState extends State<RecipesSearchTemplate> {
               }
             } else if (state is RecipeSearchError) {
               _pagingController.error = state.message;
+            } else if (state is RecipeSearchEmpty) {
+              _pagingController.appendLastPage([]);
             }
           },
         ),
@@ -83,6 +97,11 @@ class _RecipesSearchTemplateState extends State<RecipesSearchTemplate> {
             isFavorite: recipe.isFavouriteRecipe,
             id: recipe.id,
             isUserRecipe: recipe.isUserRecipe,
+          ),
+          noItemsFoundIndicatorBuilder: (context) => Column(children: [
+            SizedBox(height: 10),
+            Text('There\'s nothing here :('),
+          ]
           ),
         ),
       ),

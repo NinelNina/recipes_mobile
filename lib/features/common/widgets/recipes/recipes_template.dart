@@ -68,6 +68,8 @@ class _RecipesTemplateState extends State<RecipesTemplate> {
               }
             } else if (state is RecipeSearchError) {
               _pagingController.error = state.message;
+            } else if (state is RecipeSearchEmpty) {
+              _pagingController.appendLastPage([]);
             }
           },
         ),
@@ -81,6 +83,11 @@ class _RecipesTemplateState extends State<RecipesTemplate> {
             isFavorite: recipe.isFavouriteRecipe,
             id: recipe.id,
             isUserRecipe: recipe.isUserRecipe,
+          ),
+          noItemsFoundIndicatorBuilder: (context) => Column(children: [
+              SizedBox(height: 10),
+              Text('There\'s nothing here :('),
+            ]
           ),
         ),
       ),

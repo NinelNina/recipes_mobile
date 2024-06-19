@@ -87,9 +87,17 @@ class RecipeCard extends StatelessWidget {
                               height: height * 0.344,
                               child: image != null
                                   ? Image.network(
-                                      alignment: Alignment.center,
                                       image!,
+                                      alignment: Alignment.center,
                                       fit: BoxFit.cover,
+                                      errorBuilder:
+                                          (context, error, stackTrace) {
+                                        return Image.asset(
+                                          'assets/images/default_recipe.png',
+                                          alignment: Alignment.center,
+                                          fit: BoxFit.cover,
+                                        );
+                                      },
                                     )
                                   : Image.asset(
                                       'assets/images/default_recipe.png',

@@ -28,7 +28,12 @@ class RecipeSearchBloc extends Bloc<RecipeSearchEvent, RecipeSearchState> {
         event.page,
         number: event.number,
       );
-      emit(RecipeSearchLoaded(recipes, event.page));
+
+      if (recipes.isEmpty && event.page == 1) {
+        emit(RecipeSearchEmpty());
+      } else {
+        emit(RecipeSearchLoaded(recipes, event.page));
+      }
     } catch (e) {
       if (e is DioException) {
         if (e.response?.statusCode == 401) {

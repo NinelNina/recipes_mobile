@@ -26,3 +26,5 @@ class RecipeSearchError extends RecipeSearchState {
   @override
   List<Object?> get props => [message];
 }
+
+class RecipeSearchEmpty extends RecipeSearchState {}
