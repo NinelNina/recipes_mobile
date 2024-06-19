@@ -7,7 +7,7 @@ class FavoriteService{
   final Dio dio = Dio();
   UserService _tokenService = UserService();
 
-  Future<void> addRecipeToFavorite(String recipeId, bool isUserRecipe) async {
+  Future<void> addRecipeToFavorite(int recipeId, bool isUserRecipe) async {
     try {
       final token = await _tokenService.getToken();
       final response = await dio.post(
@@ -29,7 +29,7 @@ class FavoriteService{
     }
   }
 
-  Future<void> deleteRecipeFromFavorite(String recipeId, bool isUserRecipe) async {
+  Future<void> deleteRecipeFromFavorite(int recipeId, bool isUserRecipe) async {
     try {
       final token = await _tokenService.getToken();
       final response = await dio.delete(

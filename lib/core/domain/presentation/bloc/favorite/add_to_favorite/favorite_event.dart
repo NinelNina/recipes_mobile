@@ -8,7 +8,7 @@ abstract class FavoriteEvent extends Equatable {
 }
 
 class AddRecipeToFavorite extends FavoriteEvent {
-  final String recipeId;
+  final int recipeId;
   final bool isUserRecipe;
 
   const AddRecipeToFavorite({required this.recipeId, required this.isUserRecipe});
@@ -18,7 +18,7 @@ class AddRecipeToFavorite extends FavoriteEvent {
 }
 
 class DeleteRecipeFromFavorite extends FavoriteEvent {
-  final String recipeId;
+  final int recipeId;
   final bool isUserRecipe;
 
   const DeleteRecipeFromFavorite({required this.recipeId, required this.isUserRecipe});

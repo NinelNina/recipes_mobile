@@ -8,7 +8,7 @@ import 'package:recipes/core/domain/services/user_service.dart';
 bool isFromFavorites = false;
 
 class FavoritesButton extends StatefulWidget {
-  final String recipeId;
+  final int recipeId;
   final bool isUserRecipe;
   final bool isFavorite;
 
@@ -37,6 +37,7 @@ class _FavoritesButtonState extends State<FavoritesButton> {
       isFavorite = !isFavorite;
     });
     if (isFavorite) {
+
       context.read<FavoriteBloc>().add(AddRecipeToFavorite(
           recipeId: widget.recipeId, isUserRecipe: widget.isUserRecipe));
     } else {

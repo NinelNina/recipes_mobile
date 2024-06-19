@@ -43,7 +43,7 @@ class _AllRecipesState extends State<AllRecipes> {
                   create: (context) => RecipeSearchBloc(
                       recipeService: RecipeService(),
                       authenticationBloc: authenticationBloc)),
-              BlocProvider.value(value: authenticationBloc)
+              BlocProvider.value(value: authenticationBloc),
             ],
             child: Column(
               children: [

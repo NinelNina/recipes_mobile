@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:recipes/core/domain/models/recipe_preview_model.dart';
+import 'package:recipes/core/domain/presentation/bloc/favorite/add_to_favorite/favorite_bloc.dart';
+import 'package:recipes/core/domain/presentation/bloc/favorite/add_to_favorite/favorite_state.dart';
 import 'package:recipes/core/domain/presentation/bloc/recipe/recipe_search/recipe_search_bloc.dart';
 import 'package:recipes/core/domain/presentation/bloc/recipe/recipe_search/recipe_search_event.dart';
 import 'package:recipes/core/domain/presentation/bloc/recipe/recipe_search/recipe_search_state.dart';
@@ -43,12 +45,11 @@ class _RecipesTemplateState extends State<RecipesTemplate> {
   Future<void> _fetchPage(int pageKey) async {
     context.read<RecipeSearchBloc>().add(
       FetchRecipes(
-        isUserRecipe: widget.isUserRecipe,
-        type: widget.type,
-        diet: widget.diet,
-        page: pageKey,
-        number: _pageSize
-      ),
+          isUserRecipe: widget.isUserRecipe,
+          type: widget.type,
+          diet: widget.diet,
+          page: pageKey,
+          number: _pageSize),
     );
   }
 
@@ -73,6 +74,25 @@ class _RecipesTemplateState extends State<RecipesTemplate> {
             }
           },
         ),
+        BlocListener<FavoriteBloc, FavoriteState>(
+          listener: (context, state) {
+            if (state is FavoriteAdded) {
+              final recipeIndex = _pagingController.itemList?.indexWhere(
+                      (recipe) => recipe.id == state.recipeId);
+
+              if (recipeIndex != null && recipeIndex != -1) {
+                final updatedRecipe = _pagingController.itemList![recipeIndex]
+                    .copyWith(isFavouriteRecipe: state.isFavorite);
+
+                final updatedList = List<RecipePreview>.from(
+                    _pagingController.itemList!);
+                updatedList[recipeIndex] = updatedRecipe;
+
+                _pagingController.itemList = updatedList;
+              }
+            }
+          },
+        ),
       ],
       child: PagedListView<int, RecipePreview>(
         pagingController: _pagingController,
@@ -84,10 +104,11 @@ class _RecipesTemplateState extends State<RecipesTemplate> {
             id: recipe.id,
             isUserRecipe: recipe.isUserRecipe,
           ),
-          noItemsFoundIndicatorBuilder: (context) => Column(children: [
+          noItemsFoundIndicatorBuilder: (context) => Column(
+            children: [
               SizedBox(height: 10),
               Text('There\'s nothing here :('),
-            ]
+            ],
           ),
         ),
       ),
