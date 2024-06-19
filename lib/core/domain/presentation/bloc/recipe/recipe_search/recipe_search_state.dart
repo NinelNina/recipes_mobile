@@ -1,36 +1,40 @@
 import 'package:equatable/equatable.dart';
 import 'package:recipes/core/domain/models/recipe_preview_model.dart';
 
-enum RecipeSearchStatus { initial, success, failure, loading }
+abstract class RecipeSearchState extends Equatable {
+  @override
+  List<Object?> get props => [];
+}
 
-class RecipeSearchState extends Equatable {
-  const RecipeSearchState({
-    this.status = RecipeSearchStatus.initial,
-    this.recipes = const <RecipePreview>[],
-    this.hasReachedMax = false,
-  });
+class RecipeSearchInitial extends RecipeSearchState {}
 
-  final RecipeSearchStatus status;
+class RecipeSearchLoading extends RecipeSearchState {}
+
+class RecipeSearchLoaded extends RecipeSearchState {
   final List<RecipePreview> recipes;
   final bool hasReachedMax;
 
-  RecipeSearchState copyWith({
-    RecipeSearchStatus? status,
+  RecipeSearchLoaded({required this.recipes, required this.hasReachedMax});
+
+  RecipeSearchLoaded copyWith({
     List<RecipePreview>? recipes,
     bool? hasReachedMax,
   }) {
-    return RecipeSearchState(
-      status: status ?? this.status,
+    return RecipeSearchLoaded(
       recipes: recipes ?? this.recipes,
       hasReachedMax: hasReachedMax ?? this.hasReachedMax,
     );
   }
 
   @override
-  String toString() {
-    return '''RecipeSearchState { status: $status, hasReachedMax: $hasReachedMax, recipes: ${recipes.length} }''';
-  }
+  List<Object?> get props => [recipes, hasReachedMax];
+}
+
+class RecipeSearchError extends RecipeSearchState {
+  final String message;
+
+  RecipeSearchError(this.message);
 
   @override
-  List<Object> get props => [status, recipes, hasReachedMax];
+  List<Object?> get props => [message];
 }

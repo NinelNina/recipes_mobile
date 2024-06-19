@@ -43,7 +43,7 @@ class _FullRecipeCardState extends State<FullRecipeCard> {
   int portions = 1;
 
   final AuthenticationBloc authenticationBloc =
-      AuthenticationBloc(authenticationService: AuthenticationService());
+  AuthenticationBloc(authenticationService: AuthenticationService());
 
   @override
   Widget build(BuildContext context) {
@@ -60,10 +60,10 @@ class _FullRecipeCardState extends State<FullRecipeCard> {
       ],
       child: Column(
         children: [
+          UnauthenticatedWidget(),
           SizedBox(height: height * 0.026),
           Stack(
             children: [
-              UnauthenticatedWidget(),
               Container(
                 height: height * 0.452,
                 child: Stack(
@@ -83,21 +83,21 @@ class _FullRecipeCardState extends State<FullRecipeCard> {
                               spreadRadius: 2,
                               blurRadius: 5,
                               offset:
-                                  Offset(0, 3), // changes position of shadow
+                              Offset(0, 3), // changes position of shadow
                             ),
                           ],
                         ),
                         child: widget.image != null
                             ? Image.network(
-                                alignment: Alignment.center,
-                                widget.image!,
-                                fit: BoxFit.cover,
-                              )
+                          alignment: Alignment.center,
+                          widget.image!,
+                          fit: BoxFit.cover,
+                        )
                             : Image.asset(
-                                'assets/images/default_recipe.png',
-                                alignment: Alignment.center,
-                                fit: BoxFit.cover,
-                              ),
+                          'assets/images/default_recipe.png',
+                          alignment: Alignment.center,
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
                     Positioned(
@@ -142,14 +142,14 @@ class _FullRecipeCardState extends State<FullRecipeCard> {
                     userRole == 'administrator'
                         ? SizedBox()
                         : Positioned(
-                            top: height * 0.341,
-                            right: width * 0.078,
-                            child: FavoritesButton(
-                              recipeId: widget.id.toString(),
-                              isUserRecipe: widget.isUserRecipe,
-                              isFavorite: widget.isFavouriteRecipe,
-                            ),
-                          ),
+                      top: height * 0.341,
+                      right: width * 0.078,
+                      child: FavoritesButton(
+                        recipeId: widget.id.toString(),
+                        isUserRecipe: widget.isUserRecipe,
+                        isFavorite: widget.isFavouriteRecipe,
+                      ),
+                    ),
                   ],
                 ),
               ),

@@ -7,7 +7,7 @@ import 'package:recipes/core/domain/services/recipe_service.dart';
 import 'recipe_search_event.dart';
 import 'recipe_search_state.dart';
 
-const _postLimit = 20;
+const _postLimit = 10;
 
 class RecipeSearchBloc extends Bloc<RecipeSearchEvent, RecipeSearchState> {
   final RecipeService recipeService;
@@ -16,56 +16,51 @@ class RecipeSearchBloc extends Bloc<RecipeSearchEvent, RecipeSearchState> {
   RecipeSearchBloc({
     required this.authenticationBloc,
     required this.recipeService,
-  }) : super(const RecipeSearchState()) {
+  }) : super(RecipeSearchInitial()) {
     on<FetchRecipes>(_onFetchRecipes);
   }
 
   Future<void> _onFetchRecipes(FetchRecipes event, Emitter<RecipeSearchState> emit) async {
-    if (state.hasReachedMax) return;
+    final currentState = state;
+    if (currentState is RecipeSearchLoaded && currentState.hasReachedMax) return;
+
     try {
-      if (state.status == RecipeSearchStatus.initial) {
-        final recipes = await recipeService.fetchComplexSearch(
-          event.query,
-          event.isUserRecipe,
-          event.type,
-          event.diet,
-          event.page,
-          number: event.number,
-        );
-        return emit(
-          state.copyWith(
-            status: RecipeSearchStatus.success,
-            recipes: recipes,
-            hasReachedMax: false,
-          ),
-        );
+      if (currentState is RecipeSearchInitial || event.page == 0) {
+        emit(RecipeSearchLoading());
       }
-      emit(state.copyWith(status: RecipeSearchStatus.loading));
+
       final recipes = await recipeService.fetchComplexSearch(
         event.query,
         event.isUserRecipe,
         event.type,
         event.diet,
-        state.recipes.length ~/ _postLimit + 1,
+        event.page,
         number: event.number,
       );
-      recipes.isEmpty
-          ? emit(state.copyWith(hasReachedMax: true))
-          : emit(
-        state.copyWith(
-          status: RecipeSearchStatus.success,
-          recipes: List.of(state.recipes)..addAll(recipes),
-          hasReachedMax: false,
-        ),
-      );
+
+      bool hasReachedMax = recipes.isEmpty || recipes.length < event.number!;
+
+      if (currentState is RecipeSearchLoaded) {
+        emit(recipes.isEmpty
+            ? currentState.copyWith(hasReachedMax: true)
+            : RecipeSearchLoaded(
+          recipes: currentState.recipes + recipes,
+          hasReachedMax: hasReachedMax,
+        ));
+      } else {
+        emit(RecipeSearchLoaded(
+          recipes: recipes,
+          hasReachedMax: hasReachedMax,
+        ));
+      }
     } catch (e) {
       if (e is DioException) {
         if (e.response?.statusCode == 401) {
           authenticationBloc.add(LoggedOut());
-          emit(state.copyWith(status: RecipeSearchStatus.failure));
+          emit(RecipeSearchError('Unauthorized. Please log in again.'));
         }
       } else {
-        emit(state.copyWith(status: RecipeSearchStatus.failure));
+        emit(RecipeSearchError(e.toString()));
       }
     }
   }
