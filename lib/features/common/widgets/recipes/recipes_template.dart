@@ -1,108 +1,95 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:recipes/core/domain/presentation/bloc/authentication/authorization/authorization_bloc.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:recipes/core/domain/models/recipe_preview_model.dart';
 import 'package:recipes/core/domain/presentation/bloc/recipe/recipe_search/recipe_search_bloc.dart';
 import 'package:recipes/core/domain/presentation/bloc/recipe/recipe_search/recipe_search_event.dart';
 import 'package:recipes/core/domain/presentation/bloc/recipe/recipe_search/recipe_search_state.dart';
-import 'package:recipes/core/domain/services/authentication_service.dart';
-import 'package:recipes/core/domain/services/recipe_service.dart';
 import 'package:recipes/features/common/recipe_card/recipe_card.dart';
-import 'package:recipes/features/common/widgets/unauthenticated_widget.dart';
 
-class RecipesTemplate extends StatelessWidget {
+class RecipesTemplate extends StatefulWidget {
   final double width;
   final double height;
   final bool isUserRecipe;
   final String? type;
   final String? diet;
 
-  const RecipesTemplate(
-      {super.key,
-      required this.isUserRecipe,
-      this.type,
-      this.diet,
-      required this.width,
-      required this.height});
+  const RecipesTemplate({
+    super.key,
+    required this.isUserRecipe,
+    this.type,
+    this.diet,
+    required this.width,
+    required this.height,
+  });
+
+  @override
+  _RecipesTemplateState createState() => _RecipesTemplateState();
+}
+
+class _RecipesTemplateState extends State<RecipesTemplate> {
+  static const _pageSize = 10;
+  final PagingController<int, RecipePreview> _pagingController =
+  PagingController(firstPageKey: 0);
+
+  @override
+  void initState() {
+    super.initState();
+    _pagingController.addPageRequestListener((pageKey) {
+      _fetchPage(pageKey);
+    });
+  }
+
+  Future<void> _fetchPage(int pageKey) async {
+    context.read<RecipeSearchBloc>().add(
+      FetchRecipes(
+        isUserRecipe: widget.isUserRecipe,
+        type: widget.type,
+        diet: widget.diet,
+        page: pageKey,
+        number: _pageSize
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    int page = 0;
-    int number = 10;
-
-    final AuthenticationBloc authenticationBloc =
-        AuthenticationBloc(authenticationService: AuthenticationService());
-
-    return MultiBlocProvider(
-        providers: [
-          BlocProvider(
-              create: (context) => RecipeSearchBloc(
-                  recipeService: RecipeService(),
-                  authenticationBloc: authenticationBloc)
-                ..add(FetchRecipes(
-                    isUserRecipe: isUserRecipe,
-                    type: type,
-                    diet: diet,
-                    page: page,
-                    number: number))),
-          BlocProvider.value(value: authenticationBloc)
-        ],
-        child: Column(children: [
-          Expanded(
-            child: BlocBuilder<RecipeSearchBloc, RecipeSearchState>(
-              builder: (context, state) {
-                if (state is RecipeSearchLoading) {
-                  return Center(
-                      child:
-                          CircularProgressIndicator(color: Color(0xFFFF6E41)));
-                } else if (state is RecipeSearchLoaded) {
-                  return NotificationListener<ScrollNotification>(
-                    onNotification: (ScrollNotification scrollInfo) {
-                      if (scrollInfo.metrics.pixels ==
-                              scrollInfo.metrics.maxScrollExtent &&
-                          !state.hasReachedMax) {
-                        context.read<RecipeSearchBloc>().add(FetchRecipes(
-                              isUserRecipe: isUserRecipe,
-                              type: type,
-                              diet: diet,
-                              page: ++page,
-                              number: number,
-                            ));
-                      }
-                      return false;
-                    },
-                    child: ListView.builder(
-                      itemCount: state.recipes.length + 1,
-                      itemBuilder: (BuildContext context, int index) {
-                        if (index >= state.recipes.length) {
-                          return state.hasReachedMax
-                              ? Container()
-                              : Center(
-                                  child: CircularProgressIndicator(
-                                    color: Color(0xFFFF6E41),
-                                  ),
-                                );
-                        }
-                        final recipe = state.recipes[index];
-                        return RecipeCard(
-                          image: recipe.image,
-                          recipeName: recipe.title,
-                          isFavorite: recipe.isFavouriteRecipe,
-                          id: recipe.id,
-                          isUserRecipe: recipe.isUserRecipe,
-                        );
-                      },
-                    ),
-                  );
-                } else if (state is RecipeSearchError) {
-                  return Center(
-                      child: Text('Failed to load recipes: ${state.message}'));
-                } else {
-                  return Container();
-                }
-              },
-            ),
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<RecipeSearchBloc, RecipeSearchState>(
+          listener: (context, state) {
+            if (state is RecipeSearchLoaded) {
+              final isLastPage = state.recipes.length < _pageSize;
+              if (isLastPage) {
+                _pagingController.appendLastPage(state.recipes);
+              } else {
+                final nextPageKey = state.page + 1;
+                _pagingController.appendPage(state.recipes, nextPageKey);
+              }
+            } else if (state is RecipeSearchError) {
+              _pagingController.error = state.message;
+            }
+          },
+        ),
+      ],
+      child: PagedListView<int, RecipePreview>(
+        pagingController: _pagingController,
+        builderDelegate: PagedChildBuilderDelegate<RecipePreview>(
+          itemBuilder: (context, recipe, index) => RecipeCard(
+            image: recipe.image,
+            recipeName: recipe.title,
+            isFavorite: recipe.isFavouriteRecipe,
+            id: recipe.id,
+            isUserRecipe: recipe.isUserRecipe,
           ),
-          UnauthenticatedWidget()
-        ]));
+        ),
+      ),
+    );
+  }
+
+  @override
+  void dispose() {
+    _pagingController.dispose();
+    super.dispose();
   }
 }

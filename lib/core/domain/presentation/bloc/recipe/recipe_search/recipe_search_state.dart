@@ -1,33 +1,21 @@
 import 'package:equatable/equatable.dart';
 import 'package:recipes/core/domain/models/recipe_preview_model.dart';
 
-abstract class RecipeSearchState extends Equatable {
+class RecipeSearchState extends Equatable {
   @override
   List<Object?> get props => [];
 }
 
 class RecipeSearchInitial extends RecipeSearchState {}
 
-class RecipeSearchLoading extends RecipeSearchState {}
-
 class RecipeSearchLoaded extends RecipeSearchState {
   final List<RecipePreview> recipes;
-  final bool hasReachedMax;
+  final int page;
 
-  RecipeSearchLoaded({required this.recipes, required this.hasReachedMax});
-
-  RecipeSearchLoaded copyWith({
-    List<RecipePreview>? recipes,
-    bool? hasReachedMax,
-  }) {
-    return RecipeSearchLoaded(
-      recipes: recipes ?? this.recipes,
-      hasReachedMax: hasReachedMax ?? this.hasReachedMax,
-    );
-  }
+  RecipeSearchLoaded(this.recipes, this.page);
 
   @override
-  List<Object?> get props => [recipes, hasReachedMax];
+  List<Object?> get props => [recipes, page];
 }
 
 class RecipeSearchError extends RecipeSearchState {

@@ -39,6 +39,7 @@ class _RecipesByDietsAndCategoriesScreenState
     final Size size = MediaQuery.of(context).size;
     final double width = size.width;
     final double height = size.height;
+    String query = '';
 
     String title = widget.diet ?? widget.type!;
 
@@ -64,11 +65,20 @@ class _RecipesByDietsAndCategoriesScreenState
                   diet: widget.diet,
                   type: widget.type,
                   onSearchPressed: _handleSearchPressed,
+                  getQuery: (String val) {
+                    query = val;
+                  },
                 ),
                 UnauthenticatedWidget(),
                 Expanded(
                   child: isSearchActive
-                      ? Container()//RecipesSearchTemplate(width: width, height: height)
+                      ? RecipesSearchTemplate(
+                          query: query,
+                          width: width,
+                          height: height,
+                          isUserRecipe: false,
+                          diet: widget.diet,
+                          type: widget.type)
                       : RecipesTemplate(
                           isUserRecipe: false,
                           width: width,

@@ -20,6 +20,7 @@ class _UserRecipesScreenState extends State<UserRecipesScreen> {
   bool isSearchActive = false;
   final AuthenticationBloc authenticationBloc =
       AuthenticationBloc(authenticationService: AuthenticationService());
+  String query = '';
 
   void _handleSearchPressed() {
     setState(() {
@@ -52,12 +53,16 @@ class _UserRecipesScreenState extends State<UserRecipesScreen> {
                   width: width,
                   height: height,
                   isUserRecipe: true,
-                  onSearchPressed: _handleSearchPressed,
+                  onSearchPressed: _handleSearchPressed, getQuery: (String val) { query = val; },
                 ),
                 UnauthenticatedWidget(),
                 Expanded(
                   child: isSearchActive
-                      ? Container()//RecipesSearchTemplate(width: width, height: height)
+                      ? RecipesSearchTemplate(
+                      query: query,
+                      width: width,
+                      height: height,
+                      isUserRecipe: true)
                       : RecipesTemplate(
                           isUserRecipe: true, width: width, height: height),
                 )

@@ -7,8 +7,6 @@ import 'package:recipes/core/domain/services/recipe_service.dart';
 import 'recipe_search_event.dart';
 import 'recipe_search_state.dart';
 
-const _postLimit = 10;
-
 class RecipeSearchBloc extends Bloc<RecipeSearchEvent, RecipeSearchState> {
   final RecipeService recipeService;
   final AuthenticationBloc authenticationBloc;
@@ -21,14 +19,7 @@ class RecipeSearchBloc extends Bloc<RecipeSearchEvent, RecipeSearchState> {
   }
 
   Future<void> _onFetchRecipes(FetchRecipes event, Emitter<RecipeSearchState> emit) async {
-    final currentState = state;
-    if (currentState is RecipeSearchLoaded && currentState.hasReachedMax) return;
-
     try {
-      if (currentState is RecipeSearchInitial || event.page == 0) {
-        emit(RecipeSearchLoading());
-      }
-
       final recipes = await recipeService.fetchComplexSearch(
         event.query,
         event.isUserRecipe,
@@ -37,22 +28,7 @@ class RecipeSearchBloc extends Bloc<RecipeSearchEvent, RecipeSearchState> {
         event.page,
         number: event.number,
       );
-
-      bool hasReachedMax = recipes.isEmpty || recipes.length < event.number!;
-
-      if (currentState is RecipeSearchLoaded) {
-        emit(recipes.isEmpty
-            ? currentState.copyWith(hasReachedMax: true)
-            : RecipeSearchLoaded(
-          recipes: currentState.recipes + recipes,
-          hasReachedMax: hasReachedMax,
-        ));
-      } else {
-        emit(RecipeSearchLoaded(
-          recipes: recipes,
-          hasReachedMax: hasReachedMax,
-        ));
-      }
+      emit(RecipeSearchLoaded(recipes, event.page));
     } catch (e) {
       if (e is DioException) {
         if (e.response?.statusCode == 401) {

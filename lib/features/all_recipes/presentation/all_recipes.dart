@@ -19,7 +19,8 @@ class AllRecipes extends StatefulWidget {
 class _AllRecipesState extends State<AllRecipes> {
   bool isSearchActive = false;
   final AuthenticationBloc authenticationBloc =
-  AuthenticationBloc(authenticationService: AuthenticationService());
+      AuthenticationBloc(authenticationService: AuthenticationService());
+  String query = '';
 
   void _handleSearchPressed() {
     setState(() {
@@ -53,14 +54,22 @@ class _AllRecipesState extends State<AllRecipes> {
                   height: height,
                   isUserRecipe: false,
                   onSearchPressed: _handleSearchPressed,
+                  getQuery: (String val) {
+                    query = val;
+                  },
                 ),
                 UnauthenticatedWidget(),
-                Expanded(child:
-                isSearchActive
-                    ? RecipesSearchTemplate(width: width, height: height)
-                    : RecipesTemplate(
-                    isUserRecipe: false, width: width, height: height),
-                )],
+                Expanded(
+                  child: isSearchActive
+                      ? RecipesSearchTemplate(
+                          query: query,
+                          width: width,
+                          height: height,
+                          isUserRecipe: false)
+                      : RecipesTemplate(
+                          isUserRecipe: false, width: width, height: height),
+                )
+              ],
             ),
           ),
         ));
