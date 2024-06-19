@@ -1,7 +1,6 @@
 import 'package:recipes/core/api/api_root.dart';
 import 'package:recipes/core/domain/models/authentication_request.dart';
 import 'package:recipes/core/domain/models/authentication_response.dart';
-
 import '../models/register_model.dart';
 import 'package:dio/dio.dart';
 

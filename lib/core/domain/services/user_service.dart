@@ -1,4 +1,5 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:recipes/features/sing_in/presentation/sign_in_screen.dart';
 
 class UserService {
   final FlutterSecureStorage _secureStorage = FlutterSecureStorage();
@@ -37,5 +38,6 @@ class UserService {
 
   Future<void> deleteRole() async {
     await _secureStorage.delete(key: 'role');
+    userRole = '';
   }
 }

@@ -10,6 +10,16 @@ abstract class FavoriteState extends Equatable {
 
 class FavoriteInitial extends FavoriteState {}
 
+class FavoriteAdded extends FavoriteState {
+  final int recipeId;
+  final bool isFavorite;
+
+  const FavoriteAdded({required this.recipeId, required this.isFavorite});
+
+  @override
+  List<Object?> get props => [recipeId, isFavorite];
+}
+
 class FavoriteLoading extends FavoriteState {}
 
 class FavoriteLoaded extends FavoriteState {

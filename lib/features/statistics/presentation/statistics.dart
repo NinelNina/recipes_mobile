@@ -3,7 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipes/core/domain/presentation/bloc/admin/admin_bloc.dart';
 import 'package:recipes/core/domain/presentation/bloc/admin/admin_event.dart';
 import 'package:recipes/core/domain/presentation/bloc/admin/admin_state.dart';
+import 'package:recipes/core/domain/presentation/bloc/authentication/authorization/authorization_bloc.dart';
 import 'package:recipes/core/domain/services/admin_service.dart';
+import 'package:recipes/core/domain/services/authentication_service.dart';
+import 'package:recipes/features/common/widgets/unauthenticated_widget.dart';
 import 'package:recipes/features/statistics/widgets/stat.dart';
 import 'package:recipes/features/common/widgets/custom_drawer.dart';
 import '../../common/widgets/back_icon_widget.dart';
@@ -18,7 +21,10 @@ class StatisticScreen extends StatefulWidget {
 
 class _StatisticScreenState extends State<StatisticScreen> {
   final String title = 'Statistics';
-  AdminBloc adminBloc = AdminBloc(adminService: AdminService());
+  final AuthenticationBloc authenticationBloc =
+      AuthenticationBloc(authenticationService: AuthenticationService());
+
+  late AdminBloc adminBloc;
 
   final List<String> categories = [
     'Total registered users:',
@@ -30,6 +36,8 @@ class _StatisticScreenState extends State<StatisticScreen> {
   @override
   void initState() {
     super.initState();
+    adminBloc = AdminBloc(
+        adminService: AdminService(), authenticationBloc: authenticationBloc);
     adminBloc.add(LoadStatistic());
   }
 
@@ -39,7 +47,11 @@ class _StatisticScreenState extends State<StatisticScreen> {
     final double width = size.width;
     final double height = size.height;
 
-    return BlocProvider.value(value: adminBloc,
+    return MultiBlocProvider(
+        providers: [
+          BlocProvider.value(value: adminBloc),
+          BlocProvider.value(value: authenticationBloc)
+        ],
         child: Scaffold(
             drawer: CustomDrawer(),
             backgroundColor: Colors.white,
@@ -57,7 +69,8 @@ class _StatisticScreenState extends State<StatisticScreen> {
                     BlocBuilder<AdminBloc, AdminState>(
                       builder: (context, state) {
                         if (state is AdminLoading) {
-                          return CircularProgressIndicator(color: Color(0xFFFF6E41));
+                          return CircularProgressIndicator(
+                              color: Color(0xFFFF6E41));
                         } else if (state is StatisticLoaded) {
                           final answers = [
                             state.statistic.quantityUsers.toString(),
@@ -77,6 +90,7 @@ class _StatisticScreenState extends State<StatisticScreen> {
                         return Text('Press a button to load data');
                       },
                     ),
+                    UnauthenticatedWidget(),
                   ],
                 ),
               ),

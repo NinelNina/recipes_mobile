@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:recipes/core/domain/presentation/bloc/authentication/authorization/authorization_bloc.dart';
 import 'package:recipes/core/domain/presentation/bloc/recipe/recipe_search/recipe_search_bloc.dart';
+import 'package:recipes/core/domain/services/authentication_service.dart';
 import 'package:recipes/core/domain/services/recipe_service.dart';
 import 'package:recipes/features/common/widgets/recipes/recipes_search_template.dart';
 import 'package:recipes/features/common/widgets/recipes/recipes_template.dart';
 import 'package:recipes/features/common/widgets/custom_drawer.dart';
 import 'package:recipes/features/common/widgets/menu_icon_widget.dart';
 import 'package:recipes/features/common/widgets/nav_bar_with_favourites.dart';
+import 'package:recipes/features/common/widgets/unauthenticated_widget.dart';
 
 class AllRecipes extends StatefulWidget {
   @override
@@ -15,6 +18,9 @@ class AllRecipes extends StatefulWidget {
 
 class _AllRecipesState extends State<AllRecipes> {
   bool isSearchActive = false;
+  final AuthenticationBloc authenticationBloc =
+      AuthenticationBloc(authenticationService: AuthenticationService());
+  String query = '';
 
   void _handleSearchPressed() {
     setState(() {
@@ -31,9 +37,14 @@ class _AllRecipesState extends State<AllRecipes> {
     return Scaffold(
         drawer: CustomDrawer(),
         body: SafeArea(
-          child: BlocProvider(
-            create: (context) =>
-                RecipeSearchBloc(recipeService: RecipeService()),
+          child: MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                  create: (context) => RecipeSearchBloc(
+                      recipeService: RecipeService(),
+                      authenticationBloc: authenticationBloc)),
+              BlocProvider.value(value: authenticationBloc),
+            ],
             child: Column(
               children: [
                 NavBarWithFavorites(
@@ -43,11 +54,21 @@ class _AllRecipesState extends State<AllRecipes> {
                   height: height,
                   isUserRecipe: false,
                   onSearchPressed: _handleSearchPressed,
+                  getQuery: (String val) {
+                    query = val;
+                  },
                 ),
-                isSearchActive
-                    ? RecipesSearchTemplate(width: width, height: height)
-                    : RecipesTemplate(
-                        isUserRecipe: false, width: width, height: height)
+                UnauthenticatedWidget(),
+                Expanded(
+                  child: isSearchActive
+                      ? RecipesSearchTemplate(
+                          query: query,
+                          width: width,
+                          height: height,
+                          isUserRecipe: false)
+                      : RecipesTemplate(
+                          isUserRecipe: false, width: width, height: height),
+                )
               ],
             ),
           ),

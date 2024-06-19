@@ -1,22 +1,21 @@
 import 'package:equatable/equatable.dart';
 import 'package:recipes/core/domain/models/recipe_preview_model.dart';
 
-abstract class RecipeSearchState extends Equatable {
+class RecipeSearchState extends Equatable {
   @override
   List<Object?> get props => [];
 }
 
 class RecipeSearchInitial extends RecipeSearchState {}
 
-class RecipeSearchLoading extends RecipeSearchState {}
-
 class RecipeSearchLoaded extends RecipeSearchState {
   final List<RecipePreview> recipes;
+  final int page;
 
-  RecipeSearchLoaded(this.recipes);
+  RecipeSearchLoaded(this.recipes, this.page);
 
   @override
-  List<Object?> get props => [recipes];
+  List<Object?> get props => [recipes, page];
 }
 
 class RecipeSearchError extends RecipeSearchState {
@@ -27,3 +26,5 @@ class RecipeSearchError extends RecipeSearchState {
   @override
   List<Object?> get props => [message];
 }
+
+class RecipeSearchEmpty extends RecipeSearchState {}

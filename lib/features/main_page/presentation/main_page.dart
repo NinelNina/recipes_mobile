@@ -1,58 +1,19 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:recipes/core/domain/presentation/bloc/authentication/authorization/authorization_bloc.dart';
 import 'package:recipes/core/domain/presentation/bloc/recipe/random_recipe/random_recipe_bloc.dart';
 import 'package:recipes/core/domain/presentation/bloc/recipe/random_recipe/random_recipe_event.dart';
 import 'package:recipes/core/domain/presentation/bloc/recipe/random_recipe/random_recipe_state.dart';
+import 'package:recipes/core/domain/services/authentication_service.dart';
 import 'package:recipes/core/domain/services/recipe_service.dart';
-import 'package:recipes/features/full_recipe/presentation/full_recipe_screen.dart';
-import 'package:recipes/features/common/menu_widgets/drawer_item_in_menu.dart';
-import 'package:recipes/features/common/recipe_card/recipe_card.dart';
-import 'package:recipes/features/common/top_row/top_row.dart';
 import 'package:recipes/features/common/widgets/custom_drawer.dart';
-import 'package:recipes/features/main_page/presentation/widgets/main_button.dart';
+import 'package:recipes/features/common/widgets/unauthenticated_widget.dart';
 import 'package:recipes/features/main_page/presentation/widgets/recipe_card_random.dart';
-import 'package:recipes/features/sign_up/presentation/sign_up_screen.dart';
-
-import '../../all_recipes/presentation/all_recipes.dart';
-import '../../common/recipe_card/full_recipe_card.dart';
-import '../../common/top_row/top_bar.dart';
 import '../../common/widgets/menu_icon_widget.dart';
-import '../../dishes_categories/presentation/diets_categories_screen.dart';
-import '../../dishes_categories/presentation/dishes_categories_screen.dart';
 import '../../common/widgets/nav_bar_text_favourites.dart';
-import '../../sing_in/presentation/sign_in_screen.dart';
 
 class MainPage extends StatelessWidget {
-  final List<String> recipes = [
-    'Recipe 1',
-    'Recipe 2',
-    'Recipe 3',
-    'Recipe 4',
-    'Recipe 5',
-  ];
-
-  final List<String> images = [
-    'assets/images/imageRecipe.jpeg',
-  ];
-
-  final List<bool> isFavorite = [
-    true,
-    false,
-    false,
-    false,
-    false,
-  ];
-
-  final List<String> cookingTime = [
-    '30 min',
-    '1 hour',
-    '2 hours',
-    '3 hours',
-    '4 hours',
-  ];
+  final AuthenticationBloc authenticationBloc = AuthenticationBloc(authenticationService: AuthenticationService());
 
   @override
   Widget build(BuildContext context) {
@@ -60,10 +21,11 @@ class MainPage extends StatelessWidget {
     final double width = size.width;
     final double height = size.height;
 
-    //SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
-
-    return BlocProvider(
-      create: (context) => RandomRecipeBloc(RecipeService())..add(FetchRandomRecipe()),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => RandomRecipeBloc(RecipeService(), authenticationBloc)..add(FetchRandomRecipe())),
+        BlocProvider.value(value: authenticationBloc),
+      ],
       child: Scaffold(
         drawer: CustomDrawer(),
         body: SafeArea(
@@ -77,24 +39,29 @@ class MainPage extends StatelessWidget {
               ),
               SizedBox(height: height * 0.029),
               Expanded(
-                child: BlocBuilder<RandomRecipeBloc, RandomRecipeState>(
-                  builder: (context, state) {
-                    if (state is RecipeLoading) {
-                      return Center(child: CircularProgressIndicator(color: Color(0xFFFF6E41)));
-                    } else if (state is RecipeLoaded) {
-                      final recipe = state.recipe;
-                      return RecipeCardRandom(
-                          image: recipe.image,
-                          recipeName: recipe.title,
-                          isFavorite: recipe.isFavouriteRecipe,
-                          id: recipe.id
-                      );
-                    } else if (state is RecipeError) {
-                      return Center(child: Text('Error: ${state.message}'));
-                    } else {
-                      return Center(child: Text('No data'));
-                    }
-                  },
+                child: Stack(
+                  children: [
+                    BlocBuilder<RandomRecipeBloc, RandomRecipeState>(
+                      builder: (context, recipeState) {
+                        if (recipeState is RecipeLoading) {
+                          return Center(child: CircularProgressIndicator(color: Color(0xFFFF6E41)));
+                        } else if (recipeState is RecipeLoaded) {
+                          final recipe = recipeState.recipe;
+                          return RecipeCardRandom(
+                              image: recipe.image,
+                              recipeName: recipe.title,
+                              isFavorite: recipe.isFavouriteRecipe,
+                              id: recipe.id
+                          );
+                        } else if (recipeState is RecipeError) {
+                          return Center(child: Text('Error: ${recipeState.message}'));
+                        } else {
+                          return Center(child: Text('No data'));
+                        }
+                      },
+                    ),
+                    UnauthenticatedWidget(),
+                  ],
                 ),
               ),
             ],
@@ -103,5 +70,4 @@ class MainPage extends StatelessWidget {
       ),
     );
   }
-
 }

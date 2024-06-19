@@ -22,7 +22,7 @@ class RecipeService {
         throw Exception('Failed to load random recipe');
       }
     } on DioException catch (e) {
-      throw Exception('Error fetching random recipe: ${e.message}');
+      throw e;
     }
   }
 
@@ -52,8 +52,8 @@ class RecipeService {
       } else {
         throw Exception('Failed to load recipe');
       }
-    } catch (e) {
-      throw Exception('Error fetching recipe: $e');
+    } on DioException catch (e) {
+      throw e;
     }
   }
 
@@ -85,7 +85,7 @@ class RecipeService {
         throw Exception('Failed to load recipes');
       }
     } on DioException catch (e) {
-      throw Exception('Error fetching recipes: ${e.message}');
+      throw e;
     }
   }
 }

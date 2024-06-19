@@ -20,7 +20,6 @@ class _SplashScreenState extends State<SplashScreen> {
     final token = await _tokenService.getToken();
     if (token != null) {
       userRole = (await _tokenService.getRole())!;
-      print(userRole);
       if (userRole == 'user') {
         Navigator.pushReplacementNamed(context, '/home');
       }

@@ -129,7 +129,7 @@ class _AdminProfileState extends State<AdminProfile> {
                               leading: Container(
                                 width: width * 0.073,
                                 height: height * 0.034,
-                                child: Image.asset('assets/images/shuffle.png'), // Используйте вашу собственную иконку выхода
+                                child: Image.asset('assets/images/shuffle.png'),
                               ),
                               title: Text('Application statistics',
                                 style: TextStyle(

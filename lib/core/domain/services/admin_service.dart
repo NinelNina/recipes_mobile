@@ -25,7 +25,7 @@ class AdminService {
         throw Exception('Failed to load statistic');
       }
     } on DioException catch (e) {
-      throw Exception('Error fetching statistic: ${e.message}');
+      throw e;
     }
   }
 
@@ -51,7 +51,7 @@ class AdminService {
         throw Exception('Failed to load recipes');
       }
     } on DioException catch (e) {
-      throw Exception('Error fetching recipes: ${e.message}');
+      throw e;
     }
   }
 
@@ -72,7 +72,7 @@ class AdminService {
         throw Exception('Failed to load recipes');
       }
     } on DioException catch (e) {
-      throw Exception('Error fetching recipes: ${e.message}');
+      throw e;
     }
   }
 }

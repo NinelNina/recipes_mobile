@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipes/core/domain/models/ingredient_model.dart';
-import 'package:recipes/core/domain/presentation/bloc/favorite/add_to_favorite/favorite_bloc.dart';
-import 'package:recipes/core/domain/services/favorite_service.dart';
+import 'package:recipes/core/domain/presentation/bloc/authentication/authorization/authorization_bloc.dart';
+import 'package:recipes/core/domain/services/authentication_service.dart';
 import 'package:recipes/features/common/recipe_card/favourite_button.dart';
+import 'package:recipes/features/common/widgets/unauthenticated_widget.dart';
 import 'package:recipes/features/sing_in/presentation/sign_in_screen.dart';
 
 import '../widgets/custom_toggle_button.dart';
@@ -40,16 +41,22 @@ class _FullRecipeCardState extends State<FullRecipeCard> {
   int selectedIndex = 0;
   int portions = 1;
 
+  final AuthenticationBloc authenticationBloc =
+      AuthenticationBloc(authenticationService: AuthenticationService());
+
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     final double width = size.width;
     final double height = size.height;
 
-    return BlocProvider(
-      create: (context) => FavoriteBloc(favoriteService: FavoriteService()),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider.value(value: authenticationBloc)
+      ],
       child: Column(
         children: [
+          UnauthenticatedWidget(),
           SizedBox(height: height * 0.026),
           Stack(
             children: [
@@ -153,7 +160,7 @@ class _FullRecipeCardState extends State<FullRecipeCard> {
                             top: height * 0.341,
                             right: width * 0.078,
                             child: FavoritesButton(
-                              recipeId: widget.id.toString(),
+                              recipeId: widget.id,
                               isUserRecipe: widget.isUserRecipe,
                               isFavorite: widget.isFavouriteRecipe,
                             ),

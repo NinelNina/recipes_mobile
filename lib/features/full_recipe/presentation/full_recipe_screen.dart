@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:recipes/core/domain/presentation/bloc/authentication/authorization/authorization_bloc.dart';
 import 'package:recipes/core/domain/presentation/bloc/recipe/recipe_by_id/recipe_bloc.dart';
 import 'package:recipes/core/domain/presentation/bloc/recipe/recipe_by_id/recipe_event.dart';
 import 'package:recipes/core/domain/presentation/bloc/recipe/recipe_by_id/recipe_state.dart';
+import 'package:recipes/core/domain/services/authentication_service.dart';
 import 'package:recipes/core/domain/services/recipe_service.dart';
 import 'package:recipes/features/common/recipe_card/full_recipe_card.dart';
 import 'package:recipes/features/common/widgets/back_icon_widget.dart';
-import 'package:recipes/features/common/widgets/menu_icon_widget.dart';
 import 'package:recipes/features/common/widgets/nav_bar_title_clouse.dart';
+import 'package:recipes/features/common/widgets/unauthenticated_widget.dart';
 
 class FullRecipe extends StatelessWidget {
   final int recipeId;
@@ -21,17 +23,27 @@ class FullRecipe extends StatelessWidget {
     final double width = size.width;
     final double height = size.height;
 
-    return BlocProvider(
-      create: (context) =>
-          RecipeBloc(RecipeService())..add(FetchRecipe(recipeId, isUserRecipe)),
+    final AuthenticationBloc authenticationBloc =
+        AuthenticationBloc(authenticationService: AuthenticationService());
+
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+            create: (context) => RecipeBloc(RecipeService(), authenticationBloc)
+              ..add(FetchRecipe(recipeId, isUserRecipe))),
+        BlocProvider.value(value: authenticationBloc)
+      ],
       child: Scaffold(
         body: SafeArea(
           child: Column(
             children: [
+              UnauthenticatedWidget(),
               BlocBuilder<RecipeBloc, RecipeState>(
                 builder: (context, state) {
                   if (state is RecipeLoading) {
-                    return Center(child: CircularProgressIndicator(color: Color(0xFFFF6E41)));
+                    return Center(
+                        child: CircularProgressIndicator(
+                            color: Color(0xFFFF6E41)));
                   } else if (state is RecipeLoaded) {
                     final recipe = state.recipe;
                     return Expanded(

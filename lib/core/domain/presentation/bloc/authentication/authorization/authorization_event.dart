@@ -16,3 +16,5 @@ class AuthenticationButtonPressed extends AuthenticationEvent {
   @override
   List<Object> get props => [request];
 }
+
+class LoggedOut extends AuthenticationEvent {}

@@ -14,7 +14,7 @@ class NavBarWithFavorites extends StatelessWidget {
     required this.isUserRecipe,
     this.type,
     this.diet,
-    required this.onSearchPressed,
+    required this.onSearchPressed, required this.getQuery,
   });
 
   final String title;
@@ -25,6 +25,7 @@ class NavBarWithFavorites extends StatelessWidget {
   final String? type;
   final String? diet;
   final VoidCallback onSearchPressed;
+  final Function(String) getQuery;
 
   final TextEditingController searchController = TextEditingController();
 
@@ -85,6 +86,7 @@ class NavBarWithFavorites extends StatelessWidget {
                             maxLength: 250,
                             controller: searchController,
                             onSubmitted: (value) {
+                              getQuery(value);
                               search(context);
                             },
                             decoration: InputDecoration(
