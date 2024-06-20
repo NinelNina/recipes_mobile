@@ -9,10 +9,12 @@ class UserRecipeService {
   final Dio dio = Dio();
   UserService _tokenService = UserService();
 
-  Future<List<RecipePreview>> getUserRecipes() async {
+  Future<List<RecipePreview>> getUserRecipes(
+      {required int page, int number = 10}) async {
     try {
       final token = await _tokenService.getToken();
       final response = await dio.get('$apiRoot/v1/userRecipes/',
+          queryParameters: {'page': page, 'number': number},
           options: Options(
             headers: {'token': token, 'Authorization': 'Bearer $token'},
           ));
@@ -29,8 +31,7 @@ class UserRecipeService {
       } else {
         throw Exception('Failed to load user recipes');
       }
-    }
-    on DioException catch (e) {
+    } on DioException catch (e) {
       throw e;
     }
   }
@@ -57,7 +58,9 @@ class UserRecipeService {
           'description': description,
           'category': category,
           'readyInMinutes': readyInMinutes,
-          'extendedIngredients': extendedIngredients.map((ingredient) => ingredient.toJson()).toList(),
+          'extendedIngredients': extendedIngredients
+              .map((ingredient) => ingredient.toJson())
+              .toList(),
           'steps': steps,
           'isPublish': isPublish,
         }),

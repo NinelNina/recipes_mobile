@@ -74,13 +74,13 @@ class _SignInState extends State<SignIn> {
     final double width = size.width;
     final double height = size.height;
 
-    return SafeArea(
-        child: BlocProvider(
-          create: (context) =>
-              AuthenticationBloc(authenticationService: AuthenticationService()),
-          child: Scaffold(
-            backgroundColor: Colors.white,
-            body: Column(children: [
+    return Scaffold(
+        backgroundColor: Colors.white,
+        body: SafeArea(
+          child: BlocProvider(
+            create: (context) => AuthenticationBloc(
+                authenticationService: AuthenticationService()),
+            child: Column(children: [
               NavBarTitleCl(
                 title: 'Sign In',
                 navWidget: BackIconWidget(width: width),
@@ -120,13 +120,19 @@ class _SignInState extends State<SignIn> {
                     listener: (context, state) async {
                       if (state is AuthenticationSuccess) {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text('Authentication successful'),
+
+                          SnackBar(
+                              content: Text('Authentication successful'),
+
                               backgroundColor: Colors.green),
                         );
                         userRole = (await getRole())!;
                         if (userRole == 'user') {
                           if (isFromFavorites) {
                             Navigator.of(context).pop();
+
+                            isFromFavorites = false;
+
                           } else {
                             Navigator.popAndPushNamed(context, '/user_profile');
                           }
@@ -144,7 +150,10 @@ class _SignInState extends State<SignIn> {
                     },
                     builder: (context, state) {
                       if (state is AuthenticationLoading) {
-                        return CircularProgressIndicator(color: Color(0xFFFF6E41));
+
+                        return CircularProgressIndicator(
+                            color: Color(0xFFFF6E41));
+
                       }
                       return SubmitButton(
                         text: 'Sign In',
@@ -172,7 +181,10 @@ class _SignInState extends State<SignIn> {
                       GestureDetector(
                         onTap: () {
                           Navigator.pushNamed(context, '/sign_up');
-                          AppMetrica.reportEvent('ButtonSignUpFromSignIn Clicked');
+
+                          AppMetrica.reportEvent(
+                              'ButtonSignUpFromSignIn Clicked');
+
                         },
                         child: Text(
                           ' Sign up',
@@ -196,7 +208,9 @@ class _SignInState extends State<SignIn> {
                   text: 'Skip',
                   onPressed: () {
                     userRole = '';
-                    Navigator.pushNamed(context, '/home');
+
+                    Navigator.popAndPushNamed(context, '/home');
+
                   },
                   height: height * 0.06,
                   width: width * 0.76,

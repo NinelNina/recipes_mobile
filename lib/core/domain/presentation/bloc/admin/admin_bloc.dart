@@ -37,7 +37,11 @@ class AdminBloc extends Bloc<AdminEvent, AdminState> {
     emit(AdminLoading());
     try {
       final recipes = await adminService.fetchRecipesToCheck(event.page, number: event.number);
-      emit(RecipesLoaded(recipes: recipes));
+      if (recipes.isEmpty && event.page == 0) {
+        emit(RecipeEmpty());
+      } else {
+        emit(RecipesLoaded(recipes: recipes, page: event.page!));
+      }
     } catch (e) {
       if (e is DioException) {
         if (e.response?.statusCode == 401) {

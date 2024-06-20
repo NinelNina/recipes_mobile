@@ -4,33 +4,25 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:recipes/core/domain/models/recipe_preview_model.dart';
 import 'package:recipes/core/domain/presentation/bloc/favorite/add_to_favorite/favorite_bloc.dart';
 import 'package:recipes/core/domain/presentation/bloc/favorite/add_to_favorite/favorite_state.dart';
-import 'package:recipes/core/domain/presentation/bloc/recipe/recipe_search/recipe_search_bloc.dart';
-import 'package:recipes/core/domain/presentation/bloc/recipe/recipe_search/recipe_search_event.dart';
-import 'package:recipes/core/domain/presentation/bloc/recipe/recipe_search/recipe_search_state.dart';
+import 'package:recipes/core/domain/presentation/bloc/recipe/user_recipe/user_recipe_bloc.dart';
+import 'package:recipes/core/domain/presentation/bloc/recipe/user_recipe/user_recipe_event.dart';
+import 'package:recipes/core/domain/presentation/bloc/recipe/user_recipe/user_recipe_state.dart';
 import 'package:recipes/features/common/recipe_card/recipe_card.dart';
 
-class RecipesSearchTemplate extends StatefulWidget {
-  final bool isUserRecipe;
-  final String? type;
-  final String? diet;
-  final String query;
+class MyRecipesTemplate extends StatefulWidget {
 
-  const RecipesSearchTemplate({
-    super.key,
-    required this.isUserRecipe,
-    this.type,
-    this.diet,
-    required this.query,
+  const MyRecipesTemplate({
+    super.key
   });
 
   @override
-  _RecipesSearchTemplateState createState() => _RecipesSearchTemplateState();
+  _MyRecipesTemplateState createState() => _MyRecipesTemplateState();
 }
 
-class _RecipesSearchTemplateState extends State<RecipesSearchTemplate> {
+class _MyRecipesTemplateState extends State<MyRecipesTemplate> {
   static const _pageSize = 10;
   final PagingController<int, RecipePreview> _pagingController =
-  PagingController(firstPageKey: 1);
+  PagingController(firstPageKey: 0);
 
   @override
   void initState() {
@@ -40,38 +32,21 @@ class _RecipesSearchTemplateState extends State<RecipesSearchTemplate> {
     });
   }
 
-  @override
-  void didUpdateWidget(covariant RecipesSearchTemplate oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    if (oldWidget.query != widget.query ||
-        oldWidget.type != widget.type ||
-        oldWidget.diet != widget.diet ||
-        oldWidget.isUserRecipe != widget.isUserRecipe) {
-      _pagingController.refresh();
-    }
-  }
-
   Future<void> _fetchPage(int pageKey) async {
-    context.read<RecipeSearchBloc>().add(
-      FetchRecipes(
-        isUserRecipe: widget.isUserRecipe,
-        type: widget.type,
-        diet: widget.diet,
-        page: pageKey,
-        number: _pageSize,
-        query: widget.query,
-      ),
+    context.read<UserRecipeBloc>().add(
+      FetchUserRecipes(
+          page: pageKey,
+          number: _pageSize),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-
     return MultiBlocListener(
       listeners: [
-        BlocListener<RecipeSearchBloc, RecipeSearchState>(
+        BlocListener<UserRecipeBloc, UserRecipeState>(
           listener: (context, state) {
-            if (state is RecipeSearchLoaded) {
+            if (state is UserRecipeLoaded) {
               final isLastPage = state.recipes.length < _pageSize;
               if (isLastPage) {
                 _pagingController.appendLastPage(state.recipes);
@@ -79,9 +54,9 @@ class _RecipesSearchTemplateState extends State<RecipesSearchTemplate> {
                 final nextPageKey = state.page + 1;
                 _pagingController.appendPage(state.recipes, nextPageKey);
               }
-            } else if (state is RecipeSearchError) {
+            } else if (state is UserRecipeError) {
               _pagingController.error = state.message;
-            } else if (state is RecipeSearchEmpty) {
+            } else if (state is UserRecipeEmpty) {
               _pagingController.appendLastPage([]);
             }
           },
@@ -116,17 +91,11 @@ class _RecipesSearchTemplateState extends State<RecipesSearchTemplate> {
             id: recipe.id,
             isUserRecipe: recipe.isUserRecipe,
           ),
-          noItemsFoundIndicatorBuilder: (context) => Column(children: [
-            SizedBox(height: 10),
-                  Text('There\'s nothing here :('.toUpperCase(),
-          style: TextStyle(
-          fontFamily: 'Montserrat',
-          color: Color(0xFF000000),
-          fontSize: 16,
-          fontWeight: FontWeight.w500,
-          ),
-          ),
-          ]
+          noItemsFoundIndicatorBuilder: (context) => Column(
+            children: [
+              SizedBox(height: 10),
+              Text('There\'s nothing here :('),
+            ],
           ),
           newPageProgressIndicatorBuilder: (context) => Center(
             child: CircularProgressIndicator(

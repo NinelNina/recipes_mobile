@@ -69,7 +69,9 @@ class _SignUpState extends State<SignUp> {
       }
 
       final register = Register(email, password);
-      context.read<RegisterBloc>().add(RegisterButtonPressed(register: register));
+      context
+          .read<RegisterBloc>()
+          .add(RegisterButtonPressed(register: register));
     }
   }
 
@@ -79,148 +81,156 @@ class _SignUpState extends State<SignUp> {
     final double width = size.width;
     final double height = size.height;
 
-    return SafeArea(child: BlocProvider(
-      create: (context) => RegisterBloc(authenticationService: AuthenticationService()),
-      child: Scaffold(
+    return Scaffold(
         backgroundColor: Colors.white,
-        body: Column(
-          children: [
-            NavBarTitleCl(
-              title: 'Sign Up',
-              navWidget: BackIconWidget(width: width),
-              width: width,
-              height: height,
-            ),
-            SizedBox(height: height * 0.05),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: width * 0.1),
-              child: Column(
-                children: [
-                  Form(
-                    key: _formKey,
-                    child: Column(
-                      children: [
-                        FormInputField(
-                          labelText: 'Email',
-                          controller: _emailController,
-                          keyboardType: TextInputType.emailAddress,
-                          height: height,
-                          obscureText: false,
-                          validator: validateEmail,
-                        ),
-                        SizedBox(height: height * 0.01),
-                        FormInputField(
-                          labelText: 'Password',
-                          controller: _passwordController,
-                          keyboardType: TextInputType.text,
-                          height: height,
-                          obscureText: true,
-                          validator: validatePassword,
-                        ),
-                        SizedBox(height: height * 0.01),
-                        FormInputField(
-                          labelText: 'Repeat password',
-                          controller: _repeatPasswordController,
-                          keyboardType: TextInputType.text,
-                          height: height,
-                          obscureText: true,
-                          validator: validatePassword,
-                        ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(height: height * 0.05),
-                  BlocConsumer<RegisterBloc, RegisterState>(
-                    listener: (context, state) {
-                      if (state is RegisterSuccess) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text('Registration successful'),
-                          backgroundColor: Colors.green),
-                        );
-                        if (isFromFavorites) {
-                          userRole = 'user';
-                          Navigator.of(context).pop();
-                          Navigator.of(context).pop();
-                        } else {
-                          userRole = 'user';
-                          Navigator.popAndPushNamed(context, '/user_profile');
-                          AppMetrica.reportEvent('ButtonSignUpToProfile Clicked');
-                        }
-                      } else if (state is RegisterFailure) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text('Registration failed: ${state.error}'),
-                          backgroundColor: Colors.redAccent),
-                        );
-                      }
-                    },
-                    builder: (context, state) {
-                      if (state is RegisterLoading) {
-                        return CircularProgressIndicator(color: Color(0xFFFF6E41));
-                      }
-                      return SubmitButton(
-                        text: 'Sign Up',
-                        height: height * 0.06,
-                        width: width * 0.76,
-                        color: const Color(0xFFFF6E41),
-                        textColor: Colors.white,
-                        onPressed: () => signUp(context),
-                      );
-                    },
-                  ),
-                  SizedBox(height: height * 0.05),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+        body: SafeArea(
+          child: BlocProvider(
+            create: (context) =>
+                RegisterBloc(authenticationService: AuthenticationService()),
+            child: Column(
+              children: [
+                NavBarTitleCl(
+                  title: 'Sign Up',
+                  navWidget: BackIconWidget(width: width),
+                  width: width,
+                  height: height,
+                ),
+                SizedBox(height: height * 0.05),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: width * 0.1),
+                  child: Column(
                     children: [
-                      Text(
-                        'If you are already registered,',
-                        style: TextStyle(
-                          color: Color(0xFF808080),
-                          fontFamily: 'Poppins',
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
+                      Form(
+                        key: _formKey,
+                        child: Column(
+                          children: [
+                            FormInputField(
+                              labelText: 'Email',
+                              controller: _emailController,
+                              keyboardType: TextInputType.emailAddress,
+                              height: height,
+                              obscureText: false,
+                              validator: validateEmail,
+                            ),
+                            SizedBox(height: height * 0.01),
+                            FormInputField(
+                              labelText: 'Password',
+                              controller: _passwordController,
+                              keyboardType: TextInputType.text,
+                              height: height,
+                              obscureText: true,
+                              validator: validatePassword,
+                            ),
+                            SizedBox(height: height * 0.01),
+                            FormInputField(
+                              labelText: 'Repeat password',
+                              controller: _repeatPasswordController,
+                              keyboardType: TextInputType.text,
+                              height: height,
+                              obscureText: true,
+                              validator: validatePassword,
+                            ),
+                          ],
                         ),
                       ),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.pushNamed(context, '/login');
+                      SizedBox(height: height * 0.05),
+                      BlocConsumer<RegisterBloc, RegisterState>(
+                        listener: (context, state) {
+                          if (state is RegisterSuccess) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                  content: Text('Registration successful'),
+                                  backgroundColor: Colors.green),
+                            );
+                            if (isFromFavorites) {
+                              userRole = 'user';
+                              Navigator.of(context).pop();
+                              Navigator.of(context).pop();
+                              isFromFavorites = false;
+                            } else {
+                              userRole = 'user';
+                              Navigator.popAndPushNamed(
+                                  context, '/user_profile');
+                              AppMetrica.reportEvent(
+                                  'ButtonSignUpToProfile Clicked');
+                            }
+                          } else if (state is RegisterFailure) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                  content: Text(
+                                      'Registration failed: ${state.error}'),
+                                  backgroundColor: Colors.redAccent),
+                            );
+                          }
                         },
-                        child: Text(
-                          ' sign in',
-                          style: TextStyle(
-                            color: Color(0xFFFF6E41),
-                            fontFamily: 'Poppins',
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
+                        builder: (context, state) {
+                          if (state is RegisterLoading) {
+                            return CircularProgressIndicator(
+                                color: Color(0xFFFF6E41));
+                          }
+                          return SubmitButton(
+                            text: 'Sign Up',
+                            height: height * 0.06,
+                            width: width * 0.76,
+                            color: const Color(0xFFFF6E41),
+                            textColor: Colors.white,
+                            onPressed: () => signUp(context),
+                          );
+                        },
                       ),
+                      SizedBox(height: height * 0.05),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'If you are already registered,',
+                            style: TextStyle(
+                              color: Color(0xFF808080),
+                              fontFamily: 'Poppins',
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.pushNamed(context, '/login');
+                            },
+                            child: Text(
+                              ' sign in',
+                              style: TextStyle(
+                                color: Color(0xFFFF6E41),
+                                fontFamily: 'Poppins',
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: height * 0.02),
                     ],
                   ),
-                  SizedBox(height: height * 0.02),
-                ],
-              ),
+                ),
+                const Spacer(),
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: SubmitButton(
+                    text: 'Skip',
+                    onPressed: () {
+                      userRole = '';
+                      Navigator.popAndPushNamed(context, '/home');
+                    },
+                    height: height * 0.06,
+                    width: width * 0.76,
+                    color: const Color(0xFFFFE0D7),
+                    textColor: const Color(0xFFFF6E41),
+                    path: "/home",
+                  ),
+                ),
+                SizedBox(height: height * 0.05),
+              ],
             ),
-            const Spacer(),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: SubmitButton(
-                text: 'Skip',
-                onPressed: () {
-                  userRole = '';
-                  Navigator.pushNamed(context, '/home');
-                },
-                height: height * 0.06,
-                width: width * 0.76,
-                color: const Color(0xFFFFE0D7),
-                textColor: const Color(0xFFFF6E41),
-                path: "/home",
-              ),
-            ),
-            SizedBox(height: height * 0.05),
-          ],
-        ),
-      ),
-    ));
+          ),
+        ));
   }
 }
-

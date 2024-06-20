@@ -19,8 +19,12 @@ class UserRecipeBloc extends Bloc<UserRecipeEvent, UserRecipeState> {
       FetchUserRecipes event, Emitter<UserRecipeState> emit) async {
     emit(UserRecipeLoading());
     try {
-      final recipes = await userRecipeService.getUserRecipes();
-      emit(UserRecipeLoaded(recipes));
+      final recipes = await userRecipeService.getUserRecipes(page: event.page, number: event.number);
+      if (recipes.isEmpty && event.page == 0) {
+        emit(UserRecipeEmpty());
+      } else {
+        emit(UserRecipeLoaded(recipes, event.page));
+      }
     } catch (e) {
       if (e is DioException) {
         if (e.response?.statusCode == 401) {

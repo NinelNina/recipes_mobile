@@ -31,7 +31,7 @@ class GetFavoriteRecipes extends FavoriteEvent {
   final int? page;
   final int? number;
 
-  const GetFavoriteRecipes({this.page, this.number = 10});
+  const GetFavoriteRecipes({this.page, this.number});
 
   @override
   List<Object?> get props => [page, number];

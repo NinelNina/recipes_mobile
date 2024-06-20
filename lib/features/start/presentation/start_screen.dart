@@ -63,7 +63,6 @@ class Start extends StatelessWidget {
             '/approve': (context) => ApplicationsForApproval(),
             '/my_recipes': (context) => MyRecipesScreen(),
             '/add': (context) => AddRecipe(),
-            //'/categories_diets': (context) => CategoriesAndDiets(images: images, recipes: recipes, cookingTime: cookingTime, isFavorite: isFavorite),
             '/stat': (context) => StatisticScreen(),
           },
           debugShowCheckedModeBanner: false,

@@ -3,7 +3,6 @@ import 'package:dio/dio.dart';
 import 'package:recipes/core/domain/presentation/bloc/authentication/authorization/authorization_bloc.dart';
 import 'package:recipes/core/domain/presentation/bloc/authentication/authorization/authorization_event.dart';
 import 'package:recipes/core/domain/services/favorite_service.dart';
-
 import 'favorite_event.dart';
 import 'favorite_state.dart';
 
@@ -58,11 +57,16 @@ class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
 
   Future<void> _onGetFavoriteRecipes(
       GetFavoriteRecipes event, Emitter<FavoriteState> emit) async {
-    emit(FavoriteLoading());
     try {
-      final recipes = await favoriteService.getFavoriteRecipe(event.page,
+      final recipes = await favoriteService.getFavoriteRecipe(
+          page: event.page,
           number: event.number);
-      emit(FavoriteLoaded(recipes: recipes));
+
+      if (recipes.isEmpty && event.page == 0) {
+        emit(FavoriteEmpty());
+      } else {
+        emit(FavoriteLoaded(recipes, event.page!));
+      }
     } catch (e) {
       if (e is DioException) {
         if (e.response?.statusCode == 401) {

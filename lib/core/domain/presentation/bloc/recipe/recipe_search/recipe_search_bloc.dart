@@ -29,7 +29,7 @@ class RecipeSearchBloc extends Bloc<RecipeSearchEvent, RecipeSearchState> {
         number: event.number,
       );
 
-      if (recipes.isEmpty && event.page == 1) {
+      if (recipes.isEmpty && event.page == 0) {
         emit(RecipeSearchEmpty());
       } else {
         emit(RecipeSearchLoaded(recipes, event.page));

@@ -8,7 +8,6 @@ import 'package:recipes/core/domain/services/admin_service.dart';
 import 'package:recipes/core/domain/services/authentication_service.dart';
 import 'package:recipes/features/common/widgets/unauthenticated_widget.dart';
 import 'package:recipes/features/statistics/widgets/stat.dart';
-import 'package:recipes/features/common/widgets/custom_drawer.dart';
 import '../../common/widgets/back_icon_widget.dart';
 import '../../common/widgets/nav_bar_title_clouse.dart';
 
@@ -53,7 +52,6 @@ class _StatisticScreenState extends State<StatisticScreen> {
           BlocProvider.value(value: authenticationBloc)
         ],
         child: Scaffold(
-            drawer: CustomDrawer(),
             backgroundColor: Colors.white,
             body: Center(
               child: SafeArea(

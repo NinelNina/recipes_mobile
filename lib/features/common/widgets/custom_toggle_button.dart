@@ -51,25 +51,6 @@ class _CustomToggleButtonState extends State<CustomToggleButton>
     });
   }
 
-  // List<String> ingredients = [
-  //   '1 cup flour',
-  //   '2 eggs',
-  //   '1/2 cup sugar',
-  //   '1 tsp baking powder',
-  //   '1/2 tsp salt',
-  //   '1/2 cup milk',
-  //   '1/2 cup vegetable oil',
-  //   '1 tsp vanilla extract'
-  // ];
-
-  // List<String> steps = [
-  //   'Preheat oven to 350°F (175°C).',
-  //   'In a large bowl, combine flour, sugar, baking powder, and salt.',
-  //   'Add eggs, milk, oil, and vanilla extract to the bowl and mix well.',
-  //   'Pour batter into a greased 9x5 inch loaf pan.',
-  //   'Bake for 50-60 minutes, or until a toothpick inserted into the center comes out clean.',
-  //   'Let cool in pan for 10 minutes, then remove from pan and let cool completely on a wire rack.'
-  // ];
 
   int portions = 1;
 
@@ -283,39 +264,39 @@ class _CustomToggleButtonState extends State<CustomToggleButton>
                   fontWeight: FontWeight.w600,
                 ),),
               SizedBox(width: width * 0.041),
-             Container(
-                  width: width * 0.06,
-                  child: TextField(
-                    maxLength: 2,
-                    keyboardType: TextInputType.number,
-                    decoration: InputDecoration(
-                      counterText: "",
-                      border: InputBorder.none,
-                      focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Color(0xFFFF6E41),
-                          width: 2,
-                        ),
+              Container(
+                width: width * 0.06,
+                child: TextField(
+                  maxLength: 2,
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                    counterText: "",
+                    border: InputBorder.none,
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Color(0xFFFF6E41),
+                        width: 2,
                       ),
-                      enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Color(0xFF000000),
-                          width: 0.5,
-                          style: BorderStyle.solid,
-                        ),
-                      ),
-
                     ),
-                    inputFormatters: [
-                      FilteringTextInputFormatter.allow(RegExp(r'^\d+')),
-                    ],
-                    onChanged: (value) {
-                      setState(() {
-                        portions = int.tryParse(value) ?? 1;
-                      });
-                    },
+                    enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Color(0xFF000000),
+                        width: 0.5,
+                        style: BorderStyle.solid,
+                      ),
+                    ),
+
                   ),
+                  inputFormatters: [
+                    FilteringTextInputFormatter.allow(RegExp(r'^\d+')),
+                  ],
+                  onChanged: (value) {
+                    setState(() {
+                      portions = int.tryParse(value) ?? 1;
+                    });
+                  },
                 ),
+              ),
             ]),
             SizedBox(height: height * 0.007),
             Container(
@@ -379,44 +360,44 @@ class _CustomToggleButtonState extends State<CustomToggleButton>
                             ),
 
                           ),
-                      SizedBox(width: 16,),
-                      Column(
+                          SizedBox(width: 16,),
+                          Column(
                             // crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [ Text(
+                            children: [ Text(
 
-                            ingredients[index],
+                              ingredients[index],
 
-                            style: TextStyle(
-                              fontFamily: 'Montserrat',
-                              color: Color(0xFF000000),
-                              fontSize: 14,
-                              fontWeight: FontWeight.w600,
+                              style: TextStyle(
+                                fontFamily: 'Montserrat',
+                                color: Color(0xFF000000),
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            ],
+                          ),
+
+
+
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children:[
+
+                                Text(
+                                  textAlign: TextAlign.left,
+                                  ingredients_unit[index],
+
+                                  style: TextStyle(
+                                    fontFamily: 'Montserrat',
+                                    color: Color(0xFF000000),
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
-                          ],
-                          ),
-
-
-
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children:[
-
-                            Text(
-                              textAlign: TextAlign.left,
-                            ingredients_unit[index],
-
-                            style: TextStyle(
-                              fontFamily: 'Montserrat',
-                              color: Color(0xFF000000),
-                              fontSize: 14,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                  ],
-                          ),
-                      ),
                         ],
 
                       ),
@@ -433,19 +414,19 @@ class _CustomToggleButtonState extends State<CustomToggleButton>
           itemCount: widget.steps!.length,
           itemBuilder: (context, index) {
             return Container(
-                padding: EdgeInsets.only(left: width * 0.049),
+              padding: EdgeInsets.only(left: width * 0.049),
               child: ListTile(
-              leading: NumberedCircleIcon(
-                number: index + 1,
-                color: Color(0xFFFF6E41),
-              ),
-              title: Text(widget.steps![index],
-                style: TextStyle(
-                  fontFamily: 'Montserrat',
-                  color: Color(0xFF000000),
-                  fontSize: 14,
-                  fontWeight: FontWeight.w400,
-                ),),
+                leading: NumberedCircleIcon(
+                  number: index + 1,
+                  color: Color(0xFFFF6E41),
+                ),
+                title: Text(widget.steps![index],
+                  style: TextStyle(
+                    fontFamily: 'Montserrat',
+                    color: Color(0xFF000000),
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
+                  ),),
               ),
             );
           },

@@ -74,15 +74,11 @@ class _RecipesByDietsAndCategoriesScreenState
                   child: isSearchActive
                       ? RecipesSearchTemplate(
                           query: query,
-                          width: width,
-                          height: height,
                           isUserRecipe: false,
                           diet: widget.diet,
                           type: widget.type)
                       : RecipesTemplate(
                           isUserRecipe: false,
-                          width: width,
-                          height: height,
                           diet: widget.diet,
                           type: widget.type),
                 )

@@ -63,11 +63,9 @@ class _AllRecipesState extends State<AllRecipes> {
                   child: isSearchActive
                       ? RecipesSearchTemplate(
                           query: query,
-                          width: width,
-                          height: height,
                           isUserRecipe: false)
                       : RecipesTemplate(
-                          isUserRecipe: false, width: width, height: height),
+                          isUserRecipe: false),
                 )
               ],
             ),

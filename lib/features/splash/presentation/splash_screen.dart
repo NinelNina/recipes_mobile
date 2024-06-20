@@ -21,16 +21,16 @@ class _SplashScreenState extends State<SplashScreen> {
     if (token != null) {
       userRole = (await _tokenService.getRole())!;
       if (userRole == 'user') {
-        Navigator.pushReplacementNamed(context, '/home');
+        Navigator.popAndPushNamed(context, '/home');
       }
       else if (userRole == 'administrator') {
-        Navigator.pushReplacementNamed(context, '/admin_profile');
+        Navigator.popAndPushNamed(context, '/admin_profile');
       }
       else {
-        Navigator.pushReplacementNamed(context, '/login');
+        Navigator.popAndPushNamed(context, '/login');
       }
     } else {
-      Navigator.pushReplacementNamed(context, '/login');
+      Navigator.popAndPushNamed(context, '/login');
     }
   }
 
