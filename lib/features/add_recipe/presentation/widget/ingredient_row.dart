@@ -32,12 +32,11 @@ class IngredientRowState extends State<IngredientRow> {
   @override
   void initState() {
     super.initState();
-    selectedIngredient =
-    widget.ingredients.isNotEmpty ? widget.ingredients[0] : '';
-    currentUnits = widget.listIngredientObj
-        .firstWhere((ingredient) => ingredient.title == selectedIngredient)
-        .units;
-    selectedUnit = currentUnits.isNotEmpty ? currentUnits[0] : '';
+    selectedIngredient = '';
+   // currentUnits = ''; //widget.listIngredientObj
+        // .firstWhere((ingredient) => ingredient.title == selectedIngredient)
+        // .units;
+    selectedUnit = '';
   }
 
   Ingredient getCurrentState() {
@@ -60,7 +59,7 @@ class IngredientRowState extends State<IngredientRow> {
                       .firstWhere(
                           (ingredient) => ingredient.title == selectedIngredient)
                       .units;
-                  selectedUnit = currentUnits.isNotEmpty ? currentUnits[0] : '';
+                  selectedUnit = '';
                 });
               }),
           SizedBox(width: widget.screenWidth * 0.01),

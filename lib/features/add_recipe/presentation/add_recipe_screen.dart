@@ -52,7 +52,6 @@ class _AddRecipeState extends State<AddRecipe> {
   String _description = '';
   int _cookingTime = -1;
   int _servings = -1;
-  bool isStep = true;
   late List<Ingredient> _extendedIngredients = [];
   late List<String> _steps = [];
   late bool isPublish;
@@ -568,11 +567,10 @@ class _AddRecipeState extends State<AddRecipe> {
                 ),
               ),
               onPressed: () {
-                if (_formKey3.currentState!.validate()) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text('Processing Data')),
-                  );
-                }
+                bool isStep = true;
+                bool isIngredient = true;
+                _steps.clear();
+                _extendedIngredients.clear();
                 for (var key in ingredientKeys) {
                   final ingredient = key.currentState?.getCurrentState();
                   _extendedIngredients.add(ingredient!);
@@ -584,15 +582,37 @@ class _AddRecipeState extends State<AddRecipe> {
                 }
 
                 for (var step in _steps){
-                  if (step.isEmpty) {
+                  if (step == '') {
                     isStep = false;
+                    break;
                   }
                 }
+
+                for (var ingredients in _extendedIngredients){
+                  print("ingredients.name " + ingredients.name );
+                  print("ingredients.unit " + ingredients.unit );
+                  print("ingredients.amount " + ingredients.amount.toString());
+                  if (ingredients.name == '') {
+                    isIngredient = false;
+                    break;
+                  }
+                  if(ingredients.unit == ''){
+                    isIngredient = false;
+                    break;
+                  }
+                  if(ingredients.amount == 0){
+                    isIngredient = false;
+                    break;
+                  }
+                }
+
                 if (_recipeName.isNotEmpty &&
                     _description.isNotEmpty &&
                     _cookingTime != -1  &&
                     _servings != -1 &&
-                    _dishCategory != '' ) {
+                    _dishCategory != '' &&
+                    isStep == true &&
+                     isIngredient == true) {
                   userRecipeBloc.add(CreateUserRecipe(
                     title: _recipeName,
                     image: _image,
@@ -606,7 +626,7 @@ class _AddRecipeState extends State<AddRecipe> {
                   ));
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text('All fields must be filled in')),
+                    SnackBar(content: Text('All fields must be filled in', textAlign: TextAlign.center,), backgroundColor: Colors.redAccent,),
                   );
                 }
               },

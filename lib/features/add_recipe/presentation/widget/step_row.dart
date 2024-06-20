@@ -53,7 +53,7 @@ class StepRowState extends State<StepRow> {
 
                   decoration: InputDecoration(
                       counterText: "",
-                      contentPadding: const EdgeInsets.all(0),
+                      contentPadding: const EdgeInsets.only(left: 15),
                       border: InputBorder.none
                   ),
                 ),
