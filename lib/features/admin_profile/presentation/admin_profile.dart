@@ -28,7 +28,7 @@ class _AdminProfileState extends State<AdminProfile> {
         Navigator.popAndPushNamed(context, '/user_profile');
       }
       else {
-        Navigator.popAndPushNamed(context, '/login');
+        Navigator.pushNamedAndRemoveUntil(context, '/login', (Route<dynamic> route) => false);
       }
     }
 
@@ -37,7 +37,7 @@ class _AdminProfileState extends State<AdminProfile> {
         _username = username!;
       });
       if (_username == ''){
-        Navigator.popAndPushNamed(context, '/login');
+        Navigator.pushNamedAndRemoveUntil(context, '/login', (Route<dynamic> route) => false);
       }
     });
   }
