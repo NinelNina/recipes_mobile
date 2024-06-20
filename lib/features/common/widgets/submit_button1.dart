@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:recipes/features/common/widgets/back_icon_widget.dart';
+import 'package:appmetrica_plugin/appmetrica_plugin.dart';
 
 class SubmitButton extends StatelessWidget {
   const SubmitButton({
     super.key,
     required this.text,
     required this.height,
-    this.width, required this.color, required this.textColor, required this.onPressed
+    this.width,
+    required this.color,
+    required this.textColor,
+    this.path,
+    this.onPressed,
   });
 
   final String text;
@@ -14,17 +18,22 @@ class SubmitButton extends StatelessWidget {
   final Color textColor;
   final double? width;
   final double height;
-  final VoidCallback onPressed;
+  final String? path;
+  final VoidCallback? onPressed;
 
   @override
   Widget build(BuildContext context) {
     return FilledButton.tonal(
-      onPressed: onPressed,
+      onPressed: onPressed ??
+          (path != null
+              ? () {
+            Navigator.pushNamed(context, path!);
+            AppMetrica.reportEvent('ButtonHome Clicked');
+          }
+              : null),
       style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.all<Color>(
-            color),
-        minimumSize: MaterialStateProperty.all<Size>(
-            Size(width ?? 0, height)),
+        backgroundColor: MaterialStateProperty.all<Color>(color),
+        minimumSize: MaterialStateProperty.all<Size>(Size(width ?? 0, height)),
       ),
       child: Text(
         text,

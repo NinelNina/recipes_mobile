@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:recipes/features/common/widgets/back_icon_widget.dart';
+import 'package:flutter/services.dart';
 
 class NavBar extends StatelessWidget {
   const NavBar({
@@ -18,11 +17,13 @@ class NavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(mainAxisAlignment: MainAxisAlignment.start, children: [
-      SizedBox(
-        height: MediaQuery.of(context).padding.top,
-      ),
-      Container(
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        SizedBox(
+          height: MediaQuery.of(context).padding.top,
+        ),
+        Container(
           width: width,
           height: height * 0.07,
           decoration: BoxDecoration(
@@ -37,20 +38,37 @@ class NavBar extends StatelessWidget {
               ),
             ],
           ),
-          child: Center(
-              child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          child: Stack(
             children: [
-              navWidget,
-              Text(title,
+              Positioned(
+                left: 0,
+                child: IconButton(
+                  color: const Color(0xFFFF6E41),
+                  icon: navWidget,
+                  onPressed: () {
+                    if (Navigator.canPop(context)) {
+                      Navigator.pop(context);
+                    } else {
+                      SystemNavigator.pop();
+                    }
+                  },
+                ),
+              ),
+              Center(
+                child: Text(
+                  title,
                   style: const TextStyle(
-                      color: Color(0xFFFF6E41),
-                      fontFamily: 'Poppins',
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold)),
-              SizedBox(width: width * 0.15),
+                    color: Color(0xFFFF6E41),
+                    fontFamily: 'Poppins',
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
             ],
-          )))
-    ]);
+          ),
+        ),
+      ],
+    );
   }
 }

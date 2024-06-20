@@ -9,7 +9,6 @@ class MenuIconWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: width * 0.15,
       child: SvgPicture.asset('assets/images/menu_vector.svg',
           width: 10, height: 18),
     );

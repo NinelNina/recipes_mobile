@@ -3,6 +3,7 @@ import 'category_field.dart';
 
 class CategoryList extends StatelessWidget {
   final List<String> categories;
+  final bool isDiet;
   final double width;
   final double height;
 
@@ -10,7 +11,8 @@ class CategoryList extends StatelessWidget {
       {super.key,
       required this.categories,
       required this.width,
-      required this.height});
+      required this.height,
+      required this.isDiet});
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +23,7 @@ class CategoryList extends StatelessWidget {
             text: category,
             height: height,
             width: width,
+            isDiet: isDiet,
           ),
           SizedBox(height: height * 0.28)
         ]);
