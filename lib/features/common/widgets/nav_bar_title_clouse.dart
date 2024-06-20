@@ -1,6 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:recipes/features/sing_in/presentation/sign_in_screen.dart';
+import 'package:flutter/services.dart';
 
 class NavBarTitleCl extends StatelessWidget {
   const NavBarTitleCl({
@@ -45,7 +44,11 @@ class NavBarTitleCl extends StatelessWidget {
                 color: const Color(0xFFFF6E41),
                 icon: navWidget,
                 onPressed: () {
-                  Navigator.pop(context);
+                  if (Navigator.canPop(context)) {
+                    Navigator.pop(context);
+                  } else {
+                    SystemNavigator.pop();
+                  }
                 },
               ),
               Expanded(

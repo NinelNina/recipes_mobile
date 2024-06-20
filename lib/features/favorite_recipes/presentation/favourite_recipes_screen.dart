@@ -43,7 +43,7 @@ class FavouriteRecipes extends StatelessWidget {
                   width: width,
                   height: height,
                 ),
-                Expanded(
+                Expanded( //TODO: постранично
                   child: BlocBuilder<FavoriteBloc, FavoriteState>(
                     builder: (context, state) {
                       if (state is FavoriteLoading) {

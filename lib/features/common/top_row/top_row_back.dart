@@ -1,5 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class TopRowBack extends StatelessWidget {
   final String recipeName;
@@ -20,7 +20,11 @@ class TopRowBack extends StatelessWidget {
                 color: const Color(0xFFFF6E41),
                 icon: const Icon(Icons.chevron_left_outlined),
                 onPressed: () {
-                  Navigator.pop(context);
+                  if (Navigator.canPop(context)) {
+                    Navigator.pop(context);
+                  } else {
+                    SystemNavigator.pop();
+                  }
                 },
               );
             },

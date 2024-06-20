@@ -145,6 +145,7 @@ class _SignUpState extends State<SignUp> {
                               userRole = 'user';
                               Navigator.of(context).pop();
                               Navigator.of(context).pop();
+                              isFromFavorites = false;
                             } else {
                               userRole = 'user';
                               Navigator.popAndPushNamed(
@@ -216,7 +217,7 @@ class _SignUpState extends State<SignUp> {
                     text: 'Skip',
                     onPressed: () {
                       userRole = '';
-                      Navigator.pushNamed(context, '/home');
+                      Navigator.popAndPushNamed(context, '/home');
                     },
                     height: height * 0.06,
                     width: width * 0.76,

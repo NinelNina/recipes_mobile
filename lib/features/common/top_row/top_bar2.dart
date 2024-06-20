@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:recipes/features/common/widgets/back_icon_widget.dart';
+import 'package:flutter/services.dart';
 
 class Bar2 extends StatelessWidget {
   const Bar2({
@@ -47,7 +46,11 @@ class Bar2 extends StatelessWidget {
                         color: const Color(0xFFFF6E41),
                         icon: const Icon(Icons.chevron_left_outlined),
                         onPressed: () {
-                          Navigator.pop(context);
+                          if (Navigator.canPop(context)) {
+                            Navigator.pop(context);
+                          } else {
+                            SystemNavigator.pop();
+                          }
                         },
                       );
                     },

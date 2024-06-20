@@ -93,13 +93,13 @@ class _FavoritesButtonState extends State<FavoritesButton> {
                   if (token == null) {
                     isFromFavorites = true;
                     Navigator.of(context)
-                        .pushReplacementNamed('/login')
-                        .then((_) {
+                        .pushNamed('/login')
+                        /*.then((_) {
                       if (isFromFavorites) {
                         _toggleFavorite();
                         isFromFavorites = false;
                       }
-                    });
+                    })*/;
                   } else {
                     _toggleFavorite();
                   }

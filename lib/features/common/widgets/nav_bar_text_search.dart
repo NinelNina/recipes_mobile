@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class NavBarWithTextAndSearch extends StatelessWidget {
     const NavBarWithTextAndSearch({
@@ -43,7 +44,11 @@ class NavBarWithTextAndSearch extends StatelessWidget {
                 color: const Color(0xFFFF6E41),
                 icon: navWidget,
                 onPressed: () {
-                  Navigator.pop(context);
+                  if (Navigator.canPop(context)) {
+                    Navigator.pop(context);
+                  } else {
+                    SystemNavigator.pop();
+                  }
                 },
               ),
               Expanded(

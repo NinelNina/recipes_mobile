@@ -128,6 +128,7 @@ class _SignInState extends State<SignIn> {
                         if (userRole == 'user') {
                           if (isFromFavorites) {
                             Navigator.of(context).pop();
+                            isFromFavorites = false;
                           } else {
                             Navigator.popAndPushNamed(context, '/user_profile');
                           }
@@ -199,7 +200,7 @@ class _SignInState extends State<SignIn> {
                   text: 'Skip',
                   onPressed: () {
                     userRole = '';
-                    Navigator.pushNamed(context, '/home');
+                    Navigator.popAndPushNamed(context, '/home');
                   },
                   height: height * 0.06,
                   width: width * 0.76,
