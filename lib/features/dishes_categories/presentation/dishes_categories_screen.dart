@@ -18,7 +18,7 @@ class DishesCategories extends StatelessWidget {
       child: BlocBuilder<RecipeInfoBloc, RecipeInfoState>(
         builder: (context, state) {
           if (state is RecipeInfoLoading) {
-            return Center(child: CircularProgressIndicator());
+            return Center(child: CircularProgressIndicator(color: Color(0xFFFF6E41)));
           } else if (state is RecipeInfoError) {
             return Center(child: Text('Failed to load meal types: ${state.message}'));
           } else if (state is RecipeInfoLoaded<MealType>) {
