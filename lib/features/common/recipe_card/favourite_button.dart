@@ -65,7 +65,7 @@ class _FavoritesButtonState extends State<FavoritesButton> {
       },
       builder: (context, state) {
         if (state is FavoriteLoading) {
-          return CircularProgressIndicator();
+          return CircularProgressIndicator(color: Color(0xFFFF6E41));
         } else {
           return Container(
               width: width * 0.158,

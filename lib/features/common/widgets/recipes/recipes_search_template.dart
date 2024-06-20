@@ -120,6 +120,16 @@ class _RecipesSearchTemplateState extends State<RecipesSearchTemplate> {
             Text('There\'s nothing here :('),
           ]
           ),
+          newPageProgressIndicatorBuilder: (context) => Center(
+            child: CircularProgressIndicator(
+              color: Color(0xFFFF6E41),
+            ),
+          ),
+          firstPageProgressIndicatorBuilder: (context) => Center(
+            child: CircularProgressIndicator(
+              color: Color(0xFFFF6E41),
+            ),
+          ),
         ),
       ),
     );

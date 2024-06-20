@@ -110,7 +110,7 @@ class CustomDrawer extends StatelessWidget {
             future: _tokenService.getToken(),
             builder: (BuildContext context, AsyncSnapshot<String?> snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return Center(child: CircularProgressIndicator());
+                return Center(child: CircularProgressIndicator(color: Color(0xFFFF6E41)));
               } else if (snapshot.hasError) {
                 return ListTile(
                   leading: Container(
