@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:recipes/core/domain/models/ingredient_model.dart';
 import 'package:recipes/core/domain/models/ingredient_with_units_model.dart';
 
@@ -126,6 +127,7 @@ class IngredientRowState extends State<IngredientRow> {
       height: height,
       child: TextFormField(
         keyboardType: TextInputType.number,
+        inputFormatters:  [FilteringTextInputFormatter.allow(RegExp(r'^\d+'))],
         onChanged: onChanged,
         decoration: InputDecoration(
           hintText: hintText,

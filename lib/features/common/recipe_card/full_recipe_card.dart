@@ -185,6 +185,7 @@ class _FullRecipeCardState extends State<FullRecipeCard> {
                         child: Center(
                               child: Text(
                                 widget.type.toString().toUpperCase(),
+                                textAlign: TextAlign.center,
                                 style: TextStyle(
                                   fontFamily: 'Montserrat',
                                   color: Color(0xFF000000),

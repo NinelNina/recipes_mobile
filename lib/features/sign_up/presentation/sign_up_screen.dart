@@ -38,7 +38,8 @@ class _SignUpState extends State<SignUp> {
     if (value == null || value.isEmpty) {
       return 'Please enter email';
     }
-    if (!value.contains('@')) {
+    final regex = RegExp(r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$');
+    if (!regex.hasMatch(value)) {
       return 'Please enter valid email';
     }
     return null;

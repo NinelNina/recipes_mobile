@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:recipes/core/domain/models/ingredient_model.dart';
 
 import 'NumberedCircleIcon.dart';
@@ -283,10 +284,12 @@ class _CustomToggleButtonState extends State<CustomToggleButton>
                 ),),
               SizedBox(width: width * 0.041),
              Container(
-                  width: width * 0.05,
+                  width: width * 0.06,
                   child: TextField(
+                    maxLength: 2,
                     keyboardType: TextInputType.number,
                     decoration: InputDecoration(
+                      counterText: "",
                       border: InputBorder.none,
                       focusedBorder: UnderlineInputBorder(
                         borderSide: BorderSide(
@@ -303,6 +306,9 @@ class _CustomToggleButtonState extends State<CustomToggleButton>
                       ),
 
                     ),
+                    inputFormatters: [
+                      FilteringTextInputFormatter.allow(RegExp(r'^\d+')),
+                    ],
                     onChanged: (value) {
                       setState(() {
                         portions = int.tryParse(value) ?? 1;

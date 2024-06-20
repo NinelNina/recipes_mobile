@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:appmetrica_plugin/appmetrica_plugin.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:recipes/core/domain/models/ingredient_model.dart';
@@ -30,6 +31,10 @@ class AddRecipe extends StatefulWidget {
 }
 
 class _AddRecipeState extends State<AddRecipe> {
+  final _formKey0 = GlobalKey<FormState>();
+  final _formKey1 = GlobalKey<FormState>();
+  final _formKey2 = GlobalKey<FormState>();
+  final _formKey3 = GlobalKey<FormState>();
   bool isChecked = false;
   List<String> ingredients = [];
   List<String> units = [];
@@ -45,15 +50,16 @@ class _AddRecipeState extends State<AddRecipe> {
   String? _imageExtension = null;
   String _dishCategory = '';
   String _description = '';
-  int _cookingTime = 0;
-  int _servings = 0;
+  int _cookingTime = -1;
+  int _servings = -1;
+  bool isStep = true;
   late List<Ingredient> _extendedIngredients = [];
   late List<String> _steps = [];
   late bool isPublish;
   List<GlobalKey<IngredientRowState>> ingredientKeys = [];
   List<GlobalKey<StepRowState>> stepKeys = [];
   final AuthenticationBloc authenticationBloc =
-  AuthenticationBloc(authenticationService: AuthenticationService());
+      AuthenticationBloc(authenticationService: AuthenticationService());
 
   @override
   void initState() {
@@ -137,10 +143,18 @@ class _AddRecipeState extends State<AddRecipe> {
                   SizedBox(height: screenHeight * 0.02),
                   buildTitleText('RECIPE NAME'),
                   SizedBox(height: screenHeight * 0.011),
-                  buildTextField(screenWidth * 0.83, screenHeight * 0.06, '',
-                      onChanged: (String? newValue) {
+                  buildTextField(
+                      screenWidth * 0.83,
+                      screenHeight * 0.06,
+                      '',
+                      TextInputType.text,
+                      _formKey0, onChanged: (String? newValue) {
                     setState(() {
                       _recipeName = newValue ?? '';
+                    });
+                  }, validator: (String? value) {
+                    setState(() {
+                      _recipeName = value ?? '';
                     });
                   }),
                   SizedBox(height: screenHeight * 0.011),
@@ -152,9 +166,10 @@ class _AddRecipeState extends State<AddRecipe> {
                         mealTypes = state.items
                             .map((mealType) => mealType.title.toString())
                             .toList();
-                        _dishCategory = mealTypes[0];
+                        _dishCategory = '';
                       } else if (state is RecipeInfoLoading) {
-                        return CircularProgressIndicator(color: Color(0xFFFF6E41));
+                        return CircularProgressIndicator(
+                            color: Color(0xFFFF6E41));
                       } else if (state is RecipeInfoError) {
                         return Text(
                             'Error loading meal types: ${state.message}');
@@ -168,33 +183,55 @@ class _AddRecipeState extends State<AddRecipe> {
                       });
                     },
                   ),
-                  /*buildDropdown(screenWidth * 0.83, screenHeight * 0.06,
-                                  mealTypes, onChanged: (String? newValue) {}),*/
                   SizedBox(height: screenHeight * 0.011),
                   buildTitleText('DESCRIPTION'),
                   SizedBox(height: screenHeight * 0.011),
-                  buildTextField(screenWidth * 0.83, screenHeight * 0.06, '',
-                      onChanged: (String? newValue) {
+                  buildTextField(
+                      screenWidth * 0.83,
+                      screenHeight * 0.06,
+                      '',
+                      TextInputType.text,
+                      _formKey1, onChanged: (String? newValue) {
                     setState(() {
                       _description = newValue ?? '';
+                    });
+                  }, validator: (String? value) {
+                    setState(() {
+                      _description = value ?? '';
                     });
                   }),
                   SizedBox(height: screenHeight * 0.011),
                   buildTitleText('COOKING TIME'),
                   SizedBox(height: screenHeight * 0.011),
-                  buildTextField(screenWidth * 0.83, screenHeight * 0.06, '',
-                      onChanged: (String? newValue) {
+                  buildTextField(
+                      screenWidth * 0.83,
+                      screenHeight * 0.06,
+                      '',
+                      TextInputType.number,
+                      _formKey2, onChanged: (String? newValue) {
                     setState(() {
                       _cookingTime = int.tryParse(newValue!) ?? 0;
+                    });
+                  }, validator: (String? value) {
+                    setState(() {
+                      _cookingTime = int.tryParse(value!) ?? 0;
                     });
                   }),
                   SizedBox(height: screenHeight * 0.011),
                   buildTitleText('NUMBER OF SERVINGS'),
                   SizedBox(height: screenHeight * 0.011),
-                  buildTextField(screenWidth * 0.83, screenHeight * 0.06, '',
-                      onChanged: (String? newValue) {
+                  buildTextField(
+                      screenWidth * 0.83,
+                      screenHeight * 0.06,
+                      '',
+                      TextInputType.number,
+                      _formKey3, onChanged: (String? newValue) {
                     setState(() {
                       _servings = int.tryParse(newValue!) ?? 0;
+                    });
+                  }, validator: (String? value) {
+                    setState(() {
+                      _servings = int.tryParse(value!) ?? 0;
                     });
                   }),
                   SizedBox(height: screenHeight * 0.011),
@@ -203,7 +240,8 @@ class _AddRecipeState extends State<AddRecipe> {
                   BlocBuilder<RecipeInfoBloc, RecipeInfoState>(
                     builder: (context, state) {
                       if (state is RecipeInfoLoading) {
-                        return CircularProgressIndicator(color: Color(0xFFFF6E41));
+                        return CircularProgressIndicator(
+                            color: Color(0xFFFF6E41));
                       } else if (state is RecipeInfoLoaded) {
                         listIngredientObj =
                             (state.items).cast<IngredientWithUnits>();
@@ -292,30 +330,41 @@ class _AddRecipeState extends State<AddRecipe> {
   }
 
   Widget buildTextField(double width, double height, String hintText,
-      {required Function(String? newValue)? onChanged}) {
-    return Container(
-      width: width ,
-      height: height ,
+      TextInputType keyboardType, GlobalKey<FormState> _formKey,
+      {required Function(String? newValue)? onChanged,
+      required String? Function(String? value)? validator}) {
+    return Form(
+      key: _formKey,
+      child: Container(
+        width: width,
+        height: height,
         decoration: BoxDecoration(
-          border: Border.all(
-            color: Colors.black54
-          ),
-          borderRadius: BorderRadius.all(Radius.circular(10))
-        ),
+            border: Border.all(color: Colors.black54),
+            borderRadius: BorderRadius.all(Radius.circular(10))),
         child: IntrinsicHeight(
-        child: TextFormField(
-        maxLength: 250,
-        maxLines: null,
+          child: TextFormField(
+            keyboardType: keyboardType,
+            inputFormatters: (keyboardType == TextInputType.number)
+                ? [FilteringTextInputFormatter.allow(RegExp(r'^\d+'))]
+                : null,
 
-        onChanged: onChanged,
-        decoration: InputDecoration(
-          hintText: hintText,
-          counterText: "",
-          contentPadding: const EdgeInsets.all(0),
-          border: InputBorder.none
+            maxLength: 250,
+            maxLines: null,
+            onChanged: onChanged,
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please enter some text';
+              }
+              return null;
+            },
+            decoration: InputDecoration(
+                hintText: hintText,
+                counterText: "",
+                contentPadding: const EdgeInsets.only(left: 15),
+                border: InputBorder.none),
+          ),
         ),
       ),
-        ),
     );
   }
 
@@ -519,6 +568,11 @@ class _AddRecipeState extends State<AddRecipe> {
                 ),
               ),
               onPressed: () {
+                if (_formKey3.currentState!.validate()) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text('Processing Data')),
+                  );
+                }
                 for (var key in ingredientKeys) {
                   final ingredient = key.currentState?.getCurrentState();
                   _extendedIngredients.add(ingredient!);
@@ -529,7 +583,17 @@ class _AddRecipeState extends State<AddRecipe> {
                   _steps.add(step!);
                 }
 
-                userRecipeBloc.add(CreateUserRecipe(
+                for (var step in _steps){
+                  if (step.isEmpty) {
+                    isStep = false;
+                  }
+                }
+                if (_recipeName.isNotEmpty &&
+                    _description.isNotEmpty &&
+                    _cookingTime != -1  &&
+                    _servings != -1 &&
+                    _dishCategory != '' ) {
+                  userRecipeBloc.add(CreateUserRecipe(
                     title: _recipeName,
                     image: _image,
                     imageExtension: _imageExtension,
@@ -538,7 +602,13 @@ class _AddRecipeState extends State<AddRecipe> {
                     readyInMinutes: _cookingTime,
                     extendedIngredients: _extendedIngredients,
                     steps: _steps,
-                    isPublish: isChecked));
+                    isPublish: isChecked,
+                  ));
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text('All fields must be filled in')),
+                  );
+                }
               },
               child: const Text(
                 'SAVE',
