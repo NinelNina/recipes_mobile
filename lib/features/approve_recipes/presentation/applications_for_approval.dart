@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipes/core/domain/presentation/bloc/authentication/authorization/authorization_bloc.dart';
 import 'package:recipes/core/domain/services/authentication_service.dart';
 import 'package:recipes/features/approve_recipes/widgets/recipes_to_check_template.dart';
-import 'package:recipes/features/common/widgets/custom_drawer.dart';
 import 'package:recipes/core/domain/presentation/bloc/admin/admin_bloc.dart';
 import 'package:recipes/core/domain/services/admin_service.dart';
 import 'package:recipes/features/common/widgets/unauthenticated_widget.dart';
@@ -41,7 +40,6 @@ class _ApplicationsForApprovalState extends State<ApplicationsForApproval> {
         BlocProvider.value(value: authenticationBloc)
       ],
       child: Scaffold(
-        drawer: CustomDrawer(),
         body: SafeArea(
           child: Column(
             children: [
