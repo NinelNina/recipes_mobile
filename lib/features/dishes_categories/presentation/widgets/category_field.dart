@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:recipes/features/recipes_by_diets_and_categories/presentation/recipes_by_diets_and_categories_screen.dart';
 
 class CategoryField extends StatelessWidget {
   final String text;
+  final bool isDiet;
   final double width;
   final double height;
 
@@ -9,11 +11,24 @@ class CategoryField extends StatelessWidget {
       {super.key,
       required this.text,
       required this.height,
-      required this.width});
+      required this.width,
+        required this.isDiet});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    String? diet = null;
+    String? type = null;
+    if (isDiet){
+      diet = text;
+    } else {
+      type = text;
+    }
+    return GestureDetector(
+        onTap: () {
+          Navigator.push(context, MaterialPageRoute(builder: (context) => RecipesByDietsAndCategoriesScreen(diet: diet, type: type,)));
+            //Navigator.pushNamed(context, '/categories_diets');
+    },
+    child: Container(
         height: height,
         width: width,
         decoration: BoxDecoration(
@@ -34,6 +49,6 @@ class CategoryField extends StatelessWidget {
               fontWeight: FontWeight.w600,
               fontSize: 20,
               color: Colors.black,
-            )));
+            ))));
   }
 }
