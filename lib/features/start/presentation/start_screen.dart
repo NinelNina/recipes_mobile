@@ -75,10 +75,6 @@ class Start extends StatelessWidget {
                         Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            /*SizedBox(
-
-                  height: MediaQuery.of(context).padding.top,
-                ),*/
                             Image.asset(
                               'assets/images/start_screen_img.png',
                               width: width,

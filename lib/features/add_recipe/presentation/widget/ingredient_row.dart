@@ -127,7 +127,7 @@ class IngredientRowState extends State<IngredientRow> {
       ),
       child: TextFormField(
         keyboardType: TextInputType.number,
-        inputFormatters:  [FilteringTextInputFormatter.allow(RegExp(r'^\d+'))],
+        inputFormatters:  [FilteringTextInputFormatter.allow(RegExp(r'^[1-9]\d*'))],
         onChanged: onChanged,
         decoration: InputDecoration(
           hintText: hintText,

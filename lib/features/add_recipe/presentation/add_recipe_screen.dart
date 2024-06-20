@@ -573,10 +573,11 @@ class _AddRecipeState extends State<AddRecipe> {
                 ),
               ),
               onPressed: () {
-                bool isStep = true;
-                bool isIngredient = true;
+                bool isStepValid = true;
+                bool isIngredientValid = true;
                 _steps.clear();
                 _extendedIngredients.clear();
+
                 for (var key in ingredientKeys) {
                   final ingredient = key.currentState?.getCurrentState();
                   _extendedIngredients.add(ingredient!);
@@ -588,37 +589,28 @@ class _AddRecipeState extends State<AddRecipe> {
                 }
 
                 for (var step in _steps) {
-                  if (step == '') {
-                    isStep = false;
+                  if (step.trim().isEmpty) {
+                    isStepValid = false;
                     break;
                   }
                 }
 
-                for (var ingredients in _extendedIngredients) {
-                  print("ingredients.name " + ingredients.name);
-                  print("ingredients.unit " + ingredients.unit);
-                  print("ingredients.amount " + ingredients.amount.toString());
-                  if (ingredients.name == '') {
-                    isIngredient = false;
-                    break;
-                  }
-                  if (ingredients.unit == '') {
-                    isIngredient = false;
-                    break;
-                  }
-                  if (ingredients.amount == 0) {
-                    isIngredient = false;
+                for (var ingredient in _extendedIngredients) {
+                  if (ingredient.name.trim().isEmpty ||
+                      ingredient.unit.trim().isEmpty ||
+                      ingredient.amount <= 0) {
+                    isIngredientValid = false;
                     break;
                   }
                 }
 
-                if (_recipeName.isNotEmpty &&
-                    _description.isNotEmpty &&
-                    _cookingTime != -1 &&
-                    _servings != -1 &&
-                    _dishCategory != '' &&
-                    isStep == true &&
-                    isIngredient == true) {
+                if (_recipeName.trim().isNotEmpty &&
+                    _description.trim().isNotEmpty &&
+                    _cookingTime > 0 &&
+                    _servings > 0 &&
+                    _dishCategory.trim().isNotEmpty &&
+                    isStepValid &&
+                    isIngredientValid) {
                   userRecipeBloc.add(CreateUserRecipe(
                     title: _recipeName,
                     image: _image,
@@ -652,6 +644,7 @@ class _AddRecipeState extends State<AddRecipe> {
                 ),
               ),
             ),
+
           ),
         ],
       ),

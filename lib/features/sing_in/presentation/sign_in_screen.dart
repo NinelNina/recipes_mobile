@@ -131,7 +131,7 @@ class _SignInState extends State<SignIn> {
                             Navigator.popAndPushNamed(context, '/user_profile');
                           }
                         } else {
-                          Navigator.popAndPushNamed(context, '/admin_profile');
+                          Navigator.pushNamedAndRemoveUntil(context, '/admin_profile', (Route<dynamic> route) => false);
                         }
                       } else if (state is AuthenticationFailure) {
                         ScaffoldMessenger.of(context).showSnackBar(

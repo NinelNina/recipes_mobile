@@ -33,7 +33,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
         Navigator.popAndPushNamed(context, '/admin_profile');
       }
       else {
-        Navigator.popAndPushNamed(context, '/login');
+        Navigator.pushNamedAndRemoveUntil(context, '/login', (Route<dynamic> route) => false);
       }
     }
 
@@ -42,7 +42,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
         _username = username!;
       });
       if (_username == ''){
-        Navigator.popAndPushNamed(context, '/login');
+        Navigator.pushNamedAndRemoveUntil(context, '/login', (Route<dynamic> route) => false);
       }
     });
   }
