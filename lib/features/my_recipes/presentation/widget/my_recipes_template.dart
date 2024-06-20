@@ -4,28 +4,22 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:recipes/core/domain/models/recipe_preview_model.dart';
 import 'package:recipes/core/domain/presentation/bloc/favorite/add_to_favorite/favorite_bloc.dart';
 import 'package:recipes/core/domain/presentation/bloc/favorite/add_to_favorite/favorite_state.dart';
-import 'package:recipes/core/domain/presentation/bloc/recipe/recipe_search/recipe_search_bloc.dart';
-import 'package:recipes/core/domain/presentation/bloc/recipe/recipe_search/recipe_search_event.dart';
-import 'package:recipes/core/domain/presentation/bloc/recipe/recipe_search/recipe_search_state.dart';
+import 'package:recipes/core/domain/presentation/bloc/recipe/user_recipe/user_recipe_bloc.dart';
+import 'package:recipes/core/domain/presentation/bloc/recipe/user_recipe/user_recipe_event.dart';
+import 'package:recipes/core/domain/presentation/bloc/recipe/user_recipe/user_recipe_state.dart';
 import 'package:recipes/features/common/recipe_card/recipe_card.dart';
 
-class RecipesTemplate extends StatefulWidget {
-  final bool isUserRecipe;
-  final String? type;
-  final String? diet;
+class MyRecipesTemplate extends StatefulWidget {
 
-  const RecipesTemplate({
-    super.key,
-    required this.isUserRecipe,
-    this.type,
-    this.diet,
+  const MyRecipesTemplate({
+    super.key
   });
 
   @override
-  _RecipesTemplateState createState() => _RecipesTemplateState();
+  _MyRecipesTemplateState createState() => _MyRecipesTemplateState();
 }
 
-class _RecipesTemplateState extends State<RecipesTemplate> {
+class _MyRecipesTemplateState extends State<MyRecipesTemplate> {
   static const _pageSize = 10;
   final PagingController<int, RecipePreview> _pagingController =
   PagingController(firstPageKey: 0);
@@ -39,11 +33,8 @@ class _RecipesTemplateState extends State<RecipesTemplate> {
   }
 
   Future<void> _fetchPage(int pageKey) async {
-    context.read<RecipeSearchBloc>().add(
-      FetchRecipes(
-          isUserRecipe: widget.isUserRecipe,
-          type: widget.type,
-          diet: widget.diet,
+    context.read<UserRecipeBloc>().add(
+      FetchUserRecipes(
           page: pageKey,
           number: _pageSize),
     );
@@ -53,9 +44,9 @@ class _RecipesTemplateState extends State<RecipesTemplate> {
   Widget build(BuildContext context) {
     return MultiBlocListener(
       listeners: [
-        BlocListener<RecipeSearchBloc, RecipeSearchState>(
+        BlocListener<UserRecipeBloc, UserRecipeState>(
           listener: (context, state) {
-            if (state is RecipeSearchLoaded) {
+            if (state is UserRecipeLoaded) {
               final isLastPage = state.recipes.length < _pageSize;
               if (isLastPage) {
                 _pagingController.appendLastPage(state.recipes);
@@ -63,9 +54,9 @@ class _RecipesTemplateState extends State<RecipesTemplate> {
                 final nextPageKey = state.page + 1;
                 _pagingController.appendPage(state.recipes, nextPageKey);
               }
-            } else if (state is RecipeSearchError) {
+            } else if (state is UserRecipeError) {
               _pagingController.error = state.message;
-            } else if (state is RecipeSearchEmpty) {
+            } else if (state is UserRecipeEmpty) {
               _pagingController.appendLastPage([]);
             }
           },

@@ -10,8 +10,6 @@ import 'package:recipes/core/domain/presentation/bloc/recipe/recipe_search/recip
 import 'package:recipes/features/common/recipe_card/recipe_card.dart';
 
 class RecipesSearchTemplate extends StatefulWidget {
-  final double width;
-  final double height;
   final bool isUserRecipe;
   final String? type;
   final String? diet;
@@ -22,8 +20,6 @@ class RecipesSearchTemplate extends StatefulWidget {
     required this.isUserRecipe,
     this.type,
     this.diet,
-    required this.width,
-    required this.height,
     required this.query,
   });
 

@@ -1,16 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipes/core/domain/presentation/bloc/authentication/authorization/authorization_bloc.dart';
-import 'package:recipes/core/domain/presentation/bloc/favorite/add_to_favorite/favorite_bloc.dart';
-import 'package:recipes/core/domain/presentation/bloc/favorite/add_to_favorite/favorite_event.dart';
-import 'package:recipes/core/domain/presentation/bloc/favorite/add_to_favorite/favorite_state.dart';
 import 'package:recipes/core/domain/services/authentication_service.dart';
-import 'package:recipes/features/common/recipe_card/recipe_card.dart';
 import 'package:recipes/features/common/widgets/custom_drawer.dart';
 import 'package:recipes/features/common/top_row/top_bar.dart';
 import 'package:recipes/features/common/widgets/menu_icon_widget.dart';
-import 'package:recipes/core/domain/services/favorite_service.dart';
 import 'package:recipes/features/common/widgets/unauthenticated_widget.dart';
+import 'package:recipes/features/favorite_recipes/presentation/widget/favorite_recipes_template.dart';
 
 class FavouriteRecipes extends StatelessWidget {
   final AuthenticationBloc authenticationBloc =
@@ -25,15 +20,7 @@ class FavouriteRecipes extends StatelessWidget {
     return Scaffold(
       drawer: CustomDrawer(),
       body: SafeArea(
-        child: MultiBlocProvider(
-            providers: [
-              BlocProvider(
-                  create: (context) => FavoriteBloc(
-                      favoriteService: FavoriteService(), authenticationBloc)
-                    ..add(GetFavoriteRecipes())),
-              BlocProvider.value(value: authenticationBloc)
-            ],
-            child: Column(
+        child: Column(
               children: [
                 Bar(
                   title: 'Favourites',
@@ -43,38 +30,12 @@ class FavouriteRecipes extends StatelessWidget {
                   width: width,
                   height: height,
                 ),
-                Expanded( //TODO: постранично
-                  child: BlocBuilder<FavoriteBloc, FavoriteState>(
-                    builder: (context, state) {
-                      if (state is FavoriteLoading) {
-                        return Center(child: CircularProgressIndicator());
-                      } else if (state is FavoriteLoaded) {
-                        final recipes = state.recipes;
-                        return ListView.builder(
-                          itemCount: recipes.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            final recipe = recipes[index];
-                            return RecipeCard(
-                              image: recipe.image,
-                              recipeName: recipe.title,
-                              isFavorite: true,
-                              id: recipe.id,
-                              isUserRecipe: recipe.isUserRecipe,
-                            );
-                          },
-                        );
-                      } else if (state is FavoriteError) {
-                        return Center(child: Text('Error: ${state.message}'));
-                      } else {
-                        return Center(child: Text('No data'));
-                      }
-                    },
-                  ),
+                Expanded(
+                  child: FavoriteRecipesTemplate(),
                 ),
                 UnauthenticatedWidget()
               ],
             )),
-      ),
     );
   }
 }

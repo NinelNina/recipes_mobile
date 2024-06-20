@@ -60,11 +60,9 @@ class _UserRecipesScreenState extends State<UserRecipesScreen> {
                   child: isSearchActive
                       ? RecipesSearchTemplate(
                       query: query,
-                      width: width,
-                      height: height,
                       isUserRecipe: true)
                       : RecipesTemplate(
-                          isUserRecipe: true, width: width, height: height),
+                          isUserRecipe: true),
                 )
               ],
             ),

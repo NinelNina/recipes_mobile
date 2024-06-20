@@ -52,8 +52,8 @@ class FavoriteService{
   }
 
   Future<List<RecipePreview>> getFavoriteRecipe(
-      int? page,
-      {int? number = 10}) async {
+      {int? page,
+      int? number = 5}) async {
     try {
       var token = await _tokenService.getToken();
       final response = await dio.get(

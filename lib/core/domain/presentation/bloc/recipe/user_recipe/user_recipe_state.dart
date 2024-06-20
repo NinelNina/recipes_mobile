@@ -12,13 +12,16 @@ class UserRecipeInitial extends UserRecipeState {}
 
 class UserRecipeLoading extends UserRecipeState {}
 
+class UserRecipeEmpty extends UserRecipeState {}
+
 class UserRecipeLoaded extends UserRecipeState {
   final List<RecipePreview> recipes;
+  final int page;
 
-  const UserRecipeLoaded(this.recipes);
+  const UserRecipeLoaded(this.recipes, this.page);
 
   @override
-  List<Object> get props => [recipes];
+  List<Object> get props => [recipes, page];
 }
 
 class UserRecipeError extends UserRecipeState {

@@ -22,14 +22,17 @@ class StatisticLoaded extends AdminState {
 
 class RecipesLoaded extends AdminState {
   final List<RecipePreview> recipes;
+  final int page;
 
-  RecipesLoaded({required this.recipes});
+  RecipesLoaded({required this.page, required this.recipes});
 
   @override
   List<Object> get props => [recipes];
 }
 
 class RecipeChecked extends AdminState {}
+
+class RecipeEmpty extends AdminState {}
 
 class AdminError extends AdminState {
   final String message;

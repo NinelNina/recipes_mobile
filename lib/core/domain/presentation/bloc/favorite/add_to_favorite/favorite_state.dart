@@ -10,6 +10,8 @@ abstract class FavoriteState extends Equatable {
 
 class FavoriteInitial extends FavoriteState {}
 
+class FavoriteLoading extends FavoriteState {}
+
 class FavoriteAdded extends FavoriteState {
   final int recipeId;
   final bool isFavorite;
@@ -20,15 +22,14 @@ class FavoriteAdded extends FavoriteState {
   List<Object?> get props => [recipeId, isFavorite];
 }
 
-class FavoriteLoading extends FavoriteState {}
-
 class FavoriteLoaded extends FavoriteState {
   final List<RecipePreview> recipes;
+  final int page;
 
-  const FavoriteLoaded({required this.recipes});
+  const FavoriteLoaded(this.recipes, this.page);
 
   @override
-  List<Object?> get props => [recipes];
+  List<Object?> get props => [recipes, page];
 }
 
 class FavoriteError extends FavoriteState {
@@ -39,3 +40,5 @@ class FavoriteError extends FavoriteState {
   @override
   List<Object?> get props => [message];
 }
+
+class FavoriteEmpty extends FavoriteState {}

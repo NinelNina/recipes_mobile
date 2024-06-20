@@ -2,15 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipes/core/domain/presentation/bloc/authentication/authorization/authorization_bloc.dart';
 import 'package:recipes/core/domain/services/authentication_service.dart';
-import 'package:recipes/features/common/recipe_card/recipe_card.dart';
+import 'package:recipes/features/approve_recipes/widgets/recipes_to_check_template.dart';
 import 'package:recipes/features/common/widgets/custom_drawer.dart';
-import 'package:recipes/features/approve_recipes/widgets/recipe_full_card_approve.dart';
 import 'package:recipes/core/domain/presentation/bloc/admin/admin_bloc.dart';
-import 'package:recipes/core/domain/presentation/bloc/admin/admin_event.dart';
-import 'package:recipes/core/domain/presentation/bloc/admin/admin_state.dart';
 import 'package:recipes/core/domain/services/admin_service.dart';
 import 'package:recipes/features/common/widgets/unauthenticated_widget.dart';
-
 import '../../common/widgets/back_icon_widget.dart';
 import '../../common/widgets/nav_bar_text_search.dart';
 
@@ -30,7 +26,7 @@ class _ApplicationsForApprovalState extends State<ApplicationsForApproval> {
     super.initState();
     adminBloc = new AdminBloc(
         adminService: AdminService(), authenticationBloc: authenticationBloc);
-    adminBloc.add(FetchRecipesToCheck(page: 0, number: 10));
+    //adminBloc.add(FetchRecipesToCheck(page: 0, number: 10));
   }
 
   @override
@@ -55,53 +51,8 @@ class _ApplicationsForApprovalState extends State<ApplicationsForApproval> {
                 width: width,
                 height: height,
               ),
-              Expanded(
-                child: BlocBuilder<AdminBloc, AdminState>(
-                  builder: (context, state) {
-                    if (state is AdminLoading) {
-                      return Center(
-                          child: CircularProgressIndicator(
-                              color: Color(0xFFFF6E41)));
-                    } else if (state is RecipesLoaded) {
-                      if (state.recipes.length == 0) {
-                        return Column(children: [
-                          SizedBox(height: 10),
-                          Text('There\'s nothing here :('),
-                        ]);
-                      } else {
-                        return ListView.builder(
-                          itemCount: state.recipes.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            final recipe = state.recipes[index];
-                            return InkWell(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => RecipeFullCardApprove(
-                                      id: recipe.id,
-                                      isUserRecipe: true,
-                                    ),
-                                  ),
-                                );
-                              },
-                              child: RecipeCard(
-                                image: recipe.image,
-                                recipeName: recipe.title,
-                                isFavorite: recipe.isFavouriteRecipe,
-                                id: recipe.id,
-                                isUserRecipe: true,
-                              ),
-                            );
-                          },
-                        );
-                      }
-                    } else if (state is AdminError) {
-                      return Center(child: Text('Error: ${state.message}'));
-                    }
-                    return Center();
-                  },
-                ),
+              Expanded(child:
+                  RecipesToCheckTemplate()
               ),
               UnauthenticatedWidget(),
             ],
