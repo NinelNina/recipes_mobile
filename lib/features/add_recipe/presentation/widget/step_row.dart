@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class StepRow extends StatefulWidget {
@@ -27,14 +28,18 @@ class StepRowState extends State<StepRow> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SizedBox(
+        Container(
           width: widget.screenWidth * 0.9,
-          height: widget.screenHeight * 0.06,
+          constraints: BoxConstraints(
+            minHeight: 0,
+          ),
           child: Row(
             children: [
               Container(
                 width: widget.screenWidth * 0.8,
-                height: widget.screenHeight * 0.06,
+                constraints: BoxConstraints(
+                  minHeight: 0,
+                ),
                 decoration: BoxDecoration(
                     border: Border.all(
                         color: Colors.black54
@@ -42,7 +47,6 @@ class StepRowState extends State<StepRow> {
                     borderRadius: BorderRadius.all(Radius.circular(10))
                 ),
                 child: TextFormField(
-
                   onChanged: (String? newValue) {
                     setState(() {
                       step = newValue ?? '';

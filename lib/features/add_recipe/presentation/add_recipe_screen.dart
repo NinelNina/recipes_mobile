@@ -336,7 +336,9 @@ class _AddRecipeState extends State<AddRecipe> {
       key: _formKey,
       child: Container(
         width: width,
-        height: height,
+        constraints: BoxConstraints(
+          minHeight: 0,
+        ),
         decoration: BoxDecoration(
             border: Border.all(color: Colors.black54),
             borderRadius: BorderRadius.all(Radius.circular(10))),
@@ -346,7 +348,6 @@ class _AddRecipeState extends State<AddRecipe> {
             inputFormatters: (keyboardType == TextInputType.number)
                 ? [FilteringTextInputFormatter.allow(RegExp(r'^\d+'))]
                 : null,
-
             maxLength: 250,
             maxLines: null,
             onChanged: onChanged,
@@ -369,9 +370,12 @@ class _AddRecipeState extends State<AddRecipe> {
 
   Widget buildDropdown(double width, double height, List<String> items,
       {required Function(String? newValue)? onChanged}) {
-    return SizedBox(
+    return Container(
       width: width,
-      height: height,
+      constraints: BoxConstraints(
+        minHeight: 0,
+      ),
+      //height: height,
       child: DropdownButtonFormField<String>(
         items: items.map((String item) {
           return DropdownMenuItem<String>(
@@ -480,51 +484,53 @@ class _AddRecipeState extends State<AddRecipe> {
   }
 
   Widget buildConfirmationWidget(double screenWidth, double screenHeight) {
-    return Row(
-      children: [
-        Checkbox(
-          value: isChecked,
-          checkColor: Colors.white,
-          activeColor: const Color(0xFFB3261E),
-          onChanged: (bool? newValue) {
-            setState(() {
-              isChecked = newValue!;
-            });
-          },
-        ),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(
-              height: screenHeight * 0.03,
-              child: const Text(
-                'Post the recipe',
-                style: TextStyle(
-                  fontFamily: 'Montserrat',
-                  fontWeight: FontWeight.w600,
-                  fontSize: 18,
-                  color: Colors.black,
+    return Row(children: [
+      Checkbox(
+        value: isChecked,
+        checkColor: Colors.white,
+        activeColor: const Color(0xFFB3261E),
+        onChanged: (bool? newValue) {
+          setState(() {
+            isChecked = newValue!;
+          });
+        },
+      ),
+      Container(
+          constraints: BoxConstraints(
+            minHeight: 0,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                //height: screenHeight * 0.03,
+                child: const Text(
+                  'Post the recipe',
+                  style: TextStyle(
+                    fontFamily: 'Montserrat',
+                    fontWeight: FontWeight.w600,
+                    fontSize: 18,
+                    color: Colors.black,
+                  ),
                 ),
               ),
-            ),
-            SizedBox(
-              width: screenWidth * 0.77,
-              height: screenHeight * 0.04,
-              child: const Text(
-                'Your recipe will be available to all users after moderation',
-                style: TextStyle(
-                  fontFamily: 'Montserrat',
-                  fontWeight: FontWeight.w500,
-                  fontSize: 12,
-                  color: Colors.black,
+              SizedBox(
+                width: screenWidth * 0.77,
+                //height: screenHeight * 0.04,
+                child: const Text(
+                  'Your recipe will be available to all users after moderation',
+                  style: TextStyle(
+                    fontFamily: 'Montserrat',
+                    fontWeight: FontWeight.w500,
+                    fontSize: 12,
+                    color: Colors.black,
+                  ),
                 ),
               ),
-            ),
-            SizedBox(height: screenHeight * 0.017)
-          ],
-        )
-      ],
-    );
+              SizedBox(height: screenHeight * 0.017)
+            ],
+          ))
+    ]);
   }
 
   Widget buildButtonsRow(double width, double height) {
@@ -581,26 +587,26 @@ class _AddRecipeState extends State<AddRecipe> {
                   _steps.add(step!);
                 }
 
-                for (var step in _steps){
+                for (var step in _steps) {
                   if (step == '') {
                     isStep = false;
                     break;
                   }
                 }
 
-                for (var ingredients in _extendedIngredients){
-                  print("ingredients.name " + ingredients.name );
-                  print("ingredients.unit " + ingredients.unit );
+                for (var ingredients in _extendedIngredients) {
+                  print("ingredients.name " + ingredients.name);
+                  print("ingredients.unit " + ingredients.unit);
                   print("ingredients.amount " + ingredients.amount.toString());
                   if (ingredients.name == '') {
                     isIngredient = false;
                     break;
                   }
-                  if(ingredients.unit == ''){
+                  if (ingredients.unit == '') {
                     isIngredient = false;
                     break;
                   }
-                  if(ingredients.amount == 0){
+                  if (ingredients.amount == 0) {
                     isIngredient = false;
                     break;
                   }
@@ -608,11 +614,11 @@ class _AddRecipeState extends State<AddRecipe> {
 
                 if (_recipeName.isNotEmpty &&
                     _description.isNotEmpty &&
-                    _cookingTime != -1  &&
+                    _cookingTime != -1 &&
                     _servings != -1 &&
                     _dishCategory != '' &&
                     isStep == true &&
-                     isIngredient == true) {
+                    isIngredient == true) {
                   userRecipeBloc.add(CreateUserRecipe(
                     title: _recipeName,
                     image: _image,
@@ -626,7 +632,13 @@ class _AddRecipeState extends State<AddRecipe> {
                   ));
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text('All fields must be filled in', textAlign: TextAlign.center,), backgroundColor: Colors.redAccent,),
+                    SnackBar(
+                      content: Text(
+                        'All fields must be filled in',
+                        textAlign: TextAlign.center,
+                      ),
+                      backgroundColor: Colors.redAccent,
+                    ),
                   );
                 }
               },

@@ -48,94 +48,97 @@ class Start extends StatelessWidget {
           ),
         ],
         child: MaterialApp(
-          routes: {
-            '/splash': (context) => SplashScreen(),
-            '/all_recipes': (context) => AllRecipes(),
-            '/categories': (context) => DishesCategories(),
-            '/diets': (context) => DietsCategories(),
-            '/home': (context) => MainPage(),
-            '/login': (context) => SignIn(),
-            '/sign_up': (context) => SignUp(),
-            '/favourites': (context) => FavouriteRecipes(),
-            '/user_recipes': (context) => UserRecipesScreen(),
-            '/admin_profile': (context) => AdminProfile(),
-            '/user_profile': (context) => UserProfileScreen(),
-            '/approve': (context) => ApplicationsForApproval(),
-            '/my_recipes': (context) => MyRecipesScreen(),
-            '/add': (context) => AddRecipe(),
-            '/stat': (context) => StatisticScreen(),
-          },
-          debugShowCheckedModeBanner: false,
-          home: SafeArea(
+            routes: {
+              '/splash': (context) => SplashScreen(),
+              '/all_recipes': (context) => AllRecipes(),
+              '/categories': (context) => DishesCategories(),
+              '/diets': (context) => DietsCategories(),
+              '/home': (context) => MainPage(),
+              '/login': (context) => SignIn(),
+              '/sign_up': (context) => SignUp(),
+              '/favourites': (context) => FavouriteRecipes(),
+              '/user_recipes': (context) => UserRecipesScreen(),
+              '/admin_profile': (context) => AdminProfile(),
+              '/user_profile': (context) => UserProfileScreen(),
+              '/approve': (context) => ApplicationsForApproval(),
+              '/my_recipes': (context) => MyRecipesScreen(),
+              '/add': (context) => AddRecipe(),
+              '/stat': (context) => StatisticScreen(),
+            },
+            debugShowCheckedModeBanner: false,
+            home: SafeArea(
               child: Scaffold(
-            backgroundColor: Colors.white,
-            body: Column(
-              children: [
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    /*SizedBox(
+                  backgroundColor: Colors.white,
+                  body: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            /*SizedBox(
 
                   height: MediaQuery.of(context).padding.top,
                 ),*/
-                    Image.asset(
-                      'assets/images/start_screen_img.png',
-                      width: width,
-                      //height: 511,
-                    ),
-                    SizedBox(height: height * 0.015),
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: width * 0.1),
-                      child: Column(children: [
-                        const Text(
-                          'Are you ready to cook tasty food?',
-                          style: TextStyle(
-                            color: Color(0xFF1A1A1A),
-                            fontFamily: 'Poppins',
-                            fontSize: 24,
-                            fontWeight: FontWeight.w700,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                        SizedBox(height: height * 0.015),
-                        RichText(
-                          text: const TextSpan(
-                            style: TextStyle(
-                              color: Color(0xFF808080),
-                              fontFamily: 'Poppins',
-                              fontSize: 16,
-                              fontWeight: FontWeight.w400,
+                            Image.asset(
+                              'assets/images/start_screen_img.png',
+                              width: width,
+                              //height: 511,
                             ),
-                            children: <TextSpan>[
-                              TextSpan(
-                                  text: 'Recipes App',
-                                  style:
-                                      TextStyle(fontWeight: FontWeight.bold)),
-                              TextSpan(
-                                text:
-                                    ' will provide you with clear guidance and full recommendations on cooking food just for you.',
-                              ),
-                            ],
-                          ),
-                          textAlign: TextAlign.center,
+                            SizedBox(height: height * 0.015),
+                            Padding(
+                              padding:
+                                  EdgeInsets.symmetric(horizontal: width * 0.1),
+                              child: Column(children: [
+                                const Text(
+                                  'Are you ready to cook tasty food?',
+                                  style: TextStyle(
+                                    color: Color(0xFF1A1A1A),
+                                    fontFamily: 'Poppins',
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                                SizedBox(height: height * 0.015),
+                                RichText(
+                                  text: const TextSpan(
+                                    style: TextStyle(
+                                      color: Color(0xFF808080),
+                                      fontFamily: 'Poppins',
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                    children: <TextSpan>[
+                                      TextSpan(
+                                          text: 'Recipes App',
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold)),
+                                      TextSpan(
+                                        text:
+                                            ' will provide you with clear guidance and full recommendations on cooking food just for you.',
+                                      ),
+                                    ],
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ]),
+                            ),
+                            SizedBox(height: height * 0.03),
+                            Center(
+                                child: SubmitButton(
+                              text: 'Start cooking',
+                              height: height * 0.06,
+                              color: Color(0xFFFF6E41),
+                              textColor: Colors.white,
+                              path: "/splash",
+                            )),
+                            //SizedBox(height: height * 0.03),
+                          ],
                         ),
-                      ]),
+                        SizedBox(height: height * 0.03)
+                      ],
                     ),
-                    SizedBox(height: height * 0.03),
-                    Center(
-                        child: SubmitButton(
-                      text: 'Start cooking',
-                      height: height * 0.06,
-                      color: Color(0xFFFF6E41),
-                      textColor: Colors.white,
-                      path: "/splash",
-                    )),
-                    //SizedBox(height: height * 0.03),
-                  ],
-                ),
-              ],
-            ),
-          )),
-        ));
+                  )),
+            )));
   }
 }

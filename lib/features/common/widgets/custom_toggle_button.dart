@@ -92,16 +92,6 @@ class _CustomToggleButtonState extends State<CustomToggleButton>
           ingredients_unit.add(element.unit);
         }
       });
-      // ingredients = [
-      //   '${(1 * portions).toStringAsFixed(0)} cup flour',
-      //   '${(2 * portions).toStringAsFixed(0)} eggs',
-      //   '${(1 / 2 * portions).toStringAsFixed(2)} cup sugar',
-      //   '${(1 * portions).toStringAsFixed(0)} tsp baking powder',
-      //   '${(1 / 2 * portions).toStringAsFixed(2)} tsp salt',
-      //   '${(1 / 2 * portions).toStringAsFixed(2)} cup milk',
-      //   '${(1 / 2 * portions).toStringAsFixed(2)} cup vegetable oil',
-      //   '${(1 * portions).toStringAsFixed(0)} tsp vanilla extract'
-      // ];
     });
   }
 
@@ -301,7 +291,10 @@ class _CustomToggleButtonState extends State<CustomToggleButton>
             SizedBox(height: height * 0.007),
             Container(
               width: width * 0.857,
-              height: height * 0.048,
+              constraints: BoxConstraints(
+                minHeight: height * 0.048,
+              ),
+              //height: height * 0.048,
               child: ElevatedButton(
                 style: ButtonStyle(
                   backgroundColor:
@@ -320,7 +313,7 @@ class _CustomToggleButtonState extends State<CustomToggleButton>
                   ),
                 ),
                 onPressed: calculatePortions,
-                child: Text('Calculate'.toUpperCase(),
+                child: SizedBox(child:  Text('Calculate'.toUpperCase(),
                   style: TextStyle(
                     fontFamily: 'Montserrat',
                     color: Color(0xFFFFFFFF),
@@ -328,7 +321,8 @@ class _CustomToggleButtonState extends State<CustomToggleButton>
                     fontWeight: FontWeight.w600,
                     fontStyle: FontStyle.italic,
                   ),),
-              ),
+                  //height: height * 0.048,
+              )),
             ),
             SizedBox(height: 16),
 

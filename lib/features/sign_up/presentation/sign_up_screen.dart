@@ -84,6 +84,7 @@ class _SignUpState extends State<SignUp> {
     return Scaffold(
         backgroundColor: Colors.white,
         body: SafeArea(
+            child: SingleChildScrollView(
           child: BlocProvider(
             create: (context) =>
                 RegisterBloc(authenticationService: AuthenticationService()),
@@ -211,7 +212,8 @@ class _SignUpState extends State<SignUp> {
                     ],
                   ),
                 ),
-                const Spacer(),
+                //const Spacer(),
+                SizedBox(height: height * 0.32),
                 Align(
                   alignment: Alignment.bottomCenter,
                   child: SubmitButton(
@@ -231,6 +233,6 @@ class _SignUpState extends State<SignUp> {
               ],
             ),
           ),
-        ));
+        )));
   }
 }

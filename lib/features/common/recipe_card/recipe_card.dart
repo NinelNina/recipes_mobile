@@ -137,7 +137,7 @@ class _RecipeCardState extends State<RecipeCard> {
                         child: Column(children: [
                           SizedBox(height: height * 0.0342),
                           Container(
-                            padding: EdgeInsets.only(left: 40, right: 40),
+                            padding: EdgeInsets.only(left: width * 0.097, right: width * 0.097),
                             width: width * 0.92,
                             child: Column(
                               children: [

@@ -29,7 +29,7 @@ class MainPage extends StatelessWidget {
       child: Scaffold(
         drawer: CustomDrawer(),
         body: SafeArea(
-          child: Column(
+          child: SingleChildScrollView(child: Column(
             children: [
               NavBarWithTextAndFavorites(
                 title: 'Main page',
@@ -38,8 +38,9 @@ class MainPage extends StatelessWidget {
                 height: height,
               ),
               SizedBox(height: height * 0.029),
-              Expanded(
-                child: Stack(
+              //Expanded(
+                //child:
+                Stack(
                   children: [
                     BlocBuilder<RandomRecipeBloc, RandomRecipeState>(
                       builder: (context, recipeState) {
@@ -63,11 +64,11 @@ class MainPage extends StatelessWidget {
                     UnauthenticatedWidget(),
                   ],
                 ),
-              ),
+              //),
             ],
           ),
         ),
       ),
-    );
+    ));
   }
 }

@@ -33,9 +33,6 @@ class IngredientRowState extends State<IngredientRow> {
   void initState() {
     super.initState();
     selectedIngredient = '';
-   // currentUnits = ''; //widget.listIngredientObj
-        // .firstWhere((ingredient) => ingredient.title == selectedIngredient)
-        // .units;
     selectedUnit = '';
   }
 
@@ -86,9 +83,11 @@ class IngredientRowState extends State<IngredientRow> {
 
   Widget buildDropdown(double width, double height, List<String> items,
       {required Function(String? newValue)? onChanged}) {
-    return SizedBox(
+    return Container(
       width: width,
-      height: height,
+      constraints: BoxConstraints(
+        minHeight: 0,
+      ),
       child:
       DropdownButtonFormField<String>(
         isExpanded: true,
@@ -121,9 +120,11 @@ class IngredientRowState extends State<IngredientRow> {
 
   Widget buildTextField(double width, double height, String hintText,
       {required Function(String? newValue)? onChanged}) {
-    return SizedBox(
+    return Container(
       width: width,
-      height: height,
+      constraints: BoxConstraints(
+        minHeight: 0,
+      ),
       child: TextFormField(
         keyboardType: TextInputType.number,
         inputFormatters:  [FilteringTextInputFormatter.allow(RegExp(r'^\d+'))],

@@ -4,7 +4,6 @@ import 'package:recipes/core/domain/models/authentication_request.dart';
 import 'package:recipes/core/domain/presentation/bloc/authentication/authorization/authorization_bloc.dart';
 import 'package:recipes/core/domain/presentation/bloc/authentication/authorization/authorization_event.dart';
 import 'package:recipes/core/domain/presentation/bloc/authentication/authorization/authorization_state.dart';
-import 'package:recipes/core/domain/services/authentication_service.dart';
 import 'package:recipes/core/domain/services/user_service.dart';
 import 'package:recipes/features/common/widgets/back_icon_widget.dart';
 import 'package:recipes/features/common/widgets/form_input_field.dart';
@@ -77,10 +76,8 @@ class _SignInState extends State<SignIn> {
     return Scaffold(
         backgroundColor: Colors.white,
         body: SafeArea(
-          child: BlocProvider(
-            create: (context) => AuthenticationBloc(
-                authenticationService: AuthenticationService()),
-            child: Column(children: [
+            child: SingleChildScrollView(
+          child: Column(children: [
               NavBarTitleCl(
                 title: 'Sign In',
                 navWidget: BackIconWidget(width: width),
@@ -120,10 +117,8 @@ class _SignInState extends State<SignIn> {
                     listener: (context, state) async {
                       if (state is AuthenticationSuccess) {
                         ScaffoldMessenger.of(context).showSnackBar(
-
                           SnackBar(
                               content: Text('Authentication successful'),
-
                               backgroundColor: Colors.green),
                         );
                         userRole = (await getRole())!;
@@ -132,7 +127,6 @@ class _SignInState extends State<SignIn> {
                             Navigator.of(context).pop();
 
                             isFromFavorites = false;
-
                           } else {
                             Navigator.popAndPushNamed(context, '/user_profile');
                           }
@@ -150,10 +144,8 @@ class _SignInState extends State<SignIn> {
                     },
                     builder: (context, state) {
                       if (state is AuthenticationLoading) {
-
                         return CircularProgressIndicator(
                             color: Color(0xFFFF6E41));
-
                       }
                       return SubmitButton(
                         text: 'Sign In',
@@ -184,7 +176,6 @@ class _SignInState extends State<SignIn> {
 
                           AppMetrica.reportEvent(
                               'ButtonSignUpFromSignIn Clicked');
-
                         },
                         child: Text(
                           ' Sign up',
@@ -201,7 +192,8 @@ class _SignInState extends State<SignIn> {
                   SizedBox(height: height * 0.02),
                 ]),
               ),
-              Spacer(),
+              SizedBox(height: height * 0.32),
+              //Spacer(),
               Align(
                 alignment: Alignment.bottomCenter,
                 child: SubmitButton(
@@ -210,7 +202,6 @@ class _SignInState extends State<SignIn> {
                     userRole = '';
 
                     Navigator.popAndPushNamed(context, '/home');
-
                   },
                   height: height * 0.06,
                   width: width * 0.76,

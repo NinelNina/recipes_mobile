@@ -61,7 +61,9 @@ class _FullRecipeCardState extends State<FullRecipeCard> {
           Stack(
             children: [
               Container(
-                height: height * 0.452,
+                constraints: BoxConstraints(
+                  minHeight: height * 0.46,
+                ),
                 child: Stack(
                   children: [
                     ClipRRect(
@@ -121,7 +123,7 @@ class _FullRecipeCardState extends State<FullRecipeCard> {
                       left: 0,
                       right: 0,
                       child: Container(
-                        child: Column(
+                        child: Container(child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Center(
@@ -151,6 +153,10 @@ class _FullRecipeCardState extends State<FullRecipeCard> {
                               ],
                             ),
                           ],
+                        ),
+                        ),
+                        constraints: BoxConstraints(
+                          minHeight: height * 0.06,
                         ),
                       ),
                     ),
