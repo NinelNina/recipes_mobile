@@ -59,12 +59,9 @@ class _FavoriteRecipesTemplateState extends State<FavoriteRecipesTemplate> {
                   ?.indexWhere((recipe) => recipe.id == state.recipeId);
 
               if (recipeIndex != null && recipeIndex != -1) {
-                final updatedRecipe = _pagingController.itemList![recipeIndex]
-                    .copyWith(isFavouriteRecipe: state.isFavorite);
-
                 final updatedList =
-                    List<RecipePreview>.from(_pagingController.itemList!);
-                updatedList[recipeIndex] = updatedRecipe;
+                List<RecipePreview>.from(_pagingController.itemList!);
+                updatedList.removeAt(recipeIndex);
 
                 _pagingController.itemList = updatedList;
               }
@@ -85,7 +82,15 @@ class _FavoriteRecipesTemplateState extends State<FavoriteRecipesTemplate> {
           noItemsFoundIndicatorBuilder: (context) => Column(
             children: [
               SizedBox(height: 10),
-              Text('There\'s nothing here :('),
+              Text(
+                'There\'s nothing here :('.toUpperCase(),
+                style: TextStyle(
+                  fontFamily: 'Montserrat',
+                  color: Color(0xFF000000),
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
             ],
           ),
           newPageProgressIndicatorBuilder: (context) => Center(
