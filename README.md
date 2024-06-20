@@ -1,16 +1,11 @@
-# Recipes mobile APP
+# "Recipes"
+<img src="https://github.com/NinelNina/recipes_mobile/blob/connect_backend/assets/icon/icon.png" width="250" height="250">
 
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Клиентская часть [приложения](https://github.com/Novia2003/RecipeProject)
+Разработчики: 
+* [Нина Кравцова](https://github.com/NinelNina)
+* [Андрей Бредихин](https://github.com/O6HarJleBwuunp9lHuk)
+              
+Использованные технологии:
+*  <img src="https://github.com/devicons/devicon/blob/master/icons/flutter/flutter-original.svg" style="width:25px; height:25px;"/> Flutter
+*  <img src="https://github.com/devicons/devicon/blob/master/icons/dart/dart-original.svg" style="width:25px; height:25px;"/> Dart
