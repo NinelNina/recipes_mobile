@@ -8,9 +8,8 @@ class CustomToggleButton extends StatefulWidget {
   final List<Ingredient> extendedIngredients;
   final List<String>? steps;
 
-  const CustomToggleButton({super.key,
-    required this.extendedIngredients,
-    required this.steps});
+  const CustomToggleButton(
+      {super.key, required this.extendedIngredients, required this.steps});
 
   @override
   _CustomToggleButtonState createState() => _CustomToggleButtonState();
@@ -28,29 +27,26 @@ class _CustomToggleButtonState extends State<CustomToggleButton>
   void parseIngredients() {
     widget.extendedIngredients.forEach((element) {
       String result;
-      if (element.amount.truncate() == element.amount){
+      if (element.amount.truncate() == element.amount) {
         result = element.amount.truncate().toString();
-      }
-      else {
+      } else {
         result = element.amount.toStringAsFixed(2);
       }
 
       String tmp_unit = '';
-      if (element.unit.isNotEmpty){
-        tmp_unit = element.unit ;
+      if (element.unit.isNotEmpty) {
+        tmp_unit = element.unit;
       }
 
       ingredients.add(result);
       ingredients_name.add(element.name);
-      if (element.unit.isEmpty){
+      if (element.unit.isEmpty) {
         tmp_unit = 'unit';
       }
 
       ingredients_unit.add(tmp_unit);
-
     });
   }
-
 
   int portions = 1;
 
@@ -77,18 +73,17 @@ class _CustomToggleButtonState extends State<CustomToggleButton>
       widget.extendedIngredients.forEach((element) {
         var tmp_amount = portions * element.amount;
         String result;
-        if (tmp_amount.truncate() == tmp_amount){
+        if (tmp_amount.truncate() == tmp_amount) {
           result = tmp_amount.truncate().toString();
-        }
-        else {
+        } else {
           result = tmp_amount.toStringAsFixed(2);
         }
         ingredients.add(result);
         ingredients_name.add(element.name);
 
-        if (element.unit.isEmpty){
+        if (element.unit.isEmpty) {
           ingredients_unit.add('unit');
-        }else {
+        } else {
           ingredients_unit.add(element.unit);
         }
       });
@@ -159,7 +154,7 @@ class _CustomToggleButtonState extends State<CustomToggleButton>
                       _animationController.forward(from: 1);
                     },
                     child: Container(
-                      width: rightButtonWidth ,
+                      width: rightButtonWidth,
                       height: verticalOffset * 2 + ovalHeight,
                       decoration: BoxDecoration(
                         color: Color(0xFFE3E8EB),
@@ -210,7 +205,9 @@ class _CustomToggleButtonState extends State<CustomToggleButton>
                     child: Padding(
                       padding: const EdgeInsets.all(6.0),
                       child: Text(
-                        selectedIndex == 0 ? 'Ingredients'.toUpperCase() : 'Instructions'.toUpperCase(),
+                        selectedIndex == 0
+                            ? 'Ingredients'.toUpperCase()
+                            : 'Instructions'.toUpperCase(),
                         style: TextStyle(
                           fontFamily: 'Montserrat',
                           color: Color(0xFF000000),
@@ -228,203 +225,208 @@ class _CustomToggleButtonState extends State<CustomToggleButton>
         SizedBox(height: height * 0.008),
         selectedIndex == 0
             ? Column(
-          children: [
-            Row(children: [
-              SizedBox(width: width * 0.074),
-              Container(
-                width: width * 0.105,
-                height: height * 0.043,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  shape: BoxShape.circle,
-                ),
-                child: Image.asset(
-                  width: width * 0.044,
-                  height: height * 0.018,
-                  'assets/images/icon_group.png',
-                  fit: BoxFit.cover,
-                ),
-              ),
-              SizedBox(width: width * 0.024),
-              Text("Portions",
-                style: TextStyle(
-                  fontFamily: 'Montserrat',
-                  color: Color(0xFF000000),
-                  fontSize: 13,
-                  fontWeight: FontWeight.w600,
-                ),),
-              SizedBox(width: width * 0.041),
-              Container(
-                width: width * 0.06,
-                child: TextField(
-                  maxLength: 2,
-                  keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
-                    counterText: "",
-                    border: InputBorder.none,
-                    focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Color(0xFFFF6E41),
-                        width: 2,
+                children: [
+                  Row(children: [
+                    SizedBox(width: width * 0.074),
+                    Container(
+                      width: width * 0.105,
+                      height: height * 0.043,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        shape: BoxShape.circle,
+                      ),
+                      child: Image.asset(
+                        width: width * 0.044,
+                        height: height * 0.018,
+                        'assets/images/icon_group.png',
+                        fit: BoxFit.cover,
                       ),
                     ),
-                    enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(
+                    SizedBox(width: width * 0.024),
+                    Text(
+                      "Portions",
+                      style: TextStyle(
+                        fontFamily: 'Montserrat',
                         color: Color(0xFF000000),
-                        width: 0.5,
-                        style: BorderStyle.solid,
+                        fontSize: 13,
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
-
-                  ),
-                  inputFormatters: [
-                    FilteringTextInputFormatter.allow(RegExp(r'^\d+')),
-                  ],
-                  onChanged: (value) {
-                    setState(() {
-                      portions = int.tryParse(value) ?? 1;
-                    });
-                  },
-                ),
-              ),
-            ]),
-            SizedBox(height: height * 0.007),
-            Container(
-              width: width * 0.857,
-              constraints: BoxConstraints(
-                minHeight: height * 0.048,
-              ),
-              //height: height * 0.048,
-              child: ElevatedButton(
-                style: ButtonStyle(
-                  backgroundColor:
-                  MaterialStateProperty.all<Color>(Color(0xFFFF6E41)),
-                  foregroundColor:
-                  MaterialStateProperty.all<Color>(Colors.white),
-                  padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-                      EdgeInsets.symmetric(horizontal: 20, vertical: 10)),
-                  shape:
-                  MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.vertical(
-                        bottom: Radius.circular(20),
+                    SizedBox(width: width * 0.041),
+                    Container(
+                      width: width * 0.06,
+                      child: TextField(
+                        maxLength: 2,
+                        keyboardType: TextInputType.number,
+                        decoration: InputDecoration(
+                          counterText: "",
+                          border: InputBorder.none,
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xFFFF6E41),
+                              width: 2,
+                            ),
+                          ),
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xFF000000),
+                              width: 0.5,
+                              style: BorderStyle.solid,
+                            ),
+                          ),
+                        ),
+                        inputFormatters: [
+                          FilteringTextInputFormatter.allow(
+                              RegExp(r'^[1-9]\d*')),
+                        ],
+                        onChanged: (value) {
+                          setState(() {
+                            int? newValue = int.tryParse(value);
+                            if (newValue != null && newValue > 0) {
+                              portions = newValue;
+                            } else {
+                              portions = 1;
+                            }
+                          });
+                        },
                       ),
                     ),
+                  ]),
+                  SizedBox(height: height * 0.007),
+                  Container(
+                    width: width * 0.857,
+                    constraints: BoxConstraints(
+                      minHeight: height * 0.048,
+                    ),
+                    //height: height * 0.048,
+                    child: ElevatedButton(
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all<Color>(
+                              Color(0xFFFF6E41)),
+                          foregroundColor:
+                              MaterialStateProperty.all<Color>(Colors.white),
+                          padding:
+                              MaterialStateProperty.all<EdgeInsetsGeometry>(
+                                  EdgeInsets.symmetric(
+                                      horizontal: 20, vertical: 10)),
+                          shape:
+                              MaterialStateProperty.all<RoundedRectangleBorder>(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.vertical(
+                                bottom: Radius.circular(20),
+                              ),
+                            ),
+                          ),
+                        ),
+                        onPressed: calculatePortions,
+                        child: SizedBox(
+                          child: Text(
+                            'Calculate'.toUpperCase(),
+                            style: TextStyle(
+                              fontFamily: 'Montserrat',
+                              color: Color(0xFFFFFFFF),
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                              fontStyle: FontStyle.italic,
+                            ),
+                          ),
+                          //height: height * 0.048,
+                        )),
                   ),
-                ),
-                onPressed: calculatePortions,
-                child: SizedBox(child:  Text('Calculate'.toUpperCase(),
-                  style: TextStyle(
-                    fontFamily: 'Montserrat',
-                    color: Color(0xFFFFFFFF),
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                    fontStyle: FontStyle.italic,
-                  ),),
-                  //height: height * 0.048,
-              )),
-            ),
-            SizedBox(height: 16),
-
-            ListView.builder(
-                physics: NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: ingredients.length,
-                itemBuilder: (context, index) {
-
-                  return Container(
-                    padding: EdgeInsets.only(left: width * 0.049),
-                    child: ListTile(
-                      leading: Container(
-                        width: 24,
-                        child: Icon(Icons.circle, color: Color(0xFFFF6E41), size: 7),
-                      ),
-                      title: Row(
-                        children: [
-                          Container(
-                            width: width * 0.34,
-                            child: Text(
-                              ingredients_name[index],
-                              style: TextStyle(
-                                fontFamily: 'Montserrat',
-                                color: Color(0xFF000000),
-                                fontSize: 14,
-                                fontWeight: FontWeight.w600,
-                              ),
+                  SizedBox(height: 16),
+                  ListView.builder(
+                      physics: NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: ingredients.length,
+                      itemBuilder: (context, index) {
+                        return Container(
+                          padding: EdgeInsets.only(left: width * 0.049),
+                          child: ListTile(
+                            leading: Container(
+                              width: 24,
+                              child: Icon(Icons.circle,
+                                  color: Color(0xFFFF6E41), size: 7),
                             ),
-
-                          ),
-                          SizedBox(width: 16,),
-                          Column(
-                            // crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [ Text(
-
-                              ingredients[index],
-
-                              style: TextStyle(
-                                fontFamily: 'Montserrat',
-                                color: Color(0xFF000000),
-                                fontSize: 14,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                            ],
-                          ),
-
-
-
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children:[
-
-                                Text(
-                                  textAlign: TextAlign.left,
-                                  ingredients_unit[index],
-
-                                  style: TextStyle(
-                                    fontFamily: 'Montserrat',
-                                    color: Color(0xFF000000),
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w600,
+                            title: Row(
+                              children: [
+                                Container(
+                                  width: width * 0.34,
+                                  child: Text(
+                                    ingredients_name[index],
+                                    style: TextStyle(
+                                      fontFamily: 'Montserrat',
+                                      color: Color(0xFF000000),
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 16,
+                                ),
+                                Column(
+                                  // crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: [
+                                    Text(
+                                      ingredients[index],
+                                      style: TextStyle(
+                                        fontFamily: 'Montserrat',
+                                        color: Color(0xFF000000),
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      Text(
+                                        textAlign: TextAlign.left,
+                                        ingredients_unit[index],
+                                        style: TextStyle(
+                                          fontFamily: 'Montserrat',
+                                          color: Color(0xFF000000),
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
                               ],
                             ),
                           ),
-                        ],
-
+                        );
+                      }),
+                ],
+              )
+            : ListView.builder(
+                physics: NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: widget.steps!.length,
+                itemBuilder: (context, index) {
+                  return Container(
+                    padding: EdgeInsets.only(left: width * 0.049),
+                    child: ListTile(
+                      leading: NumberedCircleIcon(
+                        number: index + 1,
+                        color: Color(0xFFFF6E41),
+                      ),
+                      title: Text(
+                        widget.steps![index],
+                        style: TextStyle(
+                          fontFamily: 'Montserrat',
+                          color: Color(0xFF000000),
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                        ),
                       ),
                     ),
                   );
-
-
-                }),
-          ],
-        )
-            : ListView.builder(
-          physics: NeverScrollableScrollPhysics(),
-          shrinkWrap: true,
-          itemCount: widget.steps!.length,
-          itemBuilder: (context, index) {
-            return Container(
-              padding: EdgeInsets.only(left: width * 0.049),
-              child: ListTile(
-                leading: NumberedCircleIcon(
-                  number: index + 1,
-                  color: Color(0xFFFF6E41),
-                ),
-                title: Text(widget.steps![index],
-                  style: TextStyle(
-                    fontFamily: 'Montserrat',
-                    color: Color(0xFF000000),
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
-                  ),),
+                },
               ),
-            );
-          },
-        ),
       ],
     );
   }
